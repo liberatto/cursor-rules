@@ -1,0 +1,121 @@
+**User Request:** 
+
+{my request or plan}
+
+---
+
+**AI Task: Feature Implementation & Verification Protocol**
+
+**Objective:** Execute the implementation of the feature or modification described **in the User Request above**. This rule handles both pre-planned implementations and direct implementation requests. Focus on safe code execution, thorough validation, and comprehensive verification.
+
+**Phase 1: Implementation Preparation**
+
+1. **Analyze Request Type:** Determine if the request contains:
+   * A detailed implementation plan (from planning phase)
+   * Direct implementation requirements with specific instructions
+   * Mixed requirements needing brief analysis before implementation
+
+2. **Quick Context Validation:** For direct implementation requests:
+   * Execute `pwd` to confirm current working directory
+   * Use `tree -L 3 --gitignore | cat` to understand relevant project structure
+   * Use `read_file` to examine target files if modifications are requested
+
+3. **Validate Target Files & Dependencies:** 
+   * Ensure all target files and paths are accessible and current
+   * Check that any required dependencies or prerequisites are met
+   * Verify workspace-relative paths for all `edit_file` operations
+
+**Phase 2: Implementation Execution**
+
+4. **Execute Implementation:** Perform the required `edit_file` operations based on:
+   * Provided implementation plan (if from planning phase)
+   * Direct user instructions (if immediate implementation request)
+   * Ensure `target_file` paths are **workspace-relative**
+
+5. **Handle Implementation Errors:** If errors occur during implementation:
+   * **Investigate & Attempt Fix:** Analyze error cause and try resolution (code fix, dependency install, config adjustment)
+   * **Escalate if Major Deviation Required:** Stop and report to user when error resolution requires significant plan changes
+   * **Report Format:** Error summary, investigation findings, why unfixable in current scope, available options, request user guidance
+   * **Do not proceed without resolving errors**
+
+**Phase 3: Self-Validation & Verification (Mandatory After Implementation)**
+
+6. **Initial Self-Validation:** Before involving the user, attempt basic functional validation to ensure the core change behaves as expected:
+   * Perform initial checks: Command-line interactions, API response validations, Output/log assertions
+   * **Unit Test Creation:** For new or modified modules, create corresponding test modules or test functions (e.g., `test_module.py` or `def test_function()`) 
+   * **Test Execution:** Run unit tests via `run_terminal_cmd` or `pytest` to verify individual function/class behavior before integration testing
+   * If the feature requires user input and cannot be tested automatically, initiate a test using `run_terminal_cmd` to prompt for necessary inputs during execution
+   * Clearly log any assumptions or partial validations due to limitations
+
+7. **Standard Quality Checks:** Once basic validation is complete, propose running relevant quality checks for the affected project(s) via `run_terminal_cmd`:
+   * Linting, formatting, building, running specific test suites
+   * Remind the user that these commands require confirmation if they alter state or are not covered by auto-approval rules
+
+8. **Enhanced E2E Testing Protocol:** Perform comprehensive end-to-end testing based on implementation type:
+
+   **For Server/API Implementations:**
+   * **Server Startup Test:** Start the server in background and verify it starts without errors
+   * **Health Check Test:** Use `curl` to test basic health/status endpoints
+   * **API Functionality Test:** Test core API endpoints with sample data using `curl` or `httpx`
+   * **Error Handling Test:** Test error scenarios (invalid input, missing parameters)
+   * **Connection Test:** Verify server accepts connections and responds appropriately
+
+   **For Client/Server Integration:**
+   * **Client Startup Test:** Verify client application starts without errors
+   * **Connection Test:** Test client's ability to connect to server
+   * **Data Exchange Test:** Verify client can send requests and receive responses
+   * **Protocol Test:** Test different communication protocols (HTTP, WebSocket, etc.)
+   * **Error Recovery Test:** Test client behavior when server is unavailable
+
+   **For CLI/Interactive Applications:**
+   * **Command Execution Test:** Test basic command execution with sample inputs
+   * **Input/Output Validation:** Verify expected outputs for known inputs
+   * **Error Handling Test:** Test invalid inputs and error scenarios
+   * **Interactive Flow Test:** Test multi-step interactions if applicable
+
+   **For Database/Storage Operations:**
+   * **Connection Test:** Verify database/storage connectivity
+   * **CRUD Operations Test:** Test Create, Read, Update, Delete operations
+   * **Data Integrity Test:** Verify data is stored and retrieved correctly
+   * **Transaction Test:** Test rollback and commit scenarios if applicable
+
+9. **Integration Testing Protocol:** For multi-component systems:
+   * **Component Communication Test:** Verify all components can communicate
+   * **Data Flow Test:** Test data flow through the entire system
+   * **Concurrent Operation Test:** Test system behavior under concurrent usage
+   * **Resource Management Test:** Verify proper resource cleanup and management
+
+10. **Performance & Stability Checks:**
+    * **Response Time Test:** Measure response times for critical operations
+    * **Memory Usage Check:** Monitor memory usage during operation
+    * **Stress Test:** Test system behavior under load (if applicable)
+    * **Graceful Shutdown Test:** Verify proper cleanup when stopping services
+
+11. **Functional Verification Guidance:** Suggest specific steps or scenarios the user should manually test to confirm the feature/modification works correctly and meets the original request's goal. Include checks for potential regressions in related functionality.
+
+**Phase 4: Implementation Summary & Next Steps**
+
+12. **Summarize Changes:** Provide a clear summary of what was implemented, which files were modified or created, and the current state.
+
+13. **Document Test Results:** Report all test results including:
+    * Successful tests and their outcomes
+    * Failed tests and error details
+    * Partial tests and their limitations
+    * Recommendations for additional testing
+
+14. **Document Remaining Tasks:** If the implementation was partial or requires follow-up work, clearly outline what remains to be done.
+
+15. **Suggest Improvements:** Based on the implementation experience, suggest any potential improvements or optimizations for future consideration.
+
+---
+
+**Important Notes:**
+
+- **Protocol Flexibility:** While this protocol provides a structured approach to implementation, it should be applied flexibly based on the user's specific requirements and context.
+- **Phase Adaptability:** You may skip phases that are not relevant to the current implementation, combine phases when appropriate, or return to previous phases if additional context or corrections are needed.
+- **Iterative Approach:** If implementation issues arise or requirements change during execution, feel free to revisit earlier phases (e.g., return to Phase 1 for re-analysis, or repeat Phase 2 for corrections).
+- **User-Centric Focus:** The ultimate goal is to successfully fulfill the user's request. The protocol serves as a guide, not a rigid constraint.
+
+---
+
+**Goal:** Successfully implement **the user's request** with thorough validation and verification, ensuring the solution is functional, tested, and meets the original requirements. Handle both planned implementations and direct implementation requests effectively with comprehensive E2E testing.

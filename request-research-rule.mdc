@@ -1,0 +1,39 @@
+---
+alwaysApply: false
+---
+
+**User Request:** 
+
+{my request}
+
+---
+
+**AI Task: Research & Analysis Protocol**
+
+**Objective:** Conduct comprehensive research and analysis for the feature or modification described **in the User Request above**. Focus on understanding current codebase, investigating latest technologies, external examples, and best practices before detailed planning. Provide structured research findings to inform implementation decisions.
+
+**Phase 1: Codebase Investigation (Mandatory First Steps)**
+
+1. **Understand Research Scope:** Re-state your interpretation of what needs to be researched based on **the User Request**. If the research scope is unclear, **STOP and ask clarifying questions** immediately.
+
+2. **Existing Codebase Deep Dive:**
+   * Use `codebase_search` to find related implementations, patterns, and architectural decisions
+   * Use `grep_search` to locate specific technologies, libraries, or patterns currently in use
+   * Use `read_file` to examine key files and understand current implementation approaches
+   * Document current technology stack, architectural patterns, and coding conventions
+
+**Phase 2: External Research & Best Practices (Comprehensive Investigation)**
+
+3. **External Research & AI Analysis:**
+   * Use `web_search` to investigate current best practices, industry standards, and established architectural patterns
+   * Use `mcp_taskmaster-ai_research` or `mcp_task-master-ai_research` with project context for AI-powered analysis
+
+**Phase 3: Research Synthesis & Documentation**
+
+4. **Comprehensive Research Report Creation:**
+    * **Structure Report with Clear Sections**
+    * **Save to `.docs/research/` directory, markdown file format, using Korean**
+    
+---
+
+**Goal:** Provide comprehensive, well-researched foundation for informed decision-making and detailed implementation planning. Ensure all research findings are current, relevant, and actionable for **the user's request**.

@@ -6,7 +6,7 @@ Focus on thoroughly analyzing the provided code thoroughly, along with any direc
 
   # Planning Procedure:
   1. Clarify Goal: Re-state your interpretation of the primary objective of **the User Request**.
-  2. Research Phase: Use read-only and search tools (`codebase_search`, `grep_search`, `read_file`,`web_search`,MCP tools, Glob, LS, Task) to understand the codebase , related web informations and requirements
+  2. Research Phase: Use read-only and search tools (`codebase_search`, `grep_search`, `read_file`,`web_search`, MCP tools, Glob, LS, Task) to understand the codebase , related web informations and requirements
   3. Analysis Phase: Analyze the current state and identify what needs to be changed
   4. Strategy Phase: Determine the best approach and break down into actionable steps
   5. Planning Phase: Create a structured plan with specific, sequential tasks

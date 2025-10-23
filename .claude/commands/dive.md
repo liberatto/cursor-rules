@@ -12,4 +12,4 @@ Also check the docs/ folder for any related documents and read what is relevant 
 
 If the necessary information is not found in the project folder, actively gather external context via web search and/or MCP tools, and cite sources when possible.
 
-Once you understand it, let me know you’re ready, and I will provide the task.
+Once you understand it, provide a brief report summarizing the key concepts(Not include code snippets) you've learned and the sources you referenced, then let me know you're ready for the task.

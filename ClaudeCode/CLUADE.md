@@ -1,4 +1,4 @@
-
+2
  ## **Core Working Principles**
 
  ### 1. Verify Before Acting
@@ -39,14 +39,15 @@
 
 ## Communication Guidelines
 
-  ### Progress Reporting
-   - Task Completion: Provide clear & structured report of accomplished work
-   - Multi-step Progress: Give brief status updates at each step
-   - Error Reporting: Include clear error description and etc.
+ ### Progress Reporting
+  - **Task Completion**: Provide clear, structured summary of accomplished work
+  - **Multi-step Updates**: Give brief status at each significant step
+  - **Error Details**: Include error description, context, and attempted solutions
 
-  ### Language Requirements
-   - **Primary Language**: Always respond in natural Korean (한국어)
-   - **Code Comments**: Write in Korean
+ ### Language Standards
+  - **Primary Language**: Always respond in natural Korean (한국어)
+  - **Code Comments**: Write all comments in Korean
+  - **Technical Terms**: Use English for technical keywords, Korean for explanations
 
 ---
 
@@ -86,18 +87,20 @@
    - **Style**: ALL UPPERCASE for prefix and description, hyphen-separated
    - **Timestamp**: Use current date/time (e.g., `2025-10-02-1430`)
    - **Verification**: Confirm related code/docs exist before creating
+   - **Default Location**: Save to `docs/` folder unless specified otherwise
 
  ### Document Type Prefixes
-  | Prefix | Purpose | Example |
-  |--------|---------|---------|
-  | `PRD` | Product Requirements | `PRD-USER-AUTH-FEATURE-2025-10-02-1430.md` |
-  | `PLAN` | Implementation Plans | `PLAN-DATABASE-MIGRATION-2025-10-02-1430.md` |
-  | `RESEARCH` | Research Findings | `RESEARCH-GRAPHQL-VS-REST-2025-10-02-1430.md` |
-  | `REPORT` | Status/Progress Reports | `REPORT-Q3-PERFORMANCE-2025-10-02-1430.md` |
-  | `GUIDE` | How-to Guides | `GUIDE-DEPLOY-PRODUCTION-2025-10-02-1430.md` |
-  | `ANALYSIS` | Technical Analysis | `ANALYSIS-MEMORY-LEAK-ROOT-CAUSE-2025-10-02-1430.md` |
-  | `NOTE` | Quick Notes/Memos | `NOTE-MEETING-MINUTES-2025-10-02-1430.md` |
-  | `DOCUMENTATION` | General Documentation | `DOCUMENTATION-API-REFERENCE-2025-10-02-1430.md` |
+ | Prefix | Purpose | Example |
+ |--------|---------|---------|
+ | `PRD` | Product Requirements | `PRD-USER-AUTH-FEATURE-2025-10-02-1430.md` |
+ | `PLAN` | Implementation Plans | `PLAN-DATABASE-MIGRATION-2025-10-02-1430.md` |
+ | `RESEARCH` | Research Findings | `RESEARCH-GRAPHQL-VS-REST-2025-10-02-1430.md` |
+ | `REPORT` | Status/Progress Reports | `REPORT-Q3-PERFORMANCE-2025-10-02-1430.md` |
+ | `GUIDE` | How-to Guides | `GUIDE-DEPLOY-PRODUCTION-2025-10-02-1430.md` |
+ | `ANALYSIS` | Technical Analysis | `ANALYSIS-MEMORY-LEAK-ROOT-CAUSE-2025-10-02-1430.md` |
+ | `ADR` | Architecture Decision Record | `ADR-MICROSERVICES-MIGRATION-2025-10-02-1430.md` |
+ | `NOTE` | Quick Notes/Memos | `NOTE-MEETING-MINUTES-2025-10-02-1430.md` |
+ | `DOCUMENTATION` | General Documentation | `DOCUMENTATION-API-REFERENCE-2025-10-02-1430.md` |
 
 ---
 
@@ -125,25 +128,38 @@
 
  ---
 
-## File Encoding and Character Handling Guidelines
+## File Encoding Guidelines
 
- ### UTF-8 인코딩 처리 원칙
-  - **파일 작성**: 모든 파일은 한글을 다루기 위해 UTF-8 인코딩으로 작성하고 저장
-  - **문자열 처리**: 한글 문자열은 항상 UTF-8로 처리하며, 바이트 변환 시 명시적 인코딩 지정
-  - iconv -t utf-8 명령어를 사용하면 UTF-8 인코딩 문제를 해결할 수 있음
+ ### UTF-8 Standards
+  - **File Creation**: Always create and save files in UTF-8 encoding for Korean support
+  - **String Handling**: Process Korean strings as UTF-8, specify encoding explicitly for byte conversion
+  - **Troubleshooting**: Use `iconv -t utf-8` command to fix encoding issues
 
 ---
 
-## `CLAUDE.md` Writing Guidelines
+## CLAUDE.md Writing Guidelines
 
- ### **Core Principles**
-    - Write for Claude Code, not for onboarding developers
-    - Use short, declarative bullet points
-    - Eliminate redundancy and obvious information
+ ### Core Principles
+  - Write for Claude Code, not for human onboarding
+  - Use short, declarative bullet points
+  - Eliminate redundancy and obvious information
 
- ---
+---
 
-## **Important Notes**
-  - 오늘 날짜 조회 시 환경 정보의 `Today's date`를 기준으로 사용한다. 
-  - 🚨 **주의**: LLM의 지식 Cutoff 날짜를 오늘 날짜로 혼동하지 않도록 주의한다.
- 
+## `스킬`(`Skill` or `skill`)의 정의 및 지침 
+- 정의 : `스킬` or `Skill` or `skill` 이라고 하면 Anthropic이 공식 제공하는 Skill 
+- 처리 : 요청에 대응하는 Skill 정보를 탐색 후 처리 합니다. 
+### Skills 메타정보 위치  
+  - `.claude/skills/` 폴더 하위 
+  - `{프로젝트 루트 폴더}/.claude/skills/` 폴더 하위
+### 새로운 Skill 생성 및 업데이트 요청시 
+  - `skill-creator` 활용
+  - MCP `skill-seeker` 활용 
+  
+---
+
+## Important Notes
+
+ ### Date Handling
+  - **Current Date**: Always use `Current Date` from user environment info
+  - **⚠️ Warning**: Do NOT confuse LLM knowledge cutoff date with today's date

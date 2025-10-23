@@ -1,4 +1,3 @@
-2
  ## **Core Working Principles**
 
  ### 1. Verify Before Acting

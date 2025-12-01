@@ -103,54 +103,6 @@
 
 ---
 
-## Project Memory & Knowledge Management Guidelines
-
-  Use Local Memory(`local-memory-mcp`) to maintain persistent knowledge across sessions. This is your external brain for storing and retrieving project context, decisions, and learnings.
-
- ### Core Operations
-  - **Store insights**: Use `store_memory` for important information, decisions, and learnings
-  - **Search knowledge**: Use `search` with semantic queries to find relevant past context
-  - **Analyze patterns**: Use `analysis` to identify trends and connections in stored knowledge
-  - **Map relationships**: Use `relationships` to understand how different memories connect
-
- ### When to Store Memories
-  - Architecture decisions and their rationale
-  - Problem-solving approaches that worked (or didn't)
-  - Configuration details and setup procedures
-  - Bug fixes and their root causes
-  - Performance optimization results
-  - Project-specific conventions and patterns
-
- ### Search Before Answering
-  Always search for relevant memories before providing solutions to ensure consistency with past decisions and learnings.
-
----
-
-## CLAUDE.md Writing Guidelines
-
- ### Core Principles
-  - Write for Claude Code, not for human onboarding
-  - Use short, declarative bullet points
-  - Eliminate redundancy and obvious information
-
----
-
-## `스킬`(`Skill` or `skill`)의 정의 및 지침 
-- 정의 : `스킬` or `Skill` or `skill` 이라고 하면 Anthropic이 공식 제공하는 Skill 
-- 처리 : 요청에 대응하는 Skill 정보를 탐색 후 처리 합니다. 
-### Skills 메타정보 위치  
-  - `.claude/skills/` 폴더 하위 
-  - `{프로젝트 루트 폴더}/.claude/skills/` 폴더 하위
-### 새로운 Skill 생성 및 업데이트 요청시 
-  - `skill-creator` 활용
-  - MCP `skill-seeker` 활용 
-  
----
-
-## `mcp__repomix__*` 도구 사용 지침
- - mcp__repomix__pack_codebase() 로 코드베이스 패키징은 프로젝트 루트 폴더에 `.repomix` 폴더를 생성하고 그 하위에 패키징합니다. 
- - mcp__repomix에 의해 패키징된 파일은 mcp__repomix__read 또는 mcp__repomix__grep 등으로 읽습니다. 
-
 ## Important Notes
 
  ### Date Handling

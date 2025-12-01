@@ -124,16 +124,6 @@
  ### Search Before Answering
   Always search for relevant memories before providing solutions to ensure consistency with past decisions and learnings.
 
-
- ---
-
-## File Encoding Guidelines
-
- ### UTF-8 Standards
-  - **File Creation**: Always create and save files in UTF-8 encoding for Korean support
-  - **String Handling**: Process Korean strings as UTF-8, specify encoding explicitly for byte conversion
-  - **Troubleshooting**: Use `iconv -t utf-8` command to fix encoding issues
-
 ---
 
 ## CLAUDE.md Writing Guidelines
@@ -156,6 +146,10 @@
   - MCP `skill-seeker` 활용 
   
 ---
+
+## `mcp__repomix__*` 도구 사용 지침
+ - mcp__repomix__pack_codebase() 로 코드베이스 패키징은 프로젝트 루트 폴더에 `.repomix` 폴더를 생성하고 그 하위에 패키징합니다. 
+ - mcp__repomix에 의해 패키징된 파일은 mcp__repomix__read 또는 mcp__repomix__grep 등으로 읽습니다. 
 
 ## Important Notes
 

@@ -11,6 +11,7 @@ Stop processing the task and ask me questions about the task details(If you see 
 
 If the task is already clear or when I answered all of them, 
 report your understanding concisely of the task:
+   - Requirements
    - Task objective (1-2 sentences)
    - Task definition and subtasks
    - Key deliverables and assumptions

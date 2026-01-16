@@ -1,0 +1,15 @@
+[mcp_servers.tavily-search]
+command = "npx"
+args = ["-y", "tavily-mcp@latest"]
+env = { TAVILY_API_KEY = "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" }
+
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+env = { }
+
+[mcp_servers.serena]
+command = "uvx"
+args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "codex","--open-web-dashboard",
+        "false"]

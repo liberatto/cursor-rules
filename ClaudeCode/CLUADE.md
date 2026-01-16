@@ -1,3 +1,7 @@
+# CLAUDE.md
+
+---
+
 ## Language Standards
 
 - **Primary Language**: Always respond in natural Korean (한국어)
@@ -48,10 +52,10 @@
 ### 7. No Shortcuts - Solve or Report
 
 - **Never Fake Progress**: No hardcoded values, mocks, or hacks to appear functional
-- **Root Cause Preferred**: Solve the actual problem when possible. If only symptomatic fix is feasible, implement it but clearly document the limitation and underlying cause
-- **Stop When Stuck**: If real solution isn't found, stop and explain why
-- **Report Honestly**: Distinguish "solved" from "worked around" or "partially implemented"
-- **Seek Input**: Describe what failed, suggest alternatives, ask for guidance
+- **Root Cause Over Symptoms**: Prioritize solving the actual problem. If only a workaround is feasible, implement it but clearly document the limitation and underlying cause
+- **Stop and Escalate When Stuck**: If no real solution is found, halt and explain the blockers clearly rather than producing incomplete work
+- **Report Honestly**: Clearly distinguish "solved" from "worked around" or "partially implemented"
+- **Seek Input**: When stuck, describe what was attempted, why it failed, suggest alternatives, and ask for guidance
 
 ---
 
@@ -59,18 +63,23 @@
 
 **Required Format:**
 
-### 1. Status & Summary
+```markdown
+
+# 1. Status & Summary
 
 - **Completion Status**: Start with emoji indicator (✅ completed, ⚠️ has issues, ❌ failed)
-- **Overview**: Structured summary of what was accomplished in detail
+- **Overview**: Concise summary of what was accomplished 1-2 sentence
 - **Actions Taken**: List major actions using numbered list with emoji per item
 
-### 2. Key Information *(include relevant sections only)*
+# 2. Key Information *(include relevant sections only)*
 
+- **Key Outcomes**: Highlight primary results, deliverables, or findings (quantifiable metrics, files created, insights discovered)
 - **Decisions**: Explain important choices (architecture, performance, behavior)
 - **Assumptions**: State information inferred without explicit confirmation
 - **Limitations**: Note incomplete aspects, risks, or follow-up needed
 - **Errors**: What failed, why, and what was tried
+
+```
 
 ---
 

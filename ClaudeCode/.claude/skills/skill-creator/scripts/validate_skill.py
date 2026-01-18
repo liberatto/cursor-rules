@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Claude Code Skill Validator (v2.1+)
+Claude Code Skill Validator
 
-스킬 구조와 내용을 v2.1 스펙에 맞게 검증합니다.
+스킬 구조와 내용을 검증합니다.
 
 Usage:
     validate_skill.py <skill-folder>
@@ -23,7 +23,7 @@ except ImportError:
     HAS_YAML = False
 
 
-# v2.1 허용 속성
+# 허용 속성
 ALLOWED_PROPERTIES = {
     'name',           # 필수
     'description',    # 필수
@@ -159,7 +159,7 @@ def validate_allowed_tools(tools, errors: list, warnings: list):
 
 def validate_skill(skill_path: str | Path) -> tuple[bool, list[str], list[str]]:
     """
-    Claude Code skill 검증 (v2.1)
+    Claude Code skill 검증
 
     Args:
         skill_path: 스킬 디렉토리 경로
@@ -238,7 +238,7 @@ def validate_skill(skill_path: str | Path) -> tuple[bool, list[str], list[str]]:
         if len(description) < 50:
             warnings.append("description이 짧습니다 - 무엇을 하는지와 언제 사용하는지 포함하세요")
 
-    # === 선택 필드 검증 (v2.1) ===
+    # === 선택 필드 검증 ===
 
     # context 검증
     context = frontmatter.get('context')
@@ -355,7 +355,7 @@ def validate_skill(skill_path: str | Path) -> tuple[bool, list[str], list[str]]:
 def main():
     if len(sys.argv) != 2:
         print("""
-Claude Code Skill Validator (v2.1+)
+Claude Code Skill Validator
 
 Usage:
     validate_skill.py <skill-folder>

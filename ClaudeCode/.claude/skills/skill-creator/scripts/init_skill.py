@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Claude Code Skill Initializer (v2.1+)
+Claude Code Skill Initializer
 
-새로운 skill을 v2.1 스펙에 맞게 초기화합니다.
+새로운 skill을 초기화합니다.
 
 Usage:
     init_skill.py <skill-name> --path <path> [options]
@@ -35,7 +35,7 @@ def get_skill_template(
     user_invocable: bool = True,
     with_hooks: bool = False
 ) -> str:
-    """v2.1 스펙에 맞는 SKILL.md 템플릿 생성"""
+    """SKILL.md 템플릿 생성"""
 
     # Frontmatter 구성
     frontmatter_lines = [
@@ -315,7 +315,7 @@ def init_skill(
     with_hooks: bool = False
 ) -> Path | None:
     """
-    새로운 Claude Code skill 디렉토리 초기화 (v2.1)
+    새로운 Claude Code skill 디렉토리 초기화
 
     Args:
         skill_name: 스킬 이름 (kebab-case)
@@ -420,7 +420,7 @@ def init_skill(
     # 완료 메시지
     print(f"""
 ╔══════════════════════════════════════════════════════════════════╗
-║  ✅ Skill '{skill_name}' 초기화 완료! (v2.1)
+║  ✅ Skill '{skill_name}' 초기화 완료!
 ╠══════════════════════════════════════════════════════════════════╣
 ║  위치: {skill_dir}
 ║  설정: {config_str}
@@ -431,7 +431,7 @@ def init_skill(
 ║  3. 스크립트, 참조문서, 에셋 추가
 ║  4. validate_skill.py로 검증
 ╠══════════════════════════════════════════════════════════════════╣
-║  v2.1 팁:
+║  팁:
 ║  - Hot-Reload: 스킬 수정 시 세션 재시작 불필요
 ║  - /context: 로드된 스킬 확인
 ║  - 중첩 디렉토리의 스킬도 자동 발견됨
@@ -443,7 +443,7 @@ def init_skill(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Claude Code Skill Initializer (v2.1+)",
+        description="Claude Code Skill Initializer",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 예시:
@@ -451,7 +451,7 @@ def main():
     %(prog)s api-gen --path ~/.claude/skills --context fork --agent Explore
     %(prog)s git-helper --path ./skills --tools "Read,Grep,Bash(git *)" --with-hooks
 
-v2.1 새 기능:
+옵션:
     --context fork      독립된 서브에이전트에서 실행
     --agent <type>      특정 에이전트 타입 사용
     --with-hooks        PreToolUse/PostToolUse/Stop 훅 템플릿 포함

@@ -1,6 +1,6 @@
-# Claude Code v2.1+ 가이드라인
+# Claude Code 환경 가이드라인
 
-## v2.1 주요 기능
+## 주요 기능
 
 ### 1. Hot-Reload
 
@@ -89,7 +89,7 @@ monorepo/
 
 ### 5. Slash Command와 Skills 통합
 
-v2.1.3부터 두 개념이 통합되었습니다:
+두 개념이 통합되어 있습니다:
 - 동작 방식은 동일
 - 개념적으로 단순화
 
@@ -328,7 +328,7 @@ Claude Code가 접근할 수 있는 정보:
 
 ---
 
-## v2.1 Frontmatter 전체 참조
+## Frontmatter 전체 참조
 
 ```yaml
 ---

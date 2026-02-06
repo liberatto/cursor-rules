@@ -1,4 +1,4 @@
-# CLAUDE.md
+# User's `CLAUDE.md`(Global Principles)
 
 ---
 
@@ -34,7 +34,7 @@
 ### 4. Leverage Full Context
 
 - **Use All Sources**: Integrate user request, history, file context, and tool outputs
-- **External Research**: Use `web_search`, MCP tools when needed for current information
+- **External Research**: Use `web_search`, MCP tools(search, etc.) when needed for current information
 - **Iterative Search**: Refine queries if initial results are insufficient
 
 ### 5. Deliver Quality Results

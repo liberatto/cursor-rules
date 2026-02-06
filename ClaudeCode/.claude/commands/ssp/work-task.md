@@ -15,7 +15,7 @@ description: Define tasks with structured clarification workflow. Resolves ambig
 ## 🔍 Phase 1: Ambiguity Analysis & Clarification
 
 Analyze the task from the following perspectives. **Ask clarifying questions only if there are unclear points or assumptions needed.**
-Limit questions to a maximum of 5. If the task is already clear, proceed directly to Phase 2.
+Limit questions to a maximum of 7. If the task is already clear, proceed directly to Phase 2.
 
 ### Required Checkpoints
 
@@ -25,12 +25,15 @@ Limit questions to a maximum of 5. If the task is already clear, proceed directl
 
 ### Optional Checkpoints (for complex tasks)
 
-4. **Edge Cases**: Exception handling and boundary conditions
-5. **Technical Constraints**: Tech stack, compatibility, performance limits
-6. **Dependencies**: Prerequisites and external dependencies
-7. **Implementation Options**: Available approaches and their trade-offs
+1. **Edge Cases**: Exception handling and boundary conditions
+2. **Technical Constraints**: Tech stack, compatibility, performance limits
+3. **Dependencies**: Prerequisites and external dependencies
+4. **Implementation Options**: Available approaches and their trade-offs
 
 ### Question Format
+
+- If 4 or fewer questions: Use the `AskUserQuestion` tool to present questions via UI
+- If 5 or more questions: Output questions directly as text in the terminal
 
 ```
 ❓ [Category] Question content

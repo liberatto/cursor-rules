@@ -19,7 +19,7 @@ description: Deep-dive into codebase and external sources to understand a specif
 Scan the project for relevant information:
 
 - **Source code**: Related modules, classes, functions
-- **Documentation**: `docs/`, `README.md`, `CLAUDE.md`, inline comments
+- **Documentation**: `docs/*`, `README.md`, `CLAUDE.md`, `CLAUDE.local.md` inline comments
 - **Configuration**: Config files, environment settings
 - **Tests**: Test cases that reveal expected behavior
 - **History**: Recent changes in related areas (if git available)

@@ -3,5 +3,6 @@ chats.db
 .claude/*
 .cursor/*
 CLAUDE.md
+CLAUDE.local.md
 *.mcp.json
 .mcp.json

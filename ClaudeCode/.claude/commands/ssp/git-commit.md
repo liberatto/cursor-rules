@@ -1,5 +1,5 @@
 ---
-argument-hint: [message]
+argument-hint: "[message]"
 description: Create a git local commit (로컬 커밋만 생성, push 안함)
 ---
 ## 입력 정보

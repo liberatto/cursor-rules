@@ -1,62 +1,116 @@
 ---
-allowed-tools: Bash(git:*), Bash(ls:*), Bash(find:*)
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash(git:*), Bash(ls:*), Bash(wc:*)
 description: Update CLAUDE Files with Relevant Knowledge from This Session
-argument-hint: [project-name]
+argument-hint: "[project-name]"
 ---
 
 # Update CLAUDE Files with Relevant Knowledge from This Session
 
-FYI: You, Claude Code, manage persistent memory using two main file types: `CLAUDE.md` for shared project structure and guidelines, and `CLAUDE.local.md` for session-specific context and personal notes. The system recursively searches upward from the current working directory to load all relevant `CLAUDE.md` and `CLAUDE.local.md` files, ensuring both project-level architecture documentation and current session state are available. Subdirectory `CLAUDE.md` and `CLAUDE.local.md` files are only loaded when working within those subfolders, keeping the active context focused and efficient.
-Additionally, placing a `CLAUDE.md` in your home directory (e.g., `~/.claude/CLAUDE.md`) provides a global, cross-project memory that is merged into every session under your home directory.
+## Memory File System Overview
 
-**Summary of Memory File Behavior:**
+You, Claude Code, manage persistent memory using two main file types: `CLAUDE.md` for shared project structure and guidelines, and `CLAUDE.local.md` for session-specific context. The system recursively searches upward from the current working directory to load all relevant files, ensuring both project-level documentation and current session state are available.
 
-- **Shared Project Structure (`CLAUDE.md`):**
+### File Types & Roles
+
+- **`CLAUDE.md` — "What the project IS"** (relatively static)
   - Located in the repository root or any working directory
   - Checked into version control for team-wide knowledge sharing
-  - Contains fixed, structural information: directory organization, file roles, architecture patterns, coding standards, shared guidelines
-  - Manages documentation of new files/folders as they're added to the project
-  - Updated when project structure changes or important team-wide decisions are made
-  - Loaded recursively from the current directory up to the root
+  - Contains: directory organization, file roles, architecture patterns, coding standards, shared guidelines
+  - Updated when project structure changes or important decisions are made
 
-- **Session-Specific Context (`CLAUDE.local.md`):**
-  - Placed alongside or above working files, excluded from version control
-  - Stores dynamic, session-oriented information: current work status, active tasks, recent decisions, next steps, running processes
-  - Functions as a "session checkpoint" - allowing seamless work resumption across sessions
-  - Contains personal developer notes, temporary TODOs, and context-specific reminders
-  - Maintains temporal project state (what was just completed, what's in progress, what's planned next)
-  - Captures ADR (Architecture Decision Records) for the current work stream
-  - Updated frequently during active development sessions
-  - Enables Claude to immediately understand "where we left off" and "what comes next"
-  - Loaded recursively like `CLAUDE.md`
+- **`CLAUDE.local.md` — "What I'm DOING"** (highly dynamic)
+  - Placed alongside working files, excluded from version control (`.gitignore`)
+  - Functions as a **session context manager** — a "session" is a continuous work stream toward a specific goal (feature, migration, refactoring, etc.) that may span multiple days and Claude Code conversations
+  - Persists across multiple conversations until the goal is achieved, then reset for the next session
+  - Claude should immediately understand "where we left off", "what was tried", and "what comes next" from this file alone
+  - **Contains:**
+    - **Goal & Scope**: what this session aims to achieve
+    - **Progress Tracking**: completed milestones, in-progress work, remaining tasks
+    - **Decisions & Rationale**: architectural choices made during the session and why
+    - **Lessons Learned**: what was tried and failed, corrected approaches, gotchas discovered
+    - **Blockers & Dependencies**: unresolved issues, waiting-on items, external dependencies
+    - **Next Steps**: concrete actions for the next conversation to pick up
 
-- **On-Demand Subdirectory Loading:**
-  - `CLAUDE.md` files in child folders are loaded only when editing files in those subfolders
-  - Prevents unnecessary context bloat
-  
-- **Global User Memory (`~/.claude/CLAUDE.md`):**
-  - Acts as a personal, cross-project memory
-  - Automatically merged into sessions under your home directory
+- **Subdirectory `CLAUDE.md`** — scoped version of root `CLAUDE.md`
+  - Loaded on-demand only when editing files in that subfolder
+  - Contains module-specific structure, roles, and conventions
 
-**Key Distinction:**
+### Placement Decision Table
 
-- `CLAUDE.md` = "What the project IS" (structure, roles, standards) - relatively static
-- `CLAUDE.local.md` = "What I'm DOING" (current state, active work, next actions) - highly dynamic
+| This information is... | → Target File |
+|------------------------|---------------|
+| Project structure, directory roles, architecture patterns | **CLAUDE.md** (root) |
+| Coding standards, build/test commands, shared guidelines | **CLAUDE.md** (root) |
+| Recurring error patterns, corrected implementation details | **CLAUDE.md** (relevant section) |
+| Specific to a single submodule's structure/roles/style | **subdirectory CLAUDE.md** |
+| Session goal, scope definition, success criteria | **CLAUDE.local.md** |
+| Currently in-progress tasks, active work items | **CLAUDE.local.md** |
+| Completed milestones within current session | **CLAUDE.local.md** |
+| Recent decisions with rationale, next steps, planned actions | **CLAUDE.local.md** |
+| Failed approaches, corrected strategies, lessons learned | **CLAUDE.local.md** |
+| Blockers, dependencies, waiting-on items | **CLAUDE.local.md** |
+
+**Core rule**: Information that remains valid beyond the current session → `CLAUDE.md` / Information bound to a specific work stream (goal → completion) → `CLAUDE.local.md`
 
 ---
-**Instructions:**  
-If during your session:
 
-- You learned something new about the project
-- I corrected you on a specific implementation detail
-- I corrected source code you generated
-- You struggled to find specific information and had to infer details about the project
-- You lost track of the project structure and had to look up information in the source code
-- You identified a mistake or error in your own work during the process
-...that is relevant, was not known initially, and should be persisted, add it to the appropriate `CLAUDE.md` (for shared context) or `CLAUDE.local.md` (for private notes or project's session context) file. If the information is relevant for a subdirectory only, place or update it in the `CLAUDE.md` file within that subdirectory.
-When specific information belongs to a particular subcomponent, ensure you place it in the CLAUDE file for that component.
+## Instructions
+
+### Step 1: Discover Existing Files
+
+1. Find all `CLAUDE.md` and `CLAUDE.local.md` files from the current directory up to the project root.
+2. Read their contents and note the current line counts.
+3. Report what you found before proceeding.
+
+### Step 2: Identify Items to Record
+
+Review the current session and identify items worth persisting. Triggers include:
+
+- You learned something new about the project structure or conventions
+- The user corrected you on an implementation detail or source code
+- You struggled to find information and had to infer or look up details
+- You lost track of the project structure during the session
+- You identified a mistake in your own work
+- The user made decisions about architecture, approach, or next steps
+- Work was left incomplete and needs to be resumed
+
+...that is relevant, was not known initially, and should be persisted.
+
+### Step 3: Classify & Place Each Item
+
+For each identified item, use the **Placement Decision Table** above to determine the correct file. When specific information belongs to a particular subcomponent, place it in the `CLAUDE.md` within that subdirectory.
+
 For example:
-- Information A belongs exclusively to the `heatsense-ui` component → put it in `apps/heatsense-ui/CLAUDE.md`
-- Information B belongs exclusively to the `heatsense-api` component → put it in `apps/heatsense-api/CLAUDE.md`  
-- Information C is infrastructure-as-code related → put it in `cdk/CLAUDE.md`
-This ensures important knowledge is retained and available in future sessions.
+
+- Information exclusively about a UI component → `apps/{component}-ui/CLAUDE.md`
+- Information exclusively about an API component → `apps/{component}-api/CLAUDE.md`
+- Information about infrastructure-as-code → `infrastructure/CLAUDE.md` or `cdk/CLAUDE.md`
+
+### Step 4: Write Changes
+
+**For `CLAUDE.md`** (project knowledge):
+
+- Check for duplicates or contradictions with existing content before adding
+- If existing content is outdated, update it rather than appending
+- Group related information under logical sections
+
+**For `CLAUDE.local.md`** (session context):
+
+- **Accumulate, then prune** — build up context as the session progresses; when a milestone completes, move it to a brief "completed" summary and expand the next phase
+- Completed items stay as concise summaries (proof of progress, not detailed logs)
+- In-progress and upcoming items get full detail (enough for the next Claude to continue without asking)
+- Structure so the next conversation's Claude can immediately resume work:
+  - Session goal and current phase
+  - What has been completed (brief summaries with key outcomes)
+  - What is currently in progress (detailed context)
+  - What comes next (concrete actionable steps)
+  - What was tried and didn't work (avoid repeating mistakes)
+  - Any pending decisions or blockers
+
+### Step 5: Validate & Report
+
+1. Verify final line counts:
+   - `CLAUDE.md` (root): target **≤ 180 lines**. If exceeded, consider distributing to subdirectory files or compressing content.
+   - `CLAUDE.local.md`: target **≤ 150 lines**. If exceeded, prune completed items.
+   - Subdirectory `CLAUDE.md`: target **≤ 150 lines** each.
+2. Report what was added, updated, or removed.

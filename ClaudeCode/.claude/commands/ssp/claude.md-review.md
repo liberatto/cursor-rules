@@ -1,44 +1,73 @@
 ---
-allowed-tools: Bash(git:*), Bash(ls:*), Bash(find:*)
-description: Review and update CLAUDE memory files across the project hierarchy
+allowed-tools: Read, Edit, Glob, Grep, Bash(git:*), Bash(ls:*), Bash(tree:*), Bash(wc:*)
+description: Review and update CLAUDE.md files against the actual codebase
 ---
 
-# Review and Update CLAUDE Memory Files
+# Review and Update CLAUDE.md Files
 
-## Step 1: Discover Memory Files
+## Step 1: Discover CLAUDE.md Files
 
-List all `CLAUDE.md` and `CLAUDE.local.md` files from the current directory up to the project root.  
-Include subdirectory files only when working inside those folders.
+Find all `CLAUDE.md` files from the current directory up to the project root, including subdirectory files.
+Report found files with their line counts before proceeding.
 
-## Step 2: Review Each File
+> **Scope**: This command targets `CLAUDE.md` files only. `CLAUDE.local.md` (session checkpoint) is not subject to review.
 
-For every memory file:
+---
 
-- Load its content
-- Compare documented details with the actual codebase
-- Identify outdated, incorrect, missing, or duplicated information
+## Step 2: Review Each File Against the Codebase
 
-## Step 3: Update and Reorganize
+For every `CLAUDE.md` file found, verify its content against reality:
 
-Apply corrections:
+**What to compare:**
 
-- Remove obsolete or incorrect statements  
-- Add missing architectural or component-specific details  
-- Consolidate duplicates  
-- Ensure the information is stored in the correct file type and location  
+- Directory structure described vs actual directory tree
+- Referenced files/modules — do they still exist?
+- Documented patterns/conventions — are they still in use?
+- Build/test commands — are they still valid?
+- Dependencies listed — are they current?
+- Architecture descriptions — do they match the current implementation?
+
+**Identify issues:**
+
+- **Outdated**: References to files, modules, or patterns that no longer exist
+- **Incorrect**: Descriptions that contradict the actual implementation
+- **Missing**: Important structure, components, or conventions not documented
+- **Duplicated**: Same information repeated across multiple CLAUDE.md files
+
+---
+
+## Step 3: Apply Corrections
+
+For each issue found:
+
+- Remove obsolete or incorrect statements
+- Update descriptions to match current reality
+- Add missing architectural or component-specific details
+- Consolidate duplicates — keep information in the most specific applicable file
 
 ### Placement Rules
 
-- **Project-level knowledge → `CLAUDE.md`**  
-  (architecture, module roles, standards)
+- **Project-wide knowledge** → root `CLAUDE.md`
+  (overall architecture, shared standards, build commands)
 
-- **Session-specific context → `CLAUDE.local.md`**  
-  (current tasks, recent decisions, TODOs)
+- **Component-specific details** → subdirectory `CLAUDE.md`
+  (e.g., `apps/{component}-ui/CLAUDE.md`, `infrastructure/CLAUDE.md`)
 
-- **Component-specific details → subdirectory `CLAUDE.md`**  
-  e.g.,  
-  - UI → `apps/myproject-ui/CLAUDE.md`  
-  - API → `apps/myproject-api/CLAUDE.md`  
-  - IaC → `cdk/CLAUDE.md` or `infrastructure/CLAUDE.md`
+### Size Guidelines
 
-Focus on clarity, accuracy, and relevance. Remove any information that no longer serves the project.
+- Root CLAUDE.md: **≤ 180 lines**. If exceeded, distribute to subdirectory files.
+- Subdirectory CLAUDE.md: **≤ 150 lines** each.
+
+---
+
+## Step 4: Report
+
+After corrections, report the following:
+
+1. Files reviewed (with before/after line counts)
+2. Issues found and actions taken:
+   - Items removed (outdated/incorrect)
+   - Items updated (corrected to match reality)
+   - Items added (previously missing)
+   - Items relocated (moved to correct file)
+3. Any areas that could not be verified and why

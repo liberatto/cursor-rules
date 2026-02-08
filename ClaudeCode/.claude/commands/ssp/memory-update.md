@@ -54,17 +54,19 @@ If the argument is `cleanup`, skip this step and proceed directly to Step 3.
 
 Review the **entire current conversation** and identify items worth persisting. Categorize each item:
 
-### Category A — Mistakes & Corrections
+### Category A — Mistakes & Effective Strategies
 
 - Errors you made that were corrected (by user or by yourself)
 - Wrong assumptions that led to failed attempts
 - Tools or approaches that didn't work and why
+- Strategies or approaches that worked well and should be reused
 
-### Category B — Discovered Patterns
+### Category B — Discovered Patterns & Constraints
 
 - Project-specific patterns, conventions, or idioms
 - Configuration quirks or environment-specific behavior
 - Workarounds for known limitations
+- Project-level constraints or caveats (e.g., "X doesn't work in this env", "Y requires Z")
 
 ### Category C — Key Facts
 
@@ -75,6 +77,7 @@ Review the **entire current conversation** and identify items worth persisting. 
 ### Category D — Operational Knowledge
 
 - Commands that work (or don't) in this environment
+- Frequently used settings, parameter combos, or config values
 - Build/deploy/test procedures learned
 - Troubleshooting steps that resolved issues
 
@@ -83,6 +86,8 @@ Review the **entire current conversation** and identify items worth persisting. 
 - Rules or conventions already stated in `CLAUDE.md` or `CLAUDE.local.md`
 - One-off debugging commands unlikely to be reused
 - Simple typo fixes or other low-recurrence corrections
+
+If an item recurs across sessions, flag it as a **recurring pattern** rather than a one-off event.
 
 For each item, write a **one-line summary** (max 120 chars) and note its category.
 

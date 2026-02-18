@@ -74,14 +74,23 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
-### 5. No Shortcuts
+### 5. Honest Progress
 
-**Solve or Report. Don't fake progress.**
+**Solve or report. Don't fake progress.**
+
+When implementing:
 
 - No hardcoded values, mocks, or hacks to appear functional.
-- Prioritize solving the actual problem.
-- If no real solution is found, halt and explain the blockers clearly.
-- When stuck, describe what was attempted, why it failed, suggest alternatives, and ask for guidance.
+- If a shortcut tempts you, ask: "Would this survive a code review?"
+- Prefer no output over misleading output.
+
+When blocked:
+
+- State what was attempted and why it failed.
+- Suggest alternatives with tradeoffs.
+- Ask for guidance — don't spin silently.
+
+The test: Does your fix address the root cause, or just mask the symptom?  
 
 ---
 

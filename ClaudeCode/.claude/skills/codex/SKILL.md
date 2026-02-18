@@ -5,7 +5,7 @@ description: Use when the user asks to run Codex CLI (codex exec, codex resume, 
 
 # Codex Skill Guide
 
-> **CLI Version**: 0.98.0+ | **Config**: `~/.codex/config.toml`
+> **CLI Version**: 0.98.0 | **Config**: `~/.codex/config.toml`
 
 ## Execution Workflow
 
@@ -38,18 +38,19 @@ codex exec --skip-git-repo-check \
 
 - Always use `--skip-git-repo-check` with `exec`.
 - Always append `2>/dev/null` to suppress thinking tokens (stderr). Only show stderr when user requests thinking tokens or debugging.
-- Use `-C <DIR>` to set working directory.
+- Use `-C <DIR>` (or `--cd <DIR>`) to set working directory.
 
 **Optional flags:**
 
 | Flag | Purpose |
 | --- | --- |
 | `-i <FILE>...` | Attach image(s) to the prompt |
-| `--search` | Enable web search tool |
+| `--search` | Enable live web search tool |
 | `--add-dir <DIR>` | Allow writes to additional directories |
 | `--output-schema <FILE>` | Constrain response to JSON Schema |
 | `--json` | Output events as JSONL stream |
 | `-p <PROFILE>` | Select a config.toml profile |
+| `-o <FILE>` | Write last agent message to file |
 
 ### Step 4: Report and Follow Up
 
@@ -57,24 +58,34 @@ After completion, inform the user: *"You can resume this Codex session at any ti
 
 Then use `AskUserQuestion` to confirm next steps.
 
-## Resume and Fork
+## Resume
 
-### Resume (continue previous session)
+### Interactive (opens TUI)
 
 ```bash
-echo "follow-up prompt" | codex exec --skip-git-repo-check resume --last 2>/dev/null
+codex resume              # Session picker
+codex resume --last       # Most recent session
+codex resume --all        # All sessions (any directory)
+codex resume <SESSION_ID> # Specific session
+```
+
+### Non-interactive
+
+```bash
+codex exec --skip-git-repo-check resume --last "follow-up prompt" 2>/dev/null
 ```
 
 - Inherits model, reasoning effort, and sandbox from original session.
 - Only add config flags if the user explicitly requests changes.
+- Override working directory with `-C <DIR>` (or `--cd <DIR>`).
 
-### Fork (branch from previous session)
+## Fork
+
+Branch from a previous session to explore alternatives:
 
 ```bash
 codex fork --last "explore a different approach"
 ```
-
-- Creates a new session branching from the previous one.
 
 ## Code Review
 
@@ -90,9 +101,29 @@ codex review --base main 2>/dev/null
 # Specific commit
 codex review --commit <SHA> 2>/dev/null
 
-# Custom review instructions
-codex review --uncommitted "focus on security vulnerabilities" 2>/dev/null
+# With title and custom instructions
+codex review --uncommitted --title "feat: add auth" "focus on security vulnerabilities" 2>/dev/null
 ```
+
+## Plan Mode
+
+Start a guided planning session in interactive mode:
+
+```bash
+codex                  # Launch TUI
+# Then type: /plan refactor the authentication module
+```
+
+- `/plan` accepts inline prompt arguments and pasted images.
+- Plan mode is enabled by default (0.94+).
+- Produces a structured plan before execution begins.
+
+## Steer Mode
+
+Steer mode is stable and enabled by default (0.98.0):
+
+- **Enter** — Send instruction immediately while agent is working (mid-turn steering).
+- **Tab** — Queue follow-up input for after current step completes.
 
 ## Apply Diff
 
@@ -102,17 +133,18 @@ Apply the latest diff produced by a Codex agent to the local working tree:
 codex apply <TASK_ID>
 ```
 
-## Codex Cloud (Experimental)
+## Skills
 
-Run tasks remotely and apply results locally:
+Codex loads skills from multiple locations (priority order):
 
-```bash
-codex cloud exec "refactor the auth module"   # Submit task
-codex cloud list                                # List tasks
-codex cloud status <TASK_ID>                    # Check status
-codex cloud diff <TASK_ID>                      # View diff
-codex cloud apply <TASK_ID>                     # Apply locally
-```
+| Scope | Path |
+| --- | --- |
+| Repo | `.agents/skills/` |
+| User | `~/.agents/skills/` |
+| Admin | `/etc/codex/skills/` |
+| System | Bundled with Codex |
+
+Invoke explicitly with `$skill-name` in the TUI, or let Codex auto-select based on task.
 
 ## Approval Policy Reference
 
@@ -125,11 +157,23 @@ The `-a, --ask-for-approval` flag controls when user approval is required:
 | `on-request` | Model decides when to ask (default with `--full-auto`) |
 | `never` | Never prompt; failures go straight back to the model |
 
+## Interactive Slash Commands
+
+| Command | Purpose |
+| --- | --- |
+| `/model` | Switch model or reasoning effort mid-session |
+| `/plan` | Enter plan mode with optional inline prompt |
+| `/review` | Run code review within TUI |
+| `/fork` | Branch current session |
+| `/permissions` | Change approval mode (Auto / Read-only / Full Access) |
+| `/skills` | Browse and invoke loaded skills |
+| `/debug-config` | Inspect current configuration |
+
 ## Config Override Syntax
 
 ```bash
 # Override config values with -c (parsed as TOML)
-codex exec -c model="o3" -c model_reasoning_effort="high" ...
+codex exec -c model="gpt-5.3-codex" -c model_reasoning_effort="high" ...
 
 # Dotted path for nested values
 codex exec -c 'sandbox_permissions=["disk-full-read-access"]' ...

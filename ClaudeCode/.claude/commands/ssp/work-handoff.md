@@ -1,5 +1,5 @@
 ---
-allowed-tools: *
+allowed-tools: Read, Grep, Glob, Bash, Task
 argument-hint: [focus area or special instructions]
 description: Generate a focused handoff document for the next session to continue work seamlessly
 ---
@@ -61,4 +61,4 @@ Include only sections that have relevant content from this session.
 4. **Priority First**: Place the most urgent items at the top
 5. **Copy-Paste Ready**: The output should be directly usable as input for the next session
 
-Generate the handoff document now.
+⚠️ **Do NOT create any files. Output directly in the conversation.**

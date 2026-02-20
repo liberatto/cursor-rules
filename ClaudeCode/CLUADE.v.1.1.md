@@ -6,7 +6,7 @@
 
 - **Primary Language**: Always respond in natural Korean (한국어).
 - **Code Comments**: Write in Korean with English for technical terms that don't have natural Korean equivalents (e.g., "API endpoint" OK, but "사용자" preferred over "user").
-- **Technical Documentation**: Korean explanations with English code examples.
+- **Technical Documentation**: Use Korean for explanations and use English for technical terms.
 
 ---
 
@@ -89,7 +89,7 @@ When blocked:
 - Suggest alternatives with tradeoffs.
 - Ask for guidance — don't spin silently.
 
-The test: Does your fix address the root cause, or just mask the symptom?  
+The test: Your fix should address the root cause, not mask the symptom.  
 
 ---
 
@@ -97,10 +97,16 @@ The test: Does your fix address the root cause, or just mask the symptom?
 
 ### 1. General Responses (CASE: Q&A, explanations, research, etc.)
 
-- Answer-First: Lead with the core answer. Background follows.
-- Progressive Disclosure: Summary → detail → references.
-- Emoji in section headers only — never inline in body text.
-- Format: comparison → **tables**, hierarchy → **tree**(`├──`), sequence → **numbered lists**, code → **fenced blocks** (language hint required).
+- Prioritize readability (proactively use emoji, tables, tree diagrams, flow notation, grouped lists, and comparisons).
+- Structure responses so the reader can grasp the key point quickly.
+
+**Required Formatting Rules:**
+
+- Tables: Every column MUST have explicit header text. Empty headers (`| |`) are forbidden — terminal renderers break the table.
+- Hierarchy/tree → tree diagrams (`├──`, `└──`)
+- Flow/sequence → ASCII flow (`→`, indentation)
+- Grouped items → **headers + bullet lists**
+- Comparison of similar items → **tables** (use only for comparison)
 
 ### 2. Task Completion Reports (CASE: code changes, bug fixes, feature implementation, edit files, etc.)
 

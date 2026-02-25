@@ -100,9 +100,9 @@ The test: Your fix should address the root cause, not mask the symptom.
 - Prioritize readability — proactively use emoji, tables, tree diagrams, flow notation, grouped lists, and comparisons.
 - Structure responses so the reader can grasp the key point quickly.
 
-### 2. Task Completion Report (CASE: code changes, bug fixes, feature implementation, edit files, etc.)
+### 2. Task Completion Report (CASE: code changes, bug fixes, feature implementation, etc.)
 
-- Apply this format to **every** task outcome — success, partial success, or failure.
+- Apply this format to **development** task outcome — success, partial success, or failure.
 - Honest reporting matters more than a clean result.
 
 **Required Format:**
@@ -155,5 +155,5 @@ When creating a document, adopt the assigned **Persona** as your writing perspec
 
 ### Date Handling
 
-- **Current Date**: Always use `Current Date` from user environment info.
+- **Current Date/Time**: Always run `date "+%Y-%m-%d %H:%M"` to get the current date/time. Never guess or assume.
 - **⚠️ Warning**: Do NOT confuse LLM knowledge cutoff date with today's date.

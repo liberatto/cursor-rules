@@ -1,6 +1,6 @@
 ---
-allowed-tools: Read, Grep, Glob, Bash, Task
-argument-hint: [focus area or special instructions]
+allowed-tools: Read, Grep, Glob, Bash, Task, Write
+argument-hint: "[focus area] [save: to save file]"
 description: Generate a focused handoff document for the next session to continue work seamlessly
 ---
 
@@ -26,7 +26,7 @@ Include only sections that have relevant content from this session.
 
 # 📋 Session Handoff Document
 
-- **Date**: YYYY-MM-DD
+- **Date**: YYYY-MM-DD HH:MM
 - **Topic**: [Main topic of this session(1~2 stentences)]
 
 # 📌 Executive Summary
@@ -61,4 +61,11 @@ Include only sections that have relevant content from this session.
 4. **Priority First**: Place the most urgent items at the top
 5. **Copy-Paste Ready**: The output should be directly usable as input for the next session
 
-⚠️ **Do NOT create any files. Output directly in the conversation.**
+## Output Instructions
+
+- **Default**: Output the handoff document to the conversation only (no file saved)
+- **Save option**: If `$ARGUMENTS` contains `save`, output to conversation AND save to file
+  - Path: `.handoff/HANDOFF-{TITLE}-{YYYY-MM-DD-HHMM}.md`
+  - `{TITLE}`: Session topic summarized in UPPERCASE, hyphen-separated (e.g., `API-REFACTOR`, `AUTH-BUGFIX`)
+  - `{YYYY-MM-DD-HHMM}`: Current date/time
+  - Create `.handoff/` directory if it does not exist

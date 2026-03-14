@@ -165,19 +165,45 @@ Hook 생성 방법: (1) `/hooks` 내장 메뉴, (2) Claude Code에 자연어 요
 
 ### command — stdin JSON
 
-이벤트 컨텍스트가 stdin으로 JSON 전달:
+이벤트 컨텍스트가 stdin으로 JSON 전달. **공통 필드** + **이벤트별 필드**로 구성:
+
+**공통 필드** (모든 이벤트):
 
 ```json
-{ "session_id": "abc-123", "tool_name": "Bash", "tool_input": { "command": "ls -la" } }
+{ "session_id": "abc-123", "cwd": "/path/to/project", "permission_mode": "default", "hook_event_name": "PreToolUse", "transcript_path": "..." }
 ```
 
+**이벤트별 주요 필드:**
+
+| Event | 고유 필드 |
+|-------|----------|
+| `UserPromptSubmit` | `prompt` (사용자 입력 텍스트) |
+| `PreToolUse` / `PostToolUse` | `tool_name`, `tool_input`, `tool_use_id` |
+| `PostToolUseFailure` | `tool_name`, `tool_input`, `error`, `is_interrupt` |
+| `Stop` | `stop_hook_active` (무한루프 방지), `last_assistant_message` |
+| `SubagentStop` | `stop_hook_active`, `agent_id`, `agent_type`, `last_assistant_message` |
+| `Notification` | `message`, `title`, `notification_type` |
+| `SessionStart` | `source` (startup/resume/clear/compact) |
+| `SessionEnd` | `reason` (clear/logout/prompt_input_exit 등) |
+| `ConfigChange` | `source` (user_settings/project_settings 등) |
+| `PreCompact` | `trigger` (manual/auto), `custom_instructions` |
+
 ```bash
-# 필드 1개
+# Tool 이벤트 — 필드 1개
 COMMAND=$(jq -r '.tool_input.command')
 
-# 여러 필드 (jq는 stdin 1회만 읽음 — 변수에 먼저 저장)
+# Tool 이벤트 — 여러 필드 (jq는 stdin 1회만 읽음 — 변수에 먼저 저장)
 INPUT=$(cat)
 FILE=$(echo "$INPUT" | jq -r '.tool_input.file_path')
+
+# UserPromptSubmit — 프롬프트 읽기
+INPUT=$(cat)
+PROMPT=$(echo "$INPUT" | jq -r '.prompt')
+
+# Stop — 무한루프 방지
+INPUT=$(cat)
+ACTIVE=$(echo "$INPUT" | jq -r '.stop_hook_active')
+if [ "$ACTIVE" = "true" ]; then exit 0; fi
 ```
 
 ### prompt / agent — $ARGUMENTS 치환
@@ -289,11 +315,36 @@ FILE=$(echo "$INPUT" | jq -r '.tool_input.file_path')
 | `suppressOutput` | `false` | Hide verbose output |
 | `systemMessage` | — | Warning message to user |
 
+### stdout 출력 규칙
+
+hook의 stdout 출력은 **두 가지 형식** 모두 지원:
+
+1. **평문 텍스트**: stdout에 텍스트를 출력하면 Claude의 context에 추가됨
+2. **JSON**: 구조화된 제어가 필요할 때 사용 (아래 Decision control 참조)
+
+```bash
+# 평문 — 가장 간단한 context 주입
+printf '%s' "추가 지시사항"
+exit 0
+
+# JSON — 구조화된 context 주입
+jq -n --arg ctx "추가 지시사항" '{
+  "hookSpecificOutput": {
+    "hookEventName": "UserPromptSubmit",
+    "additionalContext": $ctx
+  }
+}'
+exit 0
+```
+
+> **주의**: `{"prompt": "..."}` 같은 비표준 키는 Claude Code가 인식하지 않는다.
+> context 주입 시 평문 또는 `additionalContext`만 사용할 것.
+
 ### Decision control by event
 
 | Event group | Key fields |
 |-------------|------------|
-| `UserPromptSubmit`, `PostToolUse`, `Stop` etc. | `decision: "block"`, `reason` |
+| `UserPromptSubmit`, `PostToolUse`, `Stop` etc. | `decision: "block"`, `reason`, `hookSpecificOutput.additionalContext` |
 | `PreToolUse` | `hookSpecificOutput.permissionDecision` (allow/deny/ask), `updatedInput`, `additionalContext` |
 | `PermissionRequest` | `hookSpecificOutput.decision.behavior` (allow/deny) |
 | `TeammateIdle`, `TaskCompleted` | exit code 2 + stderr only |

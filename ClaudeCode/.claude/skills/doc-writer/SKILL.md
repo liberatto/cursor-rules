@@ -24,11 +24,11 @@ description: |
 | Prefix | 용도 | Persona |
 |--------|------|---------|
 | `PRD` | 제품 요구사항 | PM |
-| `PLAN` | 구현 계획 | Analyst |
+| `PLAN` | 구현, 실행 계획 | Analyst |
 | `RESEARCH` | 리서치 결과 | Researcher |
-| `REPORT` | 상태/진행 보고 | PM |
+| `REPORT` | 상태/진행/완료 보고 | PM |
 | `GUIDE` | How-to 가이드 | Engineer |
-| `ANALYSIS` | 기술 분석 | Analyst |
+| `ANALYSIS` | 기술,비교,대안 분석 | Analyst |
 | `ADR` | 아키텍처 결정 기록 | Architect |
 | `NOTE` | 간단 메모 | — (자유형) |
 | `DOCUMENTATION` | 일반 문서 | Engineer |
@@ -80,8 +80,10 @@ date "+%Y-%m-%d %H:%M"
 - `[필수]` 섹션은 반드시 포함
 - `[선택]` 섹션은 맥락에 따라 포함/생략
 - 사용자가 특정 구조를 요청하면 그것을 우선
+- 작성 시 공통 품질 원칙(독자 중심, 명확성, 근거와 예시, 점진적 구조, 훑어읽기)을 적용
 
 타입별 구조 템플릿: [references/templates.md](references/templates.md)
+공통 작성 및 품질 원칙: [references/writing-principles.md](references/writing-principles.md)
 
 ## 규칙
 
@@ -90,5 +92,6 @@ date "+%Y-%m-%d %H:%M"
 3. **하이픈**: 공백 대신 하이픈 사용.
 4. **경로 확인**: 파일 생성 전 상위 디렉토리 존재 확인.
 5. **Persona 충실**: 지정된 Persona의 관점을 일관되게 유지.
-6. **구조 준수**: 템플릿의 필수 섹션을 빠뜨리지 않는다.
-7. **내용 우선**: 템플릿은 가이드일 뿐, 실질적 내용이 더 중요하다.
+6. **구조 준수**: 템플릿의 필수 섹션을 적용한다.
+7. **품질 원칙**: 공통 작성 및 품질 원칙을 적용한다.
+8. **내용 우선**: 템플릿은 가이드일 뿐, 실질적 내용이 더 중요하고 내용에 따라 템플릿을 변경할 수 있다.

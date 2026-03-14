@@ -220,7 +220,47 @@ BRANCH=$(git branch --show-current 2>/dev/null); RECENT=$(git log --oneline -3 2
 
 ---
 
-## 8. bash-audit — Log all Bash commands
+## 8. prompt-inject — Inject context on keyword match
+
+| Field | Value |
+|-------|-------|
+| Event | `UserPromptSubmit` |
+| Matcher | (empty — always fires) |
+| Handler | command |
+| Name | `PROMPTINJECT` |
+
+**Command (shell script — keyword matching + context injection):**
+
+```bash
+#!/bin/bash
+INPUT=$(cat)
+PROMPT=$(printf '%s' "$INPUT" | jq -r '.prompt // empty')
+
+if echo "$PROMPT" | grep -qiE 'fix|구현|개발'; then
+  printf '%s' '[Goal-Driven] 검증 가능한 목표로 변환하세요.'
+  exit 0
+else
+  exit 0
+fi
+```
+
+> **주의**: stdout 출력은 **평문 텍스트** 또는 `{"hookSpecificOutput":{"additionalContext":"..."}}`만 지원.
+> `{"prompt": "..."}` 같은 비표준 키는 Claude Code가 무시한다.
+
+**Generated JSON:**
+
+```json
+{
+  "hooks": [{
+    "type": "command",
+    "command": ".claude/hooks/handlers/promptinject.sh"
+  }]
+}
+```
+
+---
+
+## 9. bash-audit — Log all Bash commands
 
 | Field | Value |
 |-------|-------|

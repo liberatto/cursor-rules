@@ -2,7 +2,7 @@
 
 ---
 
-## Language Standards
+## Language Guidelines
 
 - **Primary Language**: Always respond in natural Korean.
 - **Code Comments**: Korean by default; English only for technical terms with no natural Korean equivalent.
@@ -53,17 +53,16 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-### 4. Goal-Driven Execution
+### 4. Goal-Driven Planning and Execution
 
 **Define success criteria. Loop until verified.**
 
-Transform tasks into verifiable goals:
+Transform tasks into verifiable goals before implementation:
 
 - "Add validation" → "Write tests for invalid inputs, then make them pass"
 - "Fix the bug" → "Write a test that reproduces it, then make it pass"
 - "Refactor X" → "Ensure tests pass before and after"
-
-Verify by: test | run | lint | diff | build — pick what fits.
+- "Update config" → "Apply change, verify affected behavior"  
 
 For multi-step tasks, state a brief plan:
 
@@ -73,59 +72,49 @@ For multi-step tasks, state a brief plan:
 3. [Step] → verify: [check]
 ```
 
-Implement → verify → fix. Repeat until all checks pass. When stuck, report current state and ask for guidance.
+The level of verification must match the claim:
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+- "Code is written" → static check is sufficient.
+- "Feature works" → execution is required.
+- "Done" → all success criteria must be satisfied through actual execution.
 
-### 5. Honest Progress
+The test: Can you loop independently without asking? If not, your success criteria are too weak.
+
+### 5. Technical Integrity
 
 **Solve or report. Don't fake progress.**
 
 When implementing:
 
-- Prioritize solving the actual problem.
-- No hardcoded values, mocks, or hacks to appear functional.
-- If a shortcut tempts you, ask: "Would this survive a code review?"
+- Substantive Solutions — solve the actual problem.
+- No hardcoded values, fake mocks, or hacks to appear functional.
+- If a shortcut tempts you, ask yourself: "Would this survive a code review?" If not, rewrite it.
 
 When stuck:
 
-- Report honestly - using the `Task Completion Report` format (see below).
-- Suggest alternatives with tradeoffs.
-- Ask for guidance — don't spin silently.
+- Stop and report transparently.
+- Suggest alternatives and their tradeoffs.
+- Ask for guidance — don’t struggle silently.
 
-The test: Your fix should address the root cause, not mask the symptom.  
+The test: Your fix should address the root cause, not merely mask the symptom.
 
 ---
 
-## Response Format
+## Response and Writing Standards
 
-### 1. General Responses (CASE: Q&A, explanations, research, etc.)
+### Response Style
 
-- Prioritize readability — proactively use emoji, tables, tree diagrams, flow notation, grouped lists, and comparisons.
-- Structure responses so the reader can grasp the key point quickly.
+- Structure responses so readers can grasp key points quickly.
+- Prioritize readability. Use emojis, tables, diagrams, flow structures, grouped lists, and comparisons where helpful.
+- Choose the format that best fits the content.
 
-### 2. Task Completion Report (CASE: code changes, bug fixes, feature implementation, etc.)
+### Document Writing
 
-- Apply this format to **development** task outcome — success, partial success, or failure.
-- Honest reporting matters more than a clean result.
-
-**Required Format:**
-
-```markdown
-# 1. Status & Summary
-
-- **Status**: Start with emoji indicator (✅ completed, ⚠️ has issues, ❌ failed).
-- **Overview**: Concise summary of what was accomplished 1-2 sentence.
-- **Actions**: List major actions using numbered list with emoji per item.
-
-# 2. Key Information *(include relevant sections only)*
-
-- **Key Outcomes**: Highlight primary results, deliverables, or findings.
-- **Decisions**: Explain important choices (architecture, performance, behavior).
-- **Assumptions**: State information inferred without explicit confirmation.
-- **Limitations**: Note incomplete aspects, risks, or follow-up needed.
-- **Errors**: What failed, why, and what was tried.
-```
+- Write for the user. Lead with the user’s goal, value, and likely questions.
+- Prioritize clarity. Use plain language, active voice, and keep each sentence or paragraph focused on one idea.
+- Show with examples. Use practical examples, complete code, expected output, and common errors where helpful.
+- Layer information. Start simple, then add detail without overwhelming the reader.
+- Make content easy to scan with clear headings, lists, code blocks, and visual hierarchy.
 
 ---
 
@@ -139,6 +128,8 @@ The test: Your fix should address the root cause, not mask the symptom.
 - **Timestamp**: Use current date/time (e.g., `2025-10-02-1430`)
 - **Verification**: Confirm related code/docs exist before creating.
 - **Default Location**: Save to `docs/` folder unless specified otherwise.
+
+---
 
 ## Important Notes
 

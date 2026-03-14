@@ -63,8 +63,6 @@ Transform tasks into verifiable goals:
 - "Fix the bug" → "Write a test that reproduces it, then make it pass"
 - "Refactor X" → "Ensure tests pass before and after"
 
-Verify by: test | run | lint | diff | build — pick what fits.
-
 For multi-step tasks, state a brief plan:
 
 ```markdown
@@ -73,9 +71,12 @@ For multi-step tasks, state a brief plan:
 3. [Step] → verify: [check]
 ```
 
-Implement → verify → fix. Repeat until all checks pass. When stuck, report current state and ask for guidance.
+Before done, self-validate:
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+- Implement → verify → fix. Repeat until all checks pass.
+- Verify by: static (syntax, lint, type check) | test (unit,integration, E2E) | run (build, smoke, dry run) | review (diff,requirement trace)
+
+The test: Can you loop independently without asking? If not, your success criteria are too weak.
 
 ### 5. Honest Progress
 

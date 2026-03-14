@@ -71,6 +71,27 @@ Read full contents of changed files using the Read tool. Skip:
 - Auto-generated files
 - Binary files
 
+### 1.4 Source Cross-Reference (research type only)
+
+When the target artifact cites external sources (e.g., Confluence pages, API docs, papers, datasets), verify key claims against the originals. This step catches misquotation, misattribution, and fabricated figures that textual review alone cannot detect.
+
+**Procedure:**
+
+1. **Extract cited sources** — scan the artifact for page IDs, URLs, document titles, arXiv IDs, or named references.
+2. **Prioritize verification targets** — focus on sources that back quantitative claims (figures, percentages, dates) or direct quotations. Skip sources cited only for background context.
+3. **Retrieve originals** — use Task tool with appropriate subagents (e.g., `ktspace-atlassian-explorer` for Confluence, `general-purpose` for web/paper lookup). Launch multiple subagents in parallel when checking independent sources.
+4. **Cross-check** — for each prioritized source, verify:
+   - Quoted text matches the original (no silent paraphrasing presented as direct quotes)
+   - Figures and statistics exist in the original and are cited in correct context
+   - Summarized content faithfully represents the original (no cherry-picking or omission of key items)
+   - Attribution is accurate (correct author, correct document, correct section)
+5. **Record discrepancies** — any mismatch found here becomes a finding in Step 2 under the `Source cross-reference` checklist item, with the original text cited as evidence.
+
+**Skip conditions** — skip this step when:
+- No external sources are cited (self-contained analysis)
+- Sources are inaccessible (e.g., internal systems without MCP tools, paywalled papers)
+- The user explicitly requests text-only review
+
 ---
 
 ## Step 2: Phase 2 — Critical Self-Review
@@ -118,6 +139,7 @@ The subagent operates **read-only** — it must not edit any code.
 ```
 - [ ] Confirmation bias: cherry-picked evidence supporting conclusions
 - [ ] Source reliability: quality and recency of references
+- [ ] Source cross-reference: cited figures, quotes, and summaries match originals (from Step 1.4)
 - [ ] Logic structure: premise → evidence → conclusion coherence
 - [ ] Missing alternatives: absent counterarguments or alternative interpretations
 - [ ] Over-generalization: broad conclusions from limited data

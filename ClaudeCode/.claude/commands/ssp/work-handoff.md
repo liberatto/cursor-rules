@@ -27,7 +27,7 @@ Include only sections that have relevant content from this session.
 # 📋 Session Handoff Document
 
 - **Date**: YYYY-MM-DD HH:MM
-- **Topic**: [Main topic of this session(1~2 stentences)]
+- **Topic**: [Main topic of this session (1-2 sentences)]
 
 # 📌 Executive Summary
 [Summarize the key accomplishments and outcomes of this session in 2-3 sentences]
@@ -35,13 +35,24 @@ Include only sections that have relevant content from this session.
 # ⏭️ Immediate Next Steps
 [The specific task in progress and exact next actions to take]
 
-# 🔑 Key Context
-- [Major decisions made in this session]
-- [Established patterns, conventions, or constraints]
+# 🔑 Key Decisions & Rationale
+- [Decision made] — **Why**: [reason, tradeoff, or constraint that led to this choice]
 - [User preferences or requirements discovered]
 
-# 📁 Relevant Files
-- [File paths that matter for continuing the work]
+# 🚫 Dead Ends & Lessons
+- [What was tried and failed] — **Cause**: [why it didn't work]
+- [Workarounds discovered during troubleshooting]
+(Omit this section if nothing failed)
+
+# 📁 Changed Files
+- `path/to/file` — [what changed and why]
+- `path/to/file` — [what changed and why]
+
+# 🌐 Environment State
+- **Branch**: [current git branch]
+- **Uncommitted changes**: [yes/no, brief summary]
+- **Active subscription/venv/config**: [relevant env context]
+(Omit this section if no notable env state)
 
 # 📊 Current State
 - Completed: [what's done]
@@ -51,15 +62,22 @@ Include only sections that have relevant content from this session.
 # ⚠️ Critical Notes
 - [Blockers, dependencies, or known issues]
 - [Warnings the next session must know about]
+- **Memory updated**: [yes/no — topic files updated during this session, if any]
+
+**⏸️ Do NOT start implementation. Wait for explicit instruction.**
+
 ```
 
 ## Writing Principles
 
 1. **Immediately Actionable**: The next agent should be able to resume work after reading this
 2. **Specific Over Abstract**: Use actual file paths, function names, and shell commands
-3. **600 Words Max**: Compress to essentials, omit unnecessary background
-4. **Priority First**: Place the most urgent items at the top
-5. **Copy-Paste Ready**: The output should be directly usable as input for the next session
+3. **Why Over What**: For decisions and file changes, always include the reason — not just what happened
+4. **Failures Are Valuable**: Dead ends prevent repeated mistakes — always record them
+5. **No Duplication With Memory**: If something was already saved to auto memory, reference it instead of restating
+6. **900 Words Max**: Compress to essentials, omit unnecessary background
+7. **Priority First**: Place the most urgent items at the top
+8. **Copy-Paste Ready**: The output should be directly usable as input for the next session
 
 ## Output Instructions
 

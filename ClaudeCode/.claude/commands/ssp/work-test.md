@@ -1,6 +1,15 @@
 ---
-argument-hint: [description]
-description: 지시한 description에 따라 체계적인 테스트 진행
+allowed-tools: *
+argument-hint: "<test description>"
+description: Conduct systematic testing based on the given test description.
+---
+
+# Test Helper
+
+## 📋 Input
+
+`$ARGUMENTS`
+
 ---
 
 사용자가 지시한 description에 따라 체계적인 테스트를 진행하는 헬퍼입니다:

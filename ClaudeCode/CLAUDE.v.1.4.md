@@ -126,7 +126,6 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 - **Prefix**: `PRD`, `STRATEGY`, `PLAN`, `RESEARCH`, `REPORT`, `GUIDE`, `ANALYSIS`, `ADR`, `NOTE`, `DOCUMENTATION` , etc.
 - **Style**: ALL UPPERCASE for prefix and description, hyphen-separated.
 - **Timestamp**: Use current date/time (e.g., `2025-10-02-1430`)
-- **Verification**: Confirm related code/docs exist before creating.
 - **Default Location**: Save to `docs/` folder unless specified otherwise.
 
 ---

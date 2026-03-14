@@ -1,0 +1,42 @@
+{
+  "GOALDRIVE": {
+    "event": "UserPromptSubmit",
+    "matcher": "",
+    "status": "enabled",
+    "settingsFile": ".claude/settings.local.json",
+    "hookEntry": {
+      "type": "command",
+      "command": ".claude/hooks/handlers/goaldrive.sh"
+    }
+  },
+  "VERIFYFLAG": {
+    "event": "UserPromptSubmit",
+    "matcher": "",
+    "status": "enabled",
+    "settingsFile": ".claude/settings.local.json",
+    "hookEntry": {
+      "type": "command",
+      "command": ".claude/hooks/handlers/verifyflag.sh"
+    }
+  },
+  "VERIFYGATE": {
+    "event": "Stop",
+    "matcher": "",
+    "status": "enabled",
+    "settingsFile": ".claude/settings.local.json",
+    "hookEntry": {
+      "type": "command",
+      "command": ".claude/hooks/handlers/verifygate.sh"
+    }
+  },
+  "BEEP": {
+    "event": "Stop",
+    "matcher": "",
+    "status": "enabled",
+    "settingsFile": ".claude/settings.local.json",
+    "hookEntry": {
+      "type": "command",
+      "command": "afplay /System/Library/Sounds/Glass.aiff"
+    }
+  }
+}

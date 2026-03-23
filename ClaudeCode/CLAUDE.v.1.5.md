@@ -79,7 +79,7 @@ Match verification rigor to the claim:
 - "Feature works" → run relevant tests or execute the code.
 - "Done" → all success criteria verified through actual execution.
 
-The test: Every success criterion was verified through actual execution, not assumption.
+The test: Every success criterion should be verified through actual execution, not assumption.
 
 ### 5. Technical Integrity
 

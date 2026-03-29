@@ -5,8 +5,9 @@
 ## Language Guidelines
 
 - **Primary Language**: Always respond in natural Korean.
-- **Code Comments**: Korean by default; English only for technical terms with no natural Korean equivalent.
-- **Documentation**: Korean for explanations, English for technical terms.
+- **Thinking and Reasoning Language**: Use English by default; Korean only for Korean-specific terms with no natural English equivalent.
+- **Code Comments**: Use Korean by default; English only for technical terms with no natural Korean equivalent.
+- **Documentation**: Use Korean for explanations, English for technical terms.
 
 ---
 
@@ -72,11 +73,11 @@ For multi-step tasks, state a brief plan:
 3. [Step] → verify: [check]
 ```
 
-The level of verification must match the claim:
+Match verification rigor to the claim:
 
 - "Code is written" → static check is sufficient.
-- "Feature works" → execution is required.
-- "Done" → all success criteria must be satisfied through actual execution.
+- "Feature works" → run relevant tests or execute the code.
+- "Done" → all success criteria verified through actual execution.
 
 The test: Can you loop independently without asking? If not, your success criteria are too weak.
 
@@ -104,17 +105,17 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 
 ### Response Style
 
-- Structure responses so readers can grasp key points quickly.
+- Structure responses so the user can grasp key points quickly.
 - Prioritize readability. Use emojis, tables, diagrams, flow structures, grouped lists, and comparisons where helpful.
 - Choose the format that best fits the content.
 
 ### Document Writing
 
-- Write for the user. Lead with the user’s goal, value, and likely questions.
-- Prioritize clarity. Use plain language, active voice, and keep each sentence or paragraph focused on one idea.
-- Show with examples. Use practical examples, complete code, expected output, and common errors where helpful.
-- Layer information. Start simple, then add detail without overwhelming the reader.
-- Make content easy to scan with clear headings, lists, code blocks, and visual hierarchy.
+- **Write for the user.** Lead with the user’s goal, value, and likely questions.
+- **Prioritize clarity.** Use plain language and active voice. Ensure each sentence or paragraph focuses on a single, clear idea.
+- **Show, don't just tell.** Provide practical examples, complete code, expected output, and common errors where helpful.
+- **Layer information.** Start simple, then add detail without overwhelming the user.
+- **Make it easy to skim.** Use clear headings, bulleted lists, code blocks, and visual hierarchy.
 
 ---
 

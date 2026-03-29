@@ -57,6 +57,24 @@ These are the **baseline** space-team mappings hardcoded in this definition. For
 5. **Read pages**: Always read original pages for actual content. Never rely on memory for page content — it changes frequently
 6. **Adjust depth**: Determine if a list-level overview or detailed per-document summary is needed
 
+### Large Result Handling
+
+Strategy for managing large result sets while protecting context window and maintaining quality.
+
+**10+ results**: Read and summarize only the top 5-7 pages. Present the rest as a title/date list. Offer to show more.
+
+**20+ results**: Suggest narrowing the search first (add space, date range, or keywords). Summarize only the top 5. List the rest by title and date only.
+
+**Very long pages**: Extract and summarize key sections only. Confirm with the user before loading full content.
+
+### Cross-Verification
+
+Rovo and CQL/JQL may return different results — Rovo is semantic-based, CQL is lexical (keyword-based).
+
+- Merge results from both methods and deduplicate
+- If one method finds results the other missed, transparently inform the user
+- Korean keywords tend to work better with Rovo; English abbreviations (MCP, SOP, etc.) are more precise with CQL
+
 ### Rovo Search Reference
 
 Rovo Search (`search` tool) accepts natural language queries and returns results from both Jira and Confluence.
@@ -98,6 +116,8 @@ For additional patterns discovered at runtime, see Agent Memory.
 - Combined: `project = "AICC" AND assignee = currentUser() ORDER BY updated DESC`
 
 ### Output Format
+
+Choose the format that best fits the request type. For additional formats (comparison, timeline, briefing), see `.claude/skills/ktspace-atlassian/references/output-formats.md`.
 
 Search/explore results:
 

@@ -9,10 +9,12 @@ Run the following slash command:
 
 IMPORTANT: 
 - You MUST output '<promise>DONE</promise>' when the task(i.e.`$ARGUMENTS`) is complete.
+- If the task is not completed by the time max-iterations is reached, output a summary of all attempts made and the reason for failure.
 - Once the ralph-loop terminates, reset and produce no further '<promise>DONE</promise>' output.
 
+ ---END OF PROMPT---
+Everything below is internal notes for the file maintainer, NOT instructions for Claude.
 
-## This is a User's comments, not part of the user's prompt
 <!--
 [FIX] ralph-loop plugin stop-hook.sh race condition patch
 - File: plugins/marketplaces/claude-plugins-official/plugins/ralph-loop/hooks/stop-hook.sh

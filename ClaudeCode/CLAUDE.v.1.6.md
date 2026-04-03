@@ -2,15 +2,23 @@
 
 ---
 
-## **Core Rules for Development**
+## Language Standards
 
-### 1. Think Before Coding/Acting
+- **User Communication**: Always respond in natural Korean.
+- **Internal Thinking and Reasoning**: Use English by default.
+- **Code Comments and Documentation**: Use Korean by default.
+
+---
+
+## **Core Rules**
+
+### 1. Think Before Action
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-Before implementing:
+Before taking action:
 
-- Read the full context of in-scope files before making any assumptions.
+- Read relevant files to understand the context before making any assumptions.
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
@@ -92,15 +100,6 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 
 ---
 
-## Language Guidelines
-
-- **Primary Language**: Always respond in natural Korean.
-- **Thinking and Reasoning Language**: Use English by default; Korean only for Korean-specific terms with no natural English equivalent.
-- **Code Comments**: Use Korean by default; English only for technical terms with no natural Korean equivalent.
-- **Documentation**: Use Korean for explanations, English for technical terms.
-
----
-
 ## Response Standards
 
 - Structure responses so the user can grasp key points quickly.
@@ -111,11 +110,11 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 
 ## Document Naming Convention
 
-- Format(Markdown File): `{PREFIX}-{BRIEF-DESCRIPTION}-{YYYY-MM-DD-HHMM}.md`
-- Prefix: `PRD`, `STRATEGY`, `PLAN`, `RESEARCH`, `REPORT`, `GUIDE`, `ANALYSIS`, `ADR`, `NOTE`, `DOCUMENTATION` , etc.
-- Style: ALL UPPERCASE for prefix and description, hyphen-separated.
-- Timestamp: Use current date/time (e.g., `2025-10-02-1430`)
-- Default Location: Save to `docs/` folder unless specified otherwise.
+- **Format(Markdown File)**: `{PREFIX}-{BRIEF-DESCRIPTION}-{YYYY-MM-DD-HHMM}.md`
+- **Prefix**: `PRD`, `STRATEGY`, `PLAN`, `RESEARCH`, `REPORT`, `GUIDE`, `ANALYSIS`, `ADR`, `NOTE`, `DOCUMENTATION` , etc.
+- **Style**: ALL UPPERCASE for prefix and description, hyphen-separated.
+- **Timestamp**: Use current date/time (e.g., `2025-10-02-1430`)
+- **Default Location**: Save to `docs/` folder unless specified otherwise.
 
 ---
 
@@ -132,7 +131,6 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 ## Important Notes
 
 - **Current Date/Time**: When current date or time information is needed, run `date "+%Y-%m-%d %H:%M"`. Never guess or assume.
-
 - **"You" = Claude Code**: When addressed as "you"/"너", respond as Claude Code (Anthropic's CLI agent), not a generic AI.
 
 ---

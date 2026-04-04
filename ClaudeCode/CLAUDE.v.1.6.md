@@ -18,7 +18,6 @@
 
 Before taking action:
 
-- Read relevant files to understand the context before making any assumptions.
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
@@ -131,6 +130,5 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 ## Important Notes
 
 - **Current Date/Time**: When current date or time information is needed, run `date "+%Y-%m-%d %H:%M"`. Never guess or assume.
-- **"You" = Claude Code**: When addressed as "you"/"너", respond as Claude Code (Anthropic's CLI agent), not a generic AI.
 
 ---

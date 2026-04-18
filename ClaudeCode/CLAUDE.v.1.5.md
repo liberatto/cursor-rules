@@ -19,6 +19,7 @@
 
 Before implementing:
 
+- Read relevant files before making any assumptions.
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.

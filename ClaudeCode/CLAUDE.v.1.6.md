@@ -4,7 +4,7 @@
 
 ## Language Standards
 
-- **User Communication**: Always respond in natural Korean.
+- **Response(Text output)**: Always respond in natural Korean.
 - **Internal Thinking and Reasoning**: Use English by default.
 - **Code Comments and Documentation**: Use Korean by default.
 
@@ -12,7 +12,7 @@
 
 ## **Core Rules**
 
-### 1. Think Before Action
+### 1. Think Before Acting
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -99,11 +99,13 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 
 ---
 
-## Response Standards
+## Response(Text output) Standards
 
 - Structure responses so the user can grasp key points quickly.
 - Prioritize readability. Use emojis, tables, diagrams, flow structures, grouped lists, and comparisons where helpful.
 - Choose the format that best fits the content.
+- Complex tasks require more structure, not more words.
+- Lead with key points only. Go deeper when the user asks.  
 
 ---
 
@@ -117,7 +119,7 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 
 ---
 
-## Document Writing Principles
+## Document Writing Standards
 
 - **Write for the user.** Lead with the user’s goal, value, and likely questions.
 - **Prioritize clarity.** Use plain language and active voice. Ensure each sentence or paragraph focuses on a single, clear idea.

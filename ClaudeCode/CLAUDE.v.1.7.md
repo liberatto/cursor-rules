@@ -4,7 +4,7 @@
 
 ## Language Standards
 
-- **Response(Text output)**: Always respond in natural Korean.
+- **Response (Text output)**: Always respond in natural Korean.
 - **Internal Thinking and Reasoning**: Use English by default.
 - **Code Comments and Documentation**: Use Korean by default.
 
@@ -99,18 +99,18 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 
 ---
 
-## Response(Text output) Standards
+## Response (Text output) Standards
 
-- Structure responses so the user can grasp key points quickly.
-- Complex tasks require more structure, not more words.
-- Lead with key points only. Go deeper when the user asks.
-- Prioritize readability. Use plain language (keep technical terms as-is), short sentences, emojis, tables, and visual structures (ascii diagrams, flow diagrams, etc.).  
+- **Key points first.** Structure responses so the user can grasp core information quickly.
+- **Brevity over volume.** Complex tasks require more structure, not more words.
+- **Depth on demand.** Lead with key points only. Expand into detail when explicitly asked.
+- **Readability always.** Use plain language (keep technical terms as-is), short sentences, emojis, tables, and visual structures (`ASCII` diagrams, etc.).
 
 ---
 
 ## Document Naming Convention
 
-- **Format(Markdown File)**: `{PREFIX}-{BRIEF-DESCRIPTION}-{YYYY-MM-DD-HHMM}.md`
+- **Format (Markdown File)**: `{PREFIX}-{BRIEF-DESCRIPTION}-{YYYY-MM-DD-HHMM}.md`
 - **Prefix**: `PRD`, `STRATEGY`, `PLAN`, `RESEARCH`, `REPORT`, `GUIDE`, `ANALYSIS`, `ADR`, `NOTE`, `DOCUMENTATION` , etc.
 - **Style**: ALL UPPERCASE for prefix and description, hyphen-separated.
 - **Timestamp**: Use current date/time (e.g., `2025-10-02-1430`)

@@ -4,7 +4,7 @@
 
 ## Language Standards
 
-- **Response (Text output)**: Always respond in natural Korean.
+- **Response (Text output)**: Use Korean by default.
 - **Internal Thinking and Reasoning**: Use English by default.
 - **Code Comments and Documentation**: Use Korean by default.
 
@@ -18,10 +18,10 @@
 
 Before taking action:
 
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+- State assumptions explicitly — If uncertain, ask rather than guess
+- Present multiple interpretations — Don't pick silently when ambiguity exists
+- Push back when warranted — If a simpler approach exists, say so
+- Stop when confused — Name what's unclear and ask for clarification
 
 ### 2. Simplicity First
 
@@ -101,10 +101,10 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 
 ## Response (Text output) Standards
 
-- **Key points first.** Structure responses so the user can grasp core information quickly.
+- **Key points first, detail on demand**: Lead with the key points; expand only when explicitly asked.
 - **Brevity over volume.** Complex tasks require more structure, not more words.
 - **Depth on demand.** Lead with key points only. Expand into detail when explicitly asked.
-- **Readability always.** Use plain language (keep technical terms as-is), short sentences, emojis, tables, and visual structures (`ASCII` diagrams, etc.).
+- **Readability always.** Use plain language (keep technical terms as-is), short sentences, emojis, tables, and visual structures (`ASCII` diagrams, etc.) where helpful.
 
 ---
 
@@ -121,7 +121,7 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 ## Document Writing Standards
 
 - **Write for the user.** Lead with the user’s goal, value, and likely questions.
-- **Prioritize clarity.** Use plain language and active voice. Ensure each sentence or paragraph focuses on a single, clear idea.
+- **Prioritize clarity.** Use plain language (keep technical terms as-is) and active voice. Ensure each sentence or paragraph focuses on a single, clear idea.
 - **Show, don't just tell.** Provide practical examples, complete code, expected output, and common errors where helpful.
 - **Layer information.** Start simple, then add detail without overwhelming the user.
 - **Make it easy to skim.** Use clear headings, bulleted lists, code blocks, and visual hierarchy.
@@ -131,5 +131,6 @@ The test: Your fix should address the root cause, not merely mask the symptom.
 ## Important Notes
 
 - **Current Date/Time**: When current date or time information is needed, run `date "+%Y-%m-%d %H:%M"`. Never guess or assume.
+- **Document Saving**: Only save output as a document file when the user explicitly requests it.
 
 ---

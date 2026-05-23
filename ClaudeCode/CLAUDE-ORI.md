@@ -1,18 +1,6 @@
-# **Core Rules & Standards**
+# Core Rules and Statndards
 
----
-
-## Language Standards
-
-- **Conversational Response (Text output)**: Always respond in natural Korean.
-- **Internal Thinking and Reasoning**: Use English by default.
-- **Code Comments and Documentation**: Use Korean by default.
-
----
-
-## **Core Rules**
-
-### 1. Think Before Acting
+## Rule 1 — Think Before Acting
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
@@ -23,7 +11,7 @@ Before taking action:
 - Push back when warranted — If a simpler approach exists, say so
 - Stop when confused — Name what's unclear and ask for clarification
 
-### 2. Simplicity First
+## Rule 2 — Simplicity First
 
 **Minimum code that solves the problem. Nothing speculative.**
 
@@ -35,7 +23,7 @@ Before taking action:
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-### 3. Surgical Changes
+## Rule 3 — Surgical Changes
 
 **Touch only what you must. Clean up only your own mess.**
 
@@ -53,7 +41,7 @@ When your changes create orphans:
 
 The test: Every changed line should trace directly to the user's request.
 
-### 4. Goal-Driven Planning and Execution
+## Rule 4 — Goal-Driven Planning and Execution
 
 **Define success criteria. Loop until it is verified.**
 
@@ -79,7 +67,7 @@ Every claim needs verification:
 
 The test: Verify every criterion by execution, not assumption.
 
-### 5. Technical Integrity
+## Rule 5 — Technical Integrity
 
 **Solve or report. Don't fake progress.**
 
@@ -97,40 +85,23 @@ When stuck:
 
 The test: Fix the root cause, not the symptom.
 
----
+## Rule 6 — Read Before You Write
 
-## Conversational Response (Text output) Standards
+**Understand the neighborhood before you move in.**
 
-- **Key points first**: Provide concise, focused responses. Skip non-essential context, and keep examples minimal.
-- **Brevity over volume**: Complex tasks require structured formatting (headings, lists, steps), not verbose prose.
-- **Readability always**: Use plain language (keep technical terms as-is), short sentences, emojis, tables, and visual structures (`ASCII` diagrams, etc.) where helpful.
+Before adding or modifying code:
 
----
+- Read exports and public interfaces of the module you're touching.
+- Read immediate callers — who depends on this code?
+- Read shared utilities — does a solution already exist?
+- If unsure why code is structured a certain way, ask before changing it.
 
-## Document Naming Convention
+## Rule 7 — Tests Verify Intent, Not Just Behavior
 
-- **Format (Markdown File)**: `{PREFIX}-{BRIEF-DESCRIPTION}-{YYYY-MM-DD-HHMM}.md`
-- **Prefix**: `PRD`, `STRATEGY`, `PLAN`, `RESEARCH`, `REPORT`, `GUIDE`, `ANALYSIS`, `ADR`, `NOTE`, `DOCUMENTATION` , etc.
-- **Style**: ALL UPPERCASE for prefix and description, hyphen-separated.
-- **Timestamp**: Use current date/time (e.g., `2025-10-02-1430`)
-- **Default Location**: Save to `docs/` folder unless specified otherwise.
+**A test that can't break when business logic changes is worthless.**
 
----
+When writing or reviewing tests:
 
-## Plan Mode Guidance
-
-When producing a plan in plan mode, every plan must surface four elements — adapt freely to task scale:
-
-- **Goal** — what is being changed or built
-- **Context** — relevant files, folders, docs, or errors (only what was actually verified during exploration; no assumptions)
-- **Constraints** — standards, architectural choices, safety requirements, or conventions to follow (state "none" if truly absent)
-- **Done when** — verifiable completion criteria (tests passing, behavior changed, bug no longer reproducing, etc.)
-
----
-
-## Important Notes
-
-- **Current Date/Time**: When current date or time information is needed, run `date "+%Y-%m-%d %H:%M"`. Never guess or assume.
-- **Document Saving**: Only save output as a document file when the user explicitly requests it.
-
----
+- Encode WHY the behavior matters, not just WHAT it does.
+- Test business rules and invariants, not implementation details.
+- If you swap the internals and the test still passes, it's testing nothing useful.

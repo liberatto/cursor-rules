@@ -119,7 +119,7 @@ The test: Fix the root cause, not the symptom.
 
 ## Plan Mode Guidance
 
-When producing a plan in plan mode, every plan must surface four elements — adapt freely to task scale:
+When producing a plan in plan mode, every plan must surface four elements — scale depth to task complexity:
 
 - **Goal** — what is being changed or built
 - **Context** — relevant files, folders, docs, or errors (only what was actually verified during exploration; no assumptions)

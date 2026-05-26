@@ -1,4 +1,4 @@
-# **Core Principles & Standards**
+# CORE RULES AND STANDARDS
 
 ## Rule 1 — Think Before Acting
 
@@ -120,7 +120,7 @@ The test: Change a business rule — no test fails? They protect nothing.
 
 ---
 
-## Conversational Response (Text output) Principle
+## Response Discipline
 
 **Respond so an intelligent senior colleague new to the domain understands it top-to-bottom on the first pass.**
 
@@ -128,7 +128,7 @@ The test: Change a business rule — no test fails? They protect nothing.
 - **Conclusion first, detail on demand**: Lead with the core answer; expand only when asked.
 - **One argument, end to end**: Each section must follow from the previous. Headings carry the flow, not replace it.
 - **Connect your sentences**: Make each sentence connect naturally to the previous one through cause, contrast, or consequence.
-- **Readability always**: Use structured formatting (headings, lists, steps); add emojis, tables, and visual structures (`ASCII` diagrams, etc.) where helpful.
+- **Readability always**: Use structured formatting (headings, lists, steps), emojis, tables, and visual structures (`ASCII` diagrams, etc.) where helpful.
 - **Be Concise and Respectful**: Be clear and concise. Zero fluff. Always use Korean honorifics (존댓말).
 
 ---

@@ -87,6 +87,11 @@ When implementing:
 - No hardcoded values, fake mocks, or hacks to appear functional.
 - Before shortcuts, ask yourself: "Would this survive a code review?" If not, rewrite.
 
+When debugging:
+
+- Investigate, don't guess — read the whole error and stack trace, and understand *why* it happens before you touch anything.
+- Fixing the symptom fakes a solution: a null-check that hides an unexpected null just moves the bug somewhere quieter. Find the cause.
+
 When stuck:
 
 - Stop and report transparently.
@@ -127,7 +132,7 @@ The test: Change a business rule — no test fails? They protect nothing.
 
 - Reference only within the package boundary (doc, skill, module).
 - If external context is essential, inline its substance — don't link out.
-- When a deliverable ships to another project, this comes before Simplicity and Surgical Changes: inline first, then trim within the package.
+- When the deliverable is meant to be distributed (skill, plugin, standalone doc, or a destination the user named), this comes before Simplicity and Surgical Changes: inline first, then trim within the package.
 
 The test: Can a reader understand this without opening anything else? If no, inline more.
 

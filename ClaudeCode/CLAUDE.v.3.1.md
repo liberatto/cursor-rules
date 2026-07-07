@@ -75,7 +75,7 @@ Every claim needs verification — by actual execution, not assumption:
 - "Bug is fixed" → write the failing test first, watch it fail, then fix it.
 - "Done" → every success criterion is verified, not just asserted.
 - If tests can't cover it (UI, infra), state what you verified and what you couldn't.
-- If a claim can't be executed (API behavior, version facts, numbers, design rationale) → re-derive it from source: read the actual code or doc, recompute the number. Sounding right is not evidence.
+- If a claim can't be executed (API behavior, version facts, numbers, design rationale) → re-derive from source: read the code, recompute. Sounding right is not evidence.
 
 The test: Never declare completion without execution evidence.
 

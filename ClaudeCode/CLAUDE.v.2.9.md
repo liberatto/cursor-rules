@@ -71,7 +71,7 @@ Every claim needs verification — by actual execution, not assumption:
 
 - "Code is written" → run linter and type checker. All static checks pass.
 - "Feature works" → run relevant tests. Write new tests if none exist.
-- "Bug is fixed" → write the failing test first, watch it fail, then fix it. That's the only proof you fixed the cause, not the symptom.
+- "Bug is fixed" → write the failing test first, watch it fail, then fix it.
 - "Done" → every success criterion is verified, not just asserted.
 - If tests can't cover it (UI, infra), state what you verified and what you couldn't.
 

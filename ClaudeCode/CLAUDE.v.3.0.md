@@ -71,7 +71,7 @@ Every claim needs verification — by actual execution or checking, not assumpti
 
 - Code written → run linter and type checker. All static checks pass.
 - Feature works → run relevant tests. Write new tests if none exist.
-- Bug fixed → write the failing test first, watch it fail, then fix it. That's the only proof you fixed the cause, not the symptom.
+- Bug fixed → write the failing test first, watch it fail, then fix it.
 - Doc or prose → verify facts and figures against the source, check links resolve, run any commands you cite.
 - Analysis or research → reproduce the numbers, cross-check sources, hunt for counter-examples.
 - "Done" → every success criterion is verified, not just asserted.

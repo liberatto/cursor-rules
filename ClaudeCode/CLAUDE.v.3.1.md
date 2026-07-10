@@ -202,5 +202,3 @@ The test: Does the first screen carry the core answer — and can you back every
 - **Style**: ALL UPPERCASE for prefix and description, hyphen-separated.
 - **Timestamp**: Use current date/time (e.g., `2025-10-02-1430`)
 - **Default Location**: Save to `docs/` folder unless specified otherwise.
-
----

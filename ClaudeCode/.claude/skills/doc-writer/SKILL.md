@@ -2,7 +2,7 @@
 name: doc-writer
 description: |
   프로젝트 문서를 타입별로 생성·정리하는 스킬. PRD·PLAN·RESEARCH·ANALYSIS·ADR(사용자↔Claude 협업 문서), REPORT·DOCUMENTATION·GUIDE(외부 독자 문서), NOTE(개인 메모)를 네이밍 규칙·프론트매터·Persona 관점으로 고정 템플릿 없이 작성한다. 저장되는 문서·파일 산출물을 만들거나 갱신하려는 의도가 분명할 때에만 사용한다 — 즉 (a) 문서·자료·가이드·보고서·리포트·기획서·계획서·결정 기록·메모 같은 산출물 명사, 또는 (b) "파일로/문서로/md로/docs에 남겨·정리·저장" 같은 표현이 있고 대체로 작성·만들어·생성 동사가 붙는 경우. 반대로 "분석해줘"·"조사해봐"·"검토해줘"·"계획 짜줘"·"요약해줘"처럼 작업 수행만 요청하면(결과를 대화로 답하면 되는 경우) 문서를 만들지 않는다. 기존 문서 요약·조회, 코드 docstring·커밋 메시지, 데이터 분석·시각화, 순수 문체 교정(→ report-style)에도 쓰지 않는다.
-  트리거: "PRD 작성", "PLAN(계획) 문서 만들어줘", "RESEARCH(조사) 문서로 정리", "REPORT(진행 보고서) 작성", "GUIDE(How-to 가이드) 작성", "ANALYSIS(분석) 문서 만들어줘", "ADR(결정 기록) 남겨줘", "NOTE(메모) 작성", "이 내용 문서로 정리해줘", "파일로 남겨줘", "docs에 정리해 저장", "create a document", "write a PRD", "write a guide"
+  트리거: "PRD 작성", "PLAN(계획) 문서 만들어줘", "RESEARCH(조사) 문서로 정리", "REPORT(진행 보고서) 작성", "GUIDE(How-to 가이드) 작성", "ANALYSIS(분석) 문서 만들어줘", "ADR(결정 기록) 남겨줘", "NOTE(메모) 작성", "이 내용 문서로 정리해줘", "파일로 남겨줘", "docs에 정리해 저장", "이 문서 아카이브 처리해줘", "create a document", "write a PRD", "write a guide", "archive this doc"
 ---
 
 # Doc Writer
@@ -41,6 +41,8 @@ description: |
 - **협업** (PRD·PLAN·RESEARCH·ANALYSIS·ADR): 독자 = 사용자·Claude. 세션 간 공유 컨텍스트. §1–6 + §7 한국어 문장 스타일.
 - **외부 독자** (REPORT·DOCUMENTATION·GUIDE): 독자 = 팀 외부 사람(비전문 독자 포함 가능). 독자 중심, §7 미적용(읽기 쉬운 완결 문장).
 - **메모** (NOTE): 개인 임시 기록. 자유 형식, 정해진 가이드 없음.
+
+> **아카이브는 타입이 아니라 상태다.** 수명이 끝난 문서는 새 타입으로 다시 쓰지 않는다 — 원래 타입(`PRD`·`REPORT` 등)과 파일명을 **그대로 둔 채** 프론트매터 `status` 만 `archived` 로 바꾸고 아카이브 폴더로 옮긴다. 아래 §8 참조.
 
 ### 2. 타임스탬프 확인
 
@@ -106,7 +108,7 @@ description: "먼저 결론 한 문장(무엇을 결정·판정했는가). 그�
 
 | 필드 | 필수 | 설명 |
 |------|------|------|
-| `type` | 필수 | 문서 타입(소문자): `adr`, `prd`, `plan`, `research`, `report`, `guide`, `analysis`, `note`, `documentation` |
+| `type` | 필수 | 문서 타입(소문자): `adr`, `prd`, `plan`, `research`, `report`, `guide`, `analysis`, `note`, `documentation`. **아카이브는 타입이 아니다** — `status` 로 표시한다 |
 | `audience` | 필수 | 주 독자층. 협업 문서는 `사용자·Claude`, 외부 독자 문서는 실제 외부 독자층 (메모는 생략 가능) |
 | `related_docs` | 선택 | 관련 문서·코드 경로. 각 항목 뒤 괄호로 관계를 주석. 없으면 필드 생략 |
 | `created` | 필수 | 최초 작성 시각 `YYYY-MM-DD HH:MM`. **`date` 명령으로 확인**(파일명 타임스탬프와 동일) |
@@ -117,6 +119,7 @@ description: "먼저 결론 한 문장(무엇을 결정·판정했는가). 그�
 - `related_docs`는 **포인터**일 뿐이다. 본문이 의존하는 핵심 내용은 여전히 본문에 인라인한다(writing-principles §6 Self-Contained).
 - `description`은 "결론 먼저" 원칙을 따른다 — 독자가 첫 줄에서 문서의 결론을 파악할 수 있어야 한다.
 - **NOTE**(개인 메모)는 프론트매터를 생략할 수 있다 — 필요 시 `type`·`created`만 둔다.
+- **`status` 는 문서의 수명 상태**다: `draft`(작성 중) → `active`(유효) → `superseded`(후속 문서로 대체됨) / `archived`(역할이 끝나 보관됨).
 
 ### 7. 페르소나 기반 작성
 
@@ -130,6 +133,17 @@ description: "먼저 결론 한 문장(무엇을 결정·판정했는가). 그�
 
 상세 Persona 정의 및 타입별 핵심 커버리지: [references/personas.md](references/personas.md)
 공통 작성 및 품질 원칙: [references/writing-principles.md](references/writing-principles.md)
+
+### 8. 아카이브 처리 (수명이 끝난 문서)
+
+역할이 끝난 문서를 지우지 않고 보관하는 절차. **새 문서를 쓰는 일이 아니므로 타입·Persona·네이밍 규칙과 무관하다.**
+
+- **타입과 파일명은 그대로 둔다.** `PRD-...md` 는 아카이브돼도 여전히 `type: prd` 인 `PRD-...md` 다. 아카이브는 **타입이 아니라 상태**이므로 이름을 바꾸지 않는다(바꾸면 기존 `related_docs` 링크가 전부 깨진다).
+- **프론트매터 2개 필드만 손댄다**: `status: archived`(또는 후속 문서가 대체한 경우 `superseded`), `updated: {오늘 — `date` 로 확인}`.
+- **파일을 아카이브 폴더로 옮긴다**: 기본 `docs/_archive/`(프로젝트에 다른 규약이 있으면 그것을 따른다). `git mv` 로 이력을 보존한다.
+- **본문은 건드리지 않는다.** 요약·윤문·수치 갱신 금지 — 당시 값이 지금과 달라도 그대로 둔다. 아카이브의 가치는 **그때 그렇게 적혔다는 사실**이다.
+- **대체 관계가 있으면 밝힌다**: `superseded` 로 내릴 때는 `related_docs` 에 후속 문서를 추가하고 괄호로 `(이 문서를 대체)` 를 붙인다.
+- **문서 인덱스를 갱신한다**: 프로젝트에 문서 인덱스(예: `CLAUDE.md` 문서 표)가 있으면 경로와 상태 표시를 함께 고친다 — 안 고치면 인덱스가 즉시 거짓말이 된다.
 
 ## 규칙
 

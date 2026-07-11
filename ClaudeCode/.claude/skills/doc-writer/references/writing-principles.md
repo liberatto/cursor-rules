@@ -8,6 +8,8 @@ Quality principles applied to all documents, regardless of type or Persona.
 - **외부 독자 문서** — `REPORT` · `DOCUMENTATION` · `GUIDE`. 주 독자는 **팀 외부의 사람**(비전문 독자 포함 가능). 처음 읽는 사람이 이해하고 활용하도록 **독자 중심**으로 쓴다. **§1–6 적용, §7 미적용** — 명사형 대신 읽기 쉬운 완결 문장. 특히 §1 User-Centered를 강하게 따른다.
 - **개인 메모** — `NOTE`. 사용자가 임시로 기억·기록하는 용도. 정해진 가이드 없음 — 목적에 맞게 자유 작성(프론트매터도 생략 가능).
 
+> 문서군은 **작성 시점의 목적**으로 나뉜다. 수명이 끝나 아카이브된 문서(`status: archived`)는 별도 문서군이 아니라 **원래 문서군에 그대로 속한다** — 아래 원칙은 아카이브 시점에 소급 적용되지 않으며, 본문은 당시 그대로 보존한다(SKILL.md §8).
+
 ---
 
 ## 1. User-Centered

@@ -55,3 +55,13 @@ Quality principles applied to all documents, regardless of type or Persona.
 - Bulleted lists for 3+ items.
 - Tables for comparisons.
 - Visual hierarchy: headings > bold > body text.
+
+---
+
+## 6. Self-Contained
+
+- Reference only within the document — don't send the reader to another file for context the document needs.
+- If external context is essential, inline its substance, not a link.
+- A reader should understand the document without opening anything else.
+- **Anti-pattern — Leaky Package**: linking out to context the document depends on; reads fine here, breaks when the file is shared or moved.
+- The test: Can a reader understand this without opening anything else? If no, inline more.

@@ -76,7 +76,7 @@ CLAUDE.md 가 "지금 어떤 상태인가"(불변·현재)라면, 이 파일은 
 
 <!--
 회차가 5~6개 넘게 쌓여 파일이 20KB 를 넘으면, 오래된 것부터 이 아래로 접어두거나
-`docs/_archive/NOTE-작업이력-{날짜}.md` 로 분리한다(타입은 `note`, frontmatter `status: archived`).
+`docs/_archive/NOTE-작업이력-{YYYY-MM-DD-HHMM}.md` 로 분리한다(타입은 `note`, frontmatter `status: archived` — `doc-writer` 네이밍 규격 그대로).
 원문을 **그대로** 옮긴다 — 요약·윤문 금지, 옛 수치도 당시 값 그대로 둔다(그때 그렇게 적혔다는 사실이 기록의 가치다).
 
 ⚠️ **분리 시점이 유일한 위험 구간**이다 — 이 파일은 gitignore 라서 실수로 지우면 복구가 없다.

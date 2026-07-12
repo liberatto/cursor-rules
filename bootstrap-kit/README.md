@@ -2,14 +2,12 @@
 type: guide
 audience: 새 프로젝트를 Claude Code 와 함께 시작하는 개발자(본인 및 동료)
 related_docs:
-  - docs/bootstrap-kit/CLAUDE.template.md (복사 대상 ① — 프로젝트 정본 템플릿)
+  - docs/bootstrap-kit/CLAUDE.template.md (복사 대상 ① — 프로젝트 정본 템플릿. 경로는 배포 위치 기준 — 키트는 폴더째 docs/bootstrap-kit/ 로 복사된다)
   - docs/bootstrap-kit/CLAUDE.local.template.md (복사 대상 ② — 세션 간 운영 메모 템플릿)
-  - agent_studio/ARCHIVE-루트-CLAUDE-MD-agent_studio-2026-07-12-0750.md (이 패턴의 원본 — 실제로 6주간 굴러간 사례)
-  - agent_studio/ARCHIVE-루트-CLAUDE-LOCAL-MD-agent_studio-2026-07-12-0753.md (회차 기록 20차분 실물)
 created: 2026-07-12 09:10
-updated: 2026-07-12 09:10
+updated: 2026-07-12 11:58
 status: active
-description: "새 프로젝트에서 Claude Code 와 동일한 작업 패턴을 즉시 재현하는 부트스트랩 키트 — 이 폴더의 3파일을 복사하면 셋업이 끝난다. 기억을 4층(CLAUDE.md 정본 / CLAUDE.local.md 시간축 / auto memory 사람 / remember 플러그인 자동 서사)으로 분리하고, 각 층에 무엇을 쓰고 무엇을 쓰지 않을지의 라우팅 규칙과 세션 마감 루프를 정의한다. agent_studio 개발 6주에서 실제로 검증된 패턴의 일반화."
+description: "새 프로젝트에서 Claude Code 와 동일한 작업 패턴을 즉시 재현하는 부트스트랩 키트 — 이 폴더의 3파일을 복사하면 셋업이 끝난다. 기억을 4층(CLAUDE.md 정본 / CLAUDE.local.md 시간축 / auto memory 사람 / remember 플러그인 자동 서사)으로 분리하고, 각 층에 무엇을 쓰고 무엇을 쓰지 않을지의 라우팅 규칙과 세션 마감 루프를 정의한다. 실제 프로젝트 6주(20회차) 개발에서 검증된 패턴의 일반화."
 ---
 
 # 프로젝트 부트스트랩 키트 — Claude Code 작업 패턴 이식용
@@ -24,7 +22,7 @@ description: "새 프로젝트에서 Claude Code 와 동일한 작업 패턴을 
 
 > **폴더째 복사를 권장한다.** 이 README 는 셋업 1회용이 아니라, **몇 달 뒤 "이 파일들이 왜 이 모양이더라?" 를 상기시키는 근거 문서**다. 신규 프로젝트의 `CLAUDE.md` §8 에서 이 경로를 가리키게 해두면(템플릿에 이미 들어있다) Claude 도 사람도 규칙의 출처를 되짚을 수 있다.
 
-> **출처**: 이 패턴은 발명이 아니라 **추출**이다. `agent_studio` 를 6주(20회차) 개발하며 굴러간 실물 — 원본은 위 frontmatter 의 `ARCHIVE-*` 2건. 특히 §4 의 세션 마감 루프는 **실제로 20차 기록이 통째로 누락되는 사고를 겪고 나서** 생긴 방어 장치다.
+> **출처**: 이 패턴은 발명이 아니라 **추출**이다 — 실제 프로젝트를 6주(20회차) 개발하며 굴러간 실물을 일반화했다. 특히 §4 의 세션 마감 루프는 **실제로 20차 기록이 통째로 누락되는 사고를 겪고 나서** 생긴 방어 장치다.
 
 ---
 
@@ -42,9 +40,11 @@ find . -name 'CLAUDE.template.md' -not -path '*/node_modules/*' | head -1
 **Step 2 — 템플릿 2개를 저장소 루트로 복사(이름 변경)하고, gitignore 를 건다.**
 
 ```bash
-cp "<KIT>/CLAUDE.template.md"       ./CLAUDE.md          # 이미 있으면 덮어쓰지 말고 사용자에게 물어라
-cp "<KIT>/CLAUDE.local.template.md" ./CLAUDE.local.md
-printf 'CLAUDE.local.md\n.remember/\n' >> .gitignore     # ② 시간축은 로컬 전용 (§4)
+cp -n "<KIT>/CLAUDE.template.md"       ./CLAUDE.md        # -n: 기존 파일 덮어쓰기 방지 — 이미 있어서 복사가 안 됐으면 사용자에게 물어라
+cp -n "<KIT>/CLAUDE.local.template.md" ./CLAUDE.local.md
+for p in 'CLAUDE.local.md' '.remember/'; do               # ② 시간축은 로컬 전용 (§4) — 중복 등록 방지
+  grep -qxF "$p" .gitignore 2>/dev/null || printf '%s\n' "$p" >> .gitignore
+done
 ```
 
 **Step 3 — 저장소를 실제로 탐색한다.** 추측으로 템플릿을 채우지 마라. 최소한 이것들을 **읽고** 사실을 확보한다:
@@ -107,7 +107,7 @@ Claude Code 는 **매 세션 백지에서 시작한다.** 그래서 "무엇을 �
 
 ```bash
 NEW=/path/to/새프로젝트
-KIT=/Users/sspark/Work/dev2/Langgraph-Agent/docs/bootstrap-kit   # ← 이 키트의 원본 위치
+KIT=/Users/sspark/Work/rules/bootstrap-kit                       # ← 이 키트의 원본 위치 (rules 저장소가 마스터)
 
 mkdir -p "$NEW/docs"
 cp -R "$KIT" "$NEW/docs/bootstrap-kit"
@@ -172,7 +172,7 @@ docs/bootstrap-kit/README.md 를 읽고 §0 대로 이 저장소를 셋업해줘
 2. **수치 정본은 루트 `CLAUDE.md` 1곳** — 테스트 수 같은 변하는 수치는 루트를 갱신하는 게 본체. 여기엔 회차 스냅샷(델타)만. 옛 회차의 수치는 **손대지 않는다**(사료).
 3. **루트 `CLAUDE.md` 동기화** — §1 상태줄·§3·§6·§7 에 이번 작업이 반영됐는지 확인. **같은 사실이 두 값이면 그 자리에서 정정.**
 
-> **이 체크리스트는 사고 후에 생겼다.** agent_studio 20차 세션이 22커밋을 하고도 `CLAUDE.local.md` 를 안 건드린 채 닫혔다. 다음 세션은 19차의 "미커밋" 표기를 믿고 **이미 끝난 작업을 다시 집을 뻔했다.** 회차 기록은 git log 로부터 소급 재구성해야 했다.
+> **이 체크리스트는 사고 후에 생겼다.** 원본 프로젝트의 20차 세션이 22커밋을 하고도 `CLAUDE.local.md` 를 안 건드린 채 닫혔다. 다음 세션은 19차의 "미커밋" 표기를 믿고 **이미 끝난 작업을 다시 집을 뻔했다.** 회차 기록은 git log 로부터 소급 재구성해야 했다.
 >
 > 교훈: **커밋만 하고 문서를 안 건드린 채 세션을 닫는 것이 금지 패턴이다.**
 
@@ -202,7 +202,7 @@ Claude 가 대화 중 **자동으로** `~/.claude/projects/<프로젝트-slug>/m
 |---|---|---|
 | `user` | 사용자가 누구인가(역할·전문성·선호) | "한국어 존댓말 선호, 기술용어는 원형 유지" |
 | `feedback` | **작업 방식에 대한 지시**(교정·확인된 접근) — **왜**를 반드시 포함 | "'프로세스 실행' = API 서버 memory 모드로 기동까지" |
-| `project` | 코드·git 이력에서 유추 불가능한 목표·제약 | "당분간 agent_studio 폴더만 커밋" |
+| `project` | 코드·git 이력에서 유추 불가능한 목표·제약 | "당분간 `src/` 폴더만 커밋" |
 | `reference` | 외부 리소스 포인터(URL·티켓·대시보드) | |
 
 **활용 지침 — `CLAUDE.md` 와 역할이 겹치지 않게 라우팅한다**:
@@ -220,7 +220,7 @@ Claude 가 대화 중 **자동으로** `~/.claude/projects/<프로젝트-slug>/m
 
 ### ④ `remember` 플러그인 (설치형 — 자동 서사)
 
-*(이 머신에서 실측: `~/.claude/plugins/cache/claude-plugins-official/remember/0.8.3` — v0.8.3 이 이미 캐시돼 있고, **이관처 `Work/dev2/agent-studio` 에는 설치돼 있으나 이 저장소엔 없다.**)*
+*(이 머신에서 실측: `~/.claude/plugins/cache/claude-plugins-official/remember/0.8.3` — v0.8.3 이 이미 캐시돼 있다. 단, 설치는 프로젝트별이므로 새 프로젝트에서는 아래 설치 절차가 필요할 수 있다.)*
 
 **무엇을 하나**: Claude Code 라이프사이클에 훅으로 붙어, **개입 없이** 세션을 저장하고 Haiku 로 압축해 다음 세션 시작 시 컨텍스트에 되돌려 놓는다.
 
@@ -277,7 +277,7 @@ tool use → save-session.sh → extract(Python) → summarize(Haiku)
 
 ## 7. 셋업 검증 (이게 되면 성공)
 
-새 프로젝트에서 아래 4개가 사실이면 패턴이 이식된 것이다.
+새 프로젝트에서 아래 5개가 사실이면 패턴이 이식된 것이다.
 
 - [ ] **노스 스타 테스트** — Claude 에게 "지금 X 기능을 추가하려는데 어때?" 라고 물었을 때, **노스 스타를 근거로 찬반을 말하는가?** (그냥 만들기 시작하면 §1 이 부실한 것)
 - [ ] **gotcha 테스트** — 이미 등재된 함정을 유발하는 명령을 시켰을 때, **Claude 가 먼저 경고하는가?**
@@ -319,9 +319,10 @@ tool use → save-session.sh → extract(Python) → summarize(Haiku)
 
 ```bash
 # 원본: rules 저장소 (마스터 템플릿)
-cp -r <rules>/ClaudeCode/.claude/skills/doc-writer  ./.claude/skills/   # 프로젝트 전용
+cp -r /Users/sspark/Work/rules/ClaudeCode/.claude/skills/doc-writer  ./.claude/skills/   # 프로젝트 전용
 # 또는 모든 프로젝트에서 쓰려면
-cp -r <rules>/ClaudeCode/.claude/skills/doc-writer  ~/.claude/skills/   # 사용자 전역
+cp -r /Users/sspark/Work/rules/ClaudeCode/.claude/skills/doc-writer  ~/.claude/skills/   # 사용자 전역
+# (원본 경로가 이 머신에 없으면 추측해서 만들지 말고 사용자에게 경로를 물어라 — §0 Step 6)
 ```
 
 - 구성 파일 3개: `SKILL.md` · `references/writing-principles.md` · `references/personas.md` — **폴더째** 복사한다(references 를 빠뜨리면 문체·관점 규칙이 통째로 사라진다).

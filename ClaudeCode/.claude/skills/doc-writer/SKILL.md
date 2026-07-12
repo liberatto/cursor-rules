@@ -1,8 +1,8 @@
 ---
 name: doc-writer
 description: |
-  프로젝트 문서를 타입별로 생성·정리하는 스킬. PRD·PLAN·RESEARCH·ANALYSIS·ADR(사용자↔Claude 협업 문서), REPORT·DOCUMENTATION·GUIDE(외부 독자 문서), NOTE(개인 메모)를 네이밍 규칙·프론트매터·Persona 관점으로 고정 템플릿 없이 작성한다. 저장되는 문서·파일 산출물을 만들거나 갱신하려는 의도가 분명할 때에만 사용한다 — 즉 (a) 문서·자료·가이드·보고서·리포트·기획서·계획서·결정 기록·메모 같은 산출물 명사, 또는 (b) "파일로/문서로/md로/docs에 남겨·정리·저장" 같은 표현이 있고 대체로 작성·만들어·생성 동사가 붙는 경우. 반대로 "분석해줘"·"조사해봐"·"검토해줘"·"계획 짜줘"·"요약해줘"처럼 작업 수행만 요청하면(결과를 대화로 답하면 되는 경우) 문서를 만들지 않는다. 기존 문서 요약·조회, 코드 docstring·커밋 메시지, 데이터 분석·시각화, 순수 문체 교정(→ report-style)에도 쓰지 않는다.
-  트리거: "PRD 작성", "PLAN(계획) 문서 만들어줘", "RESEARCH(조사) 문서로 정리", "REPORT(진행 보고서) 작성", "GUIDE(How-to 가이드) 작성", "ANALYSIS(분석) 문서 만들어줘", "ADR(결정 기록) 남겨줘", "NOTE(메모) 작성", "이 내용 문서로 정리해줘", "파일로 남겨줘", "docs에 정리해 저장", "이 문서 아카이브 처리해줘", "create a document", "write a PRD", "write a guide", "archive this doc"
+  프로젝트 문서를 타입별로 생성·정리하는 스킬. PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·ADR(사용자↔Claude 협업 문서), REPORT·DOCUMENTATION·GUIDE(전달 문서 — 외부 전달 가능 수준으로 작성), NOTE(개인 메모)를 네이밍 규칙·프론트매터·Persona 관점으로 고정 템플릿 없이 작성한다. 저장되는 문서·파일 산출물을 만들거나 갱신하려는 의도가 분명할 때에만 사용한다 — 즉 (a) 문서·자료·가이드·보고서·리포트·기획서·계획서·결정 기록·메모 같은 산출물 명사, 또는 (b) "파일로/문서로/md로/docs에 남겨·정리·저장" 같은 표현이 있고 대체로 작성·만들어·생성 동사가 붙는 경우. 반대로 "분석해줘"·"조사해봐"·"검토해줘"·"계획 짜줘"·"요약해줘"처럼 작업 수행만 요청하면(결과를 대화로 답하면 되는 경우) 문서를 만들지 않는다. 기존 문서 요약·조회, 코드 docstring·커밋 메시지, 데이터 분석·시각화, 순수 문체 교정(→ report-style)에도 쓰지 않는다.
+  트리거: "PRD 작성", "PLAN(계획) 문서 만들어줘", "RESEARCH(조사) 문서로 정리", "STRATEGY(방향성) 문서 만들어줘", "REPORT(진행 보고서) 작성", "GUIDE(How-to 가이드) 작성", "ANALYSIS(분석) 문서 만들어줘", "ADR(결정 기록) 남겨줘", "NOTE(메모) 작성", "이 내용 문서로 정리해줘", "파일로 남겨줘", "docs에 정리해 저장", "이 문서 아카이브 처리해줘", "create a document", "write a PRD", "write a guide", "archive this doc"
 ---
 
 # Doc Writer
@@ -30,19 +30,20 @@ description: |
 | `PRD` | 제품 요구사항 | 협업 | PM |
 | `PLAN` | 구현·실행 계획 | 협업 | Analyst |
 | `RESEARCH` | 리서치 결과 | 협업 | Researcher |
+| `STRATEGY` | 방향성 정의 (RESEARCH 이후 · PLAN 이전) | 협업 | Architect |
 | `ANALYSIS` | 기술·비교·대안 분석 | 협업 | Analyst |
 | `ADR` | 아키텍처 결정 기록 | 협업 | Architect |
-| `REPORT` | 상태·진행·완료 보고 | 외부 독자 | PM |
-| `GUIDE` | How-to 가이드 | 외부 독자 | Engineer |
-| `DOCUMENTATION` | 일반 문서 | 외부 독자 | Engineer |
+| `REPORT` | 상태·진행·완료 보고 | 전달 | PM |
+| `GUIDE` | How-to 가이드 | 전달 | Engineer |
+| `DOCUMENTATION` | 일반 문서 | 전달 | Engineer |
 | `NOTE` | 간단 메모 | 메모 | — (자유형) |
 
 **문서군**에 따라 독자와 적용 원칙이 다르다 (writing-principles 최상단 참조):
-- **협업** (PRD·PLAN·RESEARCH·ANALYSIS·ADR): 독자 = 사용자·Claude. 세션 간 공유 컨텍스트. §1–6 + §7 한국어 문장 스타일.
-- **외부 독자** (REPORT·DOCUMENTATION·GUIDE): 독자 = 팀 외부 사람(비전문 독자 포함 가능). 독자 중심, §7 미적용(읽기 쉬운 완결 문장).
+- **협업** (PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·ADR): 독자 = 사용자·Claude. 세션 간 공유 컨텍스트. §1–6 + §7 한국어 문장 스타일.
+- **전달** (REPORT·DOCUMENTATION·GUIDE): 최종 독자 = 외부 사람(다른 개발자·조직, 비전문 독자 포함 가능). 현재는 주로 사용자 본인이 읽더라도 **처음 보는 외부 독자 기준**으로 써서, 그대로 또는 최소 수정으로 전달 가능한 상태를 유지한다. 독자 중심, §7 미적용(읽기 쉬운 완결 문장), §8 전달 준비 점검 적용.
 - **메모** (NOTE): 개인 임시 기록. 자유 형식, 정해진 가이드 없음.
 
-> **아카이브는 타입이 아니라 상태다.** 수명이 끝난 문서는 새 타입으로 다시 쓰지 않는다 — 원래 타입(`PRD`·`REPORT` 등)과 파일명을 **그대로 둔 채** 프론트매터 `status` 만 `archived` 로 바꾸고 아카이브 폴더로 옮긴다. 아래 §8 참조.
+> **아카이브는 타입이 아니라 상태다.** 수명이 끝난 문서는 새 타입으로 다시 쓰지 않는다 — 원래 타입(`PRD`·`REPORT` 등)과 파일명을 **그대로 둔 채** 프론트매터 `status` 만 `archived` 로 바꾸고 아카이브 폴더로 옮긴다. 아래 §9 참조.
 
 ### 2. 타임스탬프 확인
 
@@ -60,6 +61,7 @@ date "+%Y-%m-%d %H:%M"
 - **대소문자**: PREFIX와 DESCRIPTION은 **ALL UPPERCASE**
 - **구분자**: 하이픈(`-`)으로 단어 구분
 - **DESCRIPTION**: 핵심 내용을 2-4단어로 요약
+- **영문 고정**: 한국어 요청이어도 DESCRIPTION은 핵심 키워드를 영문으로 변환한다 (예: "인증 개선 계획" → `PLAN-AUTH-IMPROVEMENT-...`)
 
 **예시:**
 
@@ -73,7 +75,13 @@ date "+%Y-%m-%d %H:%M"
 
 - **기본 위치**: `docs/` 폴더 (사용자가 다른 경로 지정 시 그대로 사용)
 - `docs/` 디렉토리 존재 여부 확인 → 없으면 생성
-- 동일 PREFIX + 유사 DESCRIPTION 파일 존재 여부 확인 → 중복 시 사용자에게 알림
+- 동일 PREFIX + 유사 DESCRIPTION 파일 존재 여부 확인 → 발견 시 아래 기본 처리를 따르되, 애매하면 사용자에게 확인
+
+**같은 주제의 문서가 이미 있을 때 — 타입별 기본 처리** (사용자 지시가 있으면 그것이 최우선):
+
+- **살아있는 문서** (PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·GUIDE·DOCUMENTATION): 새 파일을 만들지 않고 **기존 문서를 갱신**한다. 문서가 곧 현재 상태다. 특히 RESEARCH·ANALYSIS는 한 번에 끝나지 않는다 — 내용 확장이나 새 관점의 추가는 기존 문서에 섹션을 더하는 방식으로 갱신한다.
+- **시점 스냅샷** (REPORT): 같은 주제라도 **새 파일**을 만든다. 보고는 시점 기록이 가치이므로 갱신으로 덮지 않는다. 이전 보고가 유효성을 잃으면 `status: superseded` 처리(§9).
+- **불변 기록** (ADR): 승인(`active`) 후에는 본문을 수정하지 않는다. 결정이 바뀌면 **새 ADR**을 쓰고 기존 ADR을 `superseded` 처리한다. 제안이 채택되지 않으면 `status: rejected` 처리하고 기각 사유를 본문에 남긴다.
 
 ### 5. Persona 채택
 
@@ -108,18 +116,18 @@ description: "먼저 결론 한 문장(무엇을 결정·판정했는가). 그�
 
 | 필드 | 필수 | 설명 |
 |------|------|------|
-| `type` | 필수 | 문서 타입(소문자): `adr`, `prd`, `plan`, `research`, `report`, `guide`, `analysis`, `note`, `documentation`. **아카이브는 타입이 아니다** — `status` 로 표시한다 |
-| `audience` | 필수 | 주 독자층. 협업 문서는 `사용자·Claude`, 외부 독자 문서는 실제 외부 독자층 (메모는 생략 가능) |
+| `type` | 필수 | 문서 타입(소문자): `adr`, `prd`, `strategy`, `plan`, `research`, `report`, `guide`, `analysis`, `note`, `documentation`. **아카이브는 타입이 아니다** — `status` 로 표시한다 |
+| `audience` | 필수 | 주 독자층. 협업 문서는 `사용자·Claude`, 전달 문서는 **최종 외부 독자층**(전달 대상 — 지금 읽는 사람이 아니라) (메모는 생략 가능) |
 | `related_docs` | 선택 | 관련 문서·코드 경로. 각 항목 뒤 괄호로 관계를 주석. 없으면 필드 생략 |
 | `created` | 필수 | 최초 작성 시각 `YYYY-MM-DD HH:MM`. **`date` 명령으로 확인**(파일명 타임스탬프와 동일) |
 | `updated` | 선택 | 최종 수정일 `YYYY-MM-DD`. 기존 문서 갱신 시에만 추가 |
-| `status` | 필수 | 문서 상태: `draft` / `active` / `superseded` / `archived` |
+| `status` | 필수 | 문서 상태: `draft` / `active` / `superseded` / `rejected` / `archived` |
 | `description` | 필수 | 결론 한 문장을 먼저, 이어서 배경·개요 1~2문장. 따옴표로 감쌈 |
 
 - `related_docs`는 **포인터**일 뿐이다. 본문이 의존하는 핵심 내용은 여전히 본문에 인라인한다(writing-principles §6 Self-Contained).
 - `description`은 "결론 먼저" 원칙을 따른다 — 독자가 첫 줄에서 문서의 결론을 파악할 수 있어야 한다.
 - **NOTE**(개인 메모)는 프론트매터를 생략할 수 있다 — 필요 시 `type`·`created`만 둔다.
-- **`status` 는 문서의 수명 상태**다: `draft`(작성 중) → `active`(유효) → `superseded`(후속 문서로 대체됨) / `archived`(역할이 끝나 보관됨).
+- **`status` 는 문서의 수명 상태**다: `draft`(작성 중) → `active`(유효) → `superseded`(후속 문서로 대체됨) / `archived`(역할이 끝나 보관됨). 제안이 채택되지 않으면 `draft` → `rejected`(기각 — 주로 ADR, 기각 사유는 본문에 기록).
 
 ### 7. 페르소나 기반 작성
 
@@ -129,12 +137,23 @@ description: "먼저 결론 한 문장(무엇을 결정·판정했는가). 그�
 - 불필요한 요소는 생략하고, 상황이 요구하면 목록에 없는 요소를 추가한다.
 - 사용자가 특정 구조를 요청하면 그것을 최우선한다.
 - 작성 시 공통 품질 원칙(독자 중심, 명확성, 근거와 예시, 점진적 구조, 훑어읽기, 자립성)을 적용한다.
-- **협업 문서**(PRD·PLAN·RESEARCH·ANALYSIS·ADR)를 한국어로 쓸 때는 명사형 종결 등 한국어 문장 스타일(writing-principles §7)을 함께 적용한다. **외부 독자 문서**(REPORT·DOCUMENTATION·GUIDE)는 §7 대신 독자 중심 완결 문장으로 쓴다.
+- **협업 문서**(PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·ADR)를 한국어로 쓸 때는 명사형 종결 등 한국어 문장 스타일(writing-principles §7)을 함께 적용한다. **전달 문서**(REPORT·DOCUMENTATION·GUIDE)는 §7 대신 독자 중심 완결 문장으로 쓰고, 작성 시점부터 §8 전달 준비 점검을 준수한다.
 
 상세 Persona 정의 및 타입별 핵심 커버리지: [references/personas.md](references/personas.md)
 공통 작성 및 품질 원칙: [references/writing-principles.md](references/writing-principles.md)
 
-### 8. 아카이브 처리 (수명이 끝난 문서)
+### 8. 전달 준비 점검 (전달 문서 전용)
+
+전달 문서(REPORT·DOCUMENTATION·GUIDE)의 완성 기준은 **"지금 그대로 외부에 전달해도 되는 상태"**다. 작성 시점부터 아래를 준수하고, 사용자가 실제 전달 의사를 밝히면(예: "이 가이드 팀에 공유할 거야") 문서 전체를 이 기준으로 재점검한다:
+
+1. **경로 누출 금지** — 본문·`related_docs`에 개인 절대경로(`/Users/...`)나 수신자가 접근할 수 없는 로컬 경로를 넣지 않는다. 저장소 상대 경로 또는 URL만 사용한다.
+2. **용어 자립** — 전문 용어·약어는 첫 등장 시 풀어 설명한다. 최종 독자가 비전문가일 수 있음을 전제한다.
+3. **문서 자립** — 이 문서만 읽고 이해·실행이 가능해야 한다(writing-principles §6). 프로젝트 내부 맥락(다른 문서·세션 대화·CLAUDE.md 내용)을 알아야 이해되는 서술을 남기지 않는다.
+4. **근거 내장** — 수치·버전·날짜는 본문 안에 출처나 확인 방법을 함께 적는다. 독자가 사실 여부를 되물어 오면 그것이 곧 반복 수정의 시작이다.
+
+협업 문서에는 이 점검을 강제하지 않는다 — 단 **1번(개인 절대경로 금지)만은 모든 문서에 적용**한다(저장소가 다른 환경으로 이동해도 링크가 살아야 함).
+
+### 9. 아카이브 처리 (수명이 끝난 문서)
 
 역할이 끝난 문서를 지우지 않고 보관하는 절차. **새 문서를 쓰는 일이 아니므로 타입·Persona·네이밍 규칙과 무관하다.**
 
@@ -156,3 +175,4 @@ description: "먼저 결론 한 문장(무엇을 결정·판정했는가). 그�
 7. **프론트매터**: 모든 문서 최상단에 YAML 프론트매터를 포함한다. `created`는 `date`로 확인한다.
 8. **품질 원칙**: 공통 작성 및 품질 원칙을 적용한다.
 9. **내용 우선**: 구조는 가이드일 뿐, 실질적 내용이 더 중요하며 프로젝트 상황에 맞게 구조를 조정한다.
+10. **전달 준비**: 전달 문서(REPORT·DOCUMENTATION·GUIDE)는 §8 점검을 작성 시점부터 적용한다. 개인 절대경로 금지는 모든 문서에 적용한다.

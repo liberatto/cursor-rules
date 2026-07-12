@@ -157,7 +157,7 @@ docs/bootstrap-kit/README.md 를 읽고 §0 대로 이 저장소를 셋업해줘
 `CLAUDE.md` §8 에 그대로 들어있다. 요지는 **"문서를 열지 말지 30초 안에 판단하게 하는 장치"**:
 - **R1** `related_docs` 는 **저장소 루트 기준 경로** + 항목마다 "왜 관련 있는지" 한 줄
 - **R2** `description` **첫 문장에 결론**(질문 말고 답)
-- **R3** `status` 는 프론트매터가 정본(`draft`/`active`/`superseded`/`archived` — §9 `doc-writer` 와 동일 어휘), 인덱스의 🟢🟡는 파생
+- **R3** `status` 는 프론트매터가 정본(`draft`/`active`/`superseded`/`rejected`/`archived` — §9 `doc-writer` 와 동일 어휘), 인덱스의 🟢🟡는 파생
 - **R4** `updated` 는 **실질 변경 시만** — `created`↔`updated` 격차가 "살아있다"는 유일한 신호
 
 ---
@@ -308,10 +308,10 @@ tool use → save-session.sh → extract(Python) → summarize(Haiku)
 **왜 필요한가.** 이 키트는 `CLAUDE.md`(정본)와 `CLAUDE.local.md`(시간축)만 규정한다. 그런데 프로젝트가 굴러가면 **그 둘에 넣으면 안 되는 것들**(조사 결과, 설계 결정, 진행 보고서, 실행 가이드)이 반드시 쌓인다. 이걸 방치하면 `docs/` 는 이름 규칙 없는 파일 더미가 되고, 정본에 넣으면 §1 의 4층 분리가 무너진다. `doc-writer` 는 그 배출구를 **타입별로 규격화**한다.
 
 **무엇을 하는가.**
-- **3문서군 분류** — 협업 문서(PRD·PLAN·RESEARCH·ANALYSIS·ADR) / 외부 독자 문서(REPORT·DOCUMENTATION·GUIDE) / 개인 메모(NOTE)
-- **아카이브 처리**(스킬 §8) — **아카이브는 타입이 아니라 상태다.** 수명이 끝난 문서는 원래 타입·파일명을 그대로 둔 채 `status: archived` 로 바꾸고 `docs/_archive/` 로 옮긴다. 이름을 바꾸면 기존 `related_docs` 링크가 전부 깨지고, 본문을 손보면 기록이 아니라 위조가 된다.
+- **3문서군 분류** — 협업 문서(PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·ADR) / 전달 문서(REPORT·DOCUMENTATION·GUIDE — 외부 전달 가능 수준으로 작성) / 개인 메모(NOTE)
+- **아카이브 처리**(스킬 §9) — **아카이브는 타입이 아니라 상태다.** 수명이 끝난 문서는 원래 타입·파일명을 그대로 둔 채 `status: archived` 로 바꾸고 `docs/_archive/` 로 옮긴다. 이름을 바꾸면 기존 `related_docs` 링크가 전부 깨지고, 본문을 손보면 기록이 아니라 위조가 된다.
 - **네이밍·프론트매터 강제** — 파일명 `{TYPE}-{주제}-{YYYY-MM-DD-HHMM}.md`, 프론트매터 필수 `type`·`audience`·`created`·`status`·`description` / 선택 `related_docs`·`updated`.
-  **이 규격이 정본은 doc-writer 쪽이다.** 키트 템플릿의 `CLAUDE.md` §8 문서 규율(R1~R4)은 그 규격을 그대로 따르도록 맞춰져 있다 — 특히 `status` 는 **`draft`·`active`·`superseded`·`archived` 4종**으로 양쪽이 동일하다. 스킬을 업데이트해 규격이 바뀌면 **`CLAUDE.md` R3 을 스킬 쪽에 맞춰 고쳐라**(반대 방향이 아니다). 두 어휘가 갈리면 인덱스의 🟢/🟡 파생 표시가 곧 어긋난다.
+  **이 규격이 정본은 doc-writer 쪽이다.** 키트 템플릿의 `CLAUDE.md` §8 문서 규율(R1~R4)은 그 규격을 그대로 따르도록 맞춰져 있다 — 특히 `status` 는 **`draft`·`active`·`superseded`·`rejected`·`archived` 5종**으로 양쪽이 동일하다. 스킬을 업데이트해 규격이 바뀌면 **`CLAUDE.md` R3 을 스킬 쪽에 맞춰 고쳐라**(반대 방향이 아니다). 두 어휘가 갈리면 인덱스의 🟢/🟡 파생 표시가 곧 어긋난다.
 - **고정 템플릿 없음** — 타입별 Persona 관점만 주고 문서 형태는 상황에 맞춘다.
 - **오작동 억제** — "분석해줘"·"조사해봐" 처럼 **대화로 답하면 되는 요청엔 문서를 만들지 않는다.**
 

@@ -157,7 +157,7 @@ Claude Code(claude.ai/code)가 이 저장소에서 작업할 때 따르는 가�
 
 | 문서 | 용도 |
 |---|---|
-| `docs/{PREFIX}-{설명}-{날짜}.md` | {🟢 active / 🟡 superseded·archived} — {이 문서가 내린 **결론** 한 줄. 주제가 아니라 결론이다.} |
+| `docs/{PREFIX}-{설명}-{날짜}.md` | {🟢 active / 🟡 superseded·rejected·archived} — {이 문서가 내린 **결론** 한 줄. 주제가 아니라 결론이다.} |
 
 <!--
 📇 인덱스의 🟢/🟡 는 **파생 표시**다 — 정본은 각 문서 frontmatter 의 `status`.
@@ -186,7 +186,7 @@ Claude Code(claude.ai/code)가 이 저장소에서 작업할 때 따르는 가�
 ### 문서 규율
 
 - **네이밍**: `{PREFIX}-{DESCRIPTION}-{YYYY-MM-DD-HHMM}.md`, 기본 위치 `docs/`. (`doc-writer` 스킬과 동일 규격 — 스킬이 정본)
-  PREFIX: `PRD`(요구사항) · `PLAN`(계획) · `RESEARCH`(조사) · `ANALYSIS`(분석) · `ADR`(설계결정) · `REPORT`(완료보고) · `GUIDE`(사용법) · `DOCUMENTATION`(일반문서) · `NOTE`(메모)
+  PREFIX: `PRD`(요구사항) · `STRATEGY`(방향성) · `PLAN`(계획) · `RESEARCH`(조사) · `ANALYSIS`(분석) · `ADR`(설계결정) · `REPORT`(완료보고) · `GUIDE`(사용법) · `DOCUMENTATION`(일반문서) · `NOTE`(메모)
 - **아카이브는 타입이 아니라 상태**: 수명이 끝난 문서는 **타입·파일명을 그대로 둔 채** `status: archived` 로 바꾸고 `docs/_archive/` 로 `git mv` 한다(이름을 바꾸면 기존 `related_docs` 링크가 깨진다). 본문은 손대지 않는다 — 옛 수치를 현재값으로 갱신하면 기록이 아니라 위조다.
 - **프론트매터**: 모든 `*.md` 에 YAML frontmatter 를 박는다. 파일명·H1 만으론 안 잡히는 **생성 의도**를 본문 최상단에 고정해, 복사·이동해도 맥락이 따라오게 한다.
   - 필드(`doc-writer` 스킬과 동일): 필수 `type` · `audience` · `created` · `status` · `description` / 선택 `related_docs` · `updated`(본문이 실제로 바뀐 살아있는 문서)
@@ -197,7 +197,7 @@ Claude Code(claude.ai/code)가 이 저장소에서 작업할 때 따르는 가�
   - **R2. `description` 첫 문장에 결론**: 배경이 아니라 **이 문서가 내린 판정/결정**을 먼저. 첫 문장만 읽고 열지 말지 결정되어야 한다.
     - ✅ `"flat state 유지 + 참조는 컴파일-타임 alias 로 제공. node-scoped 변수 풀을 기각한 근거와…"`
     - ❌ `"변수 모델을 확정하는 ADR — A 를 할지 B 를 할지의 분기."` (질문만 있고 답이 없다)
-  - **R3. `status` 는 프론트매터가 정본**: `draft` · `active` · `superseded` · `archived` 4종만(`doc-writer` 스킬과 동일 어휘 — 임의로 늘리지 마라). 인덱스(§7)의 🟢/🟡 는 파생 표시 — 어긋나면 파일을 믿는다.
+  - **R3. `status` 는 프론트매터가 정본**: `draft` · `active` · `superseded` · `rejected` · `archived` 5종만(`doc-writer` 스킬과 동일 어휘 — 임의로 늘리지 마라). 인덱스(§7)의 🟢/🟡 는 파생 표시 — 어긋나면 파일을 믿는다.
   - **R4. `updated` 는 본문 실질 변경 시 갱신**: 오타·링크 수정 제외. `created`↔`updated` 격차가 "이 문서는 살아있다"는 유일한 신호다.
 
   ```yaml

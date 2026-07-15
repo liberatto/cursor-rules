@@ -1,0 +1,17 @@
+{
+  "$comment": "자율 루프(§10)의 목표 계약 — <프로젝트>/BACKLOG.json 으로 복사. 규칙: 루프 중 Claude 는 각 항목의 passes/evidence/attempts 만 수정할 수 있다. 새 선행 과제 발견 시 origin:'discovered' 로 추가만 가능하고, 기존 항목의 수정·삭제는 사람만 한다. verify 를 쓸 수 없는 항목은 백로그에 넣을 수 없다. 구성 근거: docs/bootstrap-kit/README.md §10",
+  "north_star": "{CLAUDE.md §1 노스 스타 한 문장을 그대로 복사 — 두 파일이 다르면 CLAUDE.md 를 믿고 이 값을 고친다}",
+  "done_when": "{종료 조건 — 관측 가능하게. 예: items 전 항목 passes=true AND 전체 테스트 green AND 데모 스크립트가 X 를 출력}",
+  "items": [
+    {
+      "id": "F-001",
+      "title": "{한 줄 — 무엇이 되면 이 항목이 끝나는가. 관측 가능한 상태로}",
+      "steps": ["{구현 단계 힌트 1 — 강제가 아니라 안내}", "{힌트 2}"],
+      "verify": "{실행 가능한 명령 또는 관측 가능한 판정 기준 — 이게 없는 항목은 백로그 자격이 없다}",
+      "passes": false,
+      "evidence": "",
+      "attempts": 0,
+      "origin": "plan"
+    }
+  ]
+}

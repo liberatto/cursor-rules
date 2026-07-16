@@ -2,10 +2,11 @@
 chats.db
 .claude/*
 .cursor/*
-CLAUDE.md
-CLAUDE.local.md
 *.mcp.json
 .mcp.json
+
+# CLAUDE.local.md — 솔로 저장소라 추적함 (전역 ~/.config/git/ignore 의 **/CLAUDE.local.md 를 이 저장소에서만 무효화)
+!CLAUDE.local.md
 
 # llm-wiki local knowledge base
 .wiki/

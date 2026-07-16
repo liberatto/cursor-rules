@@ -15,4 +15,3 @@
 - **Global CLAUDE.md 자동 수정 제외**: `claude.md-update` 커맨드가 `~/.claude/CLAUDE.md`를 자동 수정하지 않음
 - **커밋 그루핑 원칙**: 기능 개선 / 신규 추가 / 설정 유지보수로 논리 분리
 - **frontmatter `argument-hint` 따옴표 필수**: YAML 특수문자 포함 시 크래시 방지
-- **settings.local.json 동기화 구조**: `ClaudeCode/.claude/`가 마스터 원본, `.claude/`(루트)는 이 프로젝트에서 테스트용으로 복사. 변경은 항상 마스터에서 먼저 수행 후 로컬에 복사

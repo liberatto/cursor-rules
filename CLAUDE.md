@@ -39,7 +39,7 @@ AI 개발 도구(Claude Code, Codex)의 설정, 커스텀 커맨드, 에이전�
 
 ### 글로벌 CLAUDE.md 원본
 
-- `ClaudeCode/CLAUDE.md`: `~/.claude/CLAUDE.md`에 복사할 글로벌 가이드라인 원본
+- 글로벌 가이드라인 원본은 `ClaudeCode/CLAUDE.v.*.md` 버전 시리즈로 관리한다 — 최신 버전 파일이 정본이며, 이것을 `~/.claude/CLAUDE.md`로 복사해 배포한다. 정적 `ClaudeCode/CLAUDE.md`는 없다.
 
 ---
 
@@ -77,4 +77,4 @@ cp Codex/config.toml ~/.codex/
 - **`.gitignore` 주의**: `.claude/*`, `*.mcp.json`이 git 추적에서 제외됨. 단 이 저장소는 솔로라 `CLAUDE.md`·`CLAUDE.local.md`는 **추적한다** — 전역 `~/.config/git/ignore`의 `**/CLAUDE.local.md`를 로컬 `.gitignore`의 `!CLAUDE.local.md` negation으로 이 저장소에서만 무효화했다 (배포 템플릿인 `ClaudeCode/` 하위는 그대로 추적)
 - **API 키 노출**: `.mcp.json`에 API 키가 직접 포함됨. 공유 시 환경변수 대체 필요
 - **settings.local.json 중복 항목**: 권한 목록에 중복 엔트리 존재 (예: `Bash(ls:*)`, `Bash(python:*)` 등). 기능상 문제 없으나 정리 가능
-- **글로벌 CLAUDE.md vs 루트 CLAUDE.md**: `ClaudeCode/CLAUDE.md`는 배포용 글로벌 원본, 루트 `CLAUDE.md`는 이 저장소 자체 문서
+- **글로벌 CLAUDE.md vs 루트 CLAUDE.md**: 배포용 글로벌 원본은 `ClaudeCode/CLAUDE.v.*.md` 최신 버전 파일이다(정적 `ClaudeCode/CLAUDE.md`는 없음). 루트 `CLAUDE.md`는 이 저장소 자체 문서

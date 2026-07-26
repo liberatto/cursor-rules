@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720"
+     width="1280" height="720"
+     font-family="'Pretendard','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif">
+  <rect x="0" y="0" width="1280" height="720" fill="#ffffff"/>
+
+  <!-- 타이틀 (임원 스케일 28 / 17.5) -->
+  <rect x="48" y="28" width="6" height="48" rx="3" fill="#4D73BF"/>
+  <text x="70" y="55" font-size="28" font-weight="700" fill="#1a1a1a">도식 제목</text>
+  <text x="70" y="84" font-size="17.5" fill="#5A6270">서브타이틀 · 한 줄 설명</text>
+
+  <!-- 헤더 구분선 (헤더/본문 경계 — 없으면 본문 첫 컨테이너가 헤더처럼 읽힘) -->
+  <line x1="48" y1="100" x2="1232" y2="100" stroke="#4D73BF" stroke-width="2"/>
+
+  <!-- 섹션 컨테이너 + 헤더 띠 (상단 모서리만 라운드) -->
+  <rect x="48" y="122" width="1184" height="200" rx="14" fill="#F7F9FC" stroke="#4D73BF" stroke-width="2.2"/>
+  <path d="M48,138 Q48,122 64,122 L1216,122 Q1232,122 1232,138 L1232,166 L48,166 Z" fill="#4D73BF"/>
+  <text x="70" y="150" font-size="18" font-weight="700" fill="#ffffff">① 섹션 제목 <tspan font-weight="400" fill="#D6E2F7">— 부연</tspan></text>
+  <text x="1210" y="150" font-size="16.5" font-weight="700" fill="#FBE9B8" text-anchor="end">▶ 보조 라벨</text>
+
+  <!-- 자식 박스 (부모 경계에서 상하좌우 패딩 16~24px) -->
+  <rect x="72" y="190" width="560" height="108" rx="10" fill="#E8F0FE" stroke="#4D73BF" stroke-width="2"/>
+  <text x="96" y="224" font-size="18" font-weight="700" fill="#1a4480">박스 제목</text>
+  <text x="96" y="256" font-size="17" fill="#1a1a1a">• 개조식 본문 (하한 16px)</text>
+
+  <!-- 결론 띠 (임원보고 필수 — 그 장의 결론 한 줄, 핵심어는 골드) -->
+  <rect x="48" y="572" width="1184" height="112" rx="12" fill="#3A4A6B"/>
+  <text x="72" y="612" font-size="18" font-weight="700" fill="#ffffff">결론 — 이 장이 남길 <tspan fill="#FBE9B8">단 하나의 메시지</tspan>를 한 줄로</text>
+  <text x="72" y="646" font-size="17" fill="#D6E2F7">보조 설명 1~2줄</text>
+</svg>

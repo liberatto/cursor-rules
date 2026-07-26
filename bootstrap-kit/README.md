@@ -376,3 +376,42 @@ Anthropic 실측: 에이전트는 Markdown 목록보다 **JSON 파일을 함부�
 같은 항목 2회 실패 · 백로그 항목 간 모순 · verify 실행 불가 · done_when 관측 불가 → 에이전트는 CLAUDE.local.md 에 상황을 기록하고 `STUCK: 사유` 를 출력하고 멈춘다(무한 재시도 금지 — 2회 실패는 접근이 아니라 **문제에 대한 이해 자체가 틀렸다**는 신호다). 이때 사람이 하는 일이 곧 사람의 역할 정의다: **백로그 항목을 수정·분할·포기 처리하는 것**(루프 중 유일하게 사람만 가진 권한).
 
 **출처** (2026-07-15 확인): Anthropic — [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (initializer/coding agent 분리, JSON feature list, progress file, 1회차 1기능) · The Pragmatic Engineer — [What is "loop engineering?"](https://newsletter.pragmaticengineer.com/p/what-is-loop-engineering) (개념 정의, 검증 게이트, 중단 조건, 실패 모드)
+
+---
+
+## 11. 🅾️ 오버레이 모드 — 기존 프로젝트(브라운필드)에 잠깐 얹기
+
+> §0~§10 은 백지(그린필드) 전제다. 이 절은 **이미 상당히 진행된 프로젝트에서 이 kit 로 격리된 시도를 하고 싶을 때** 쓰는 모드다.
+> 목적은 기존 `CLAUDE.md` 를 **통째로 갈아끼우고**, 프로젝트의 기존 맥락에 얽매이지 않는 **새 시도**를 하는 것이다 — 그래서 CLAUDE.md 처리는 항상 "완전 교체"이고, 격리는 항상 **워크트리**다.
+
+**왜 브랜치가 아니라 워크트리인가.** CLAUDE.md 를 통째로 교체하는 게 목적이라, 원본을 물리적으로 손대지 않는 워크트리라야 (1) 원본 `CLAUDE.md`·환경이 **무손상**이고 (2) 원본이 git 추적이든 무시든 상관없으며 (3) **teardown 이 한 줄**이다. 브랜치는 CLAUDE.md 파일 하나를 디스크에서 공유해 병행 세션에 맥락이 새고, 복원에 `skip-worktree`·수동 백업 같은 체조가 필요하다.
+
+```bash
+# ① 격리 — 워크트리로 새 브랜치를 별 디렉토리에 뽑는다
+git worktree add ../<작업이름> -b overlay/<작업이름>
+cd ../<작업이름>
+
+# ② 환경 재구성 — 워크트리는 새 폴더라 gitignore 된 것(.venv·node_modules·.env)이 없다
+uv sync            # 또는 npm ci — 프로젝트에 맞게. .env 등 시크릿은 원본에서 복사
+
+# ③ kit 셋업 — 여기서 §0 을 그대로. CLAUDE.md 는 기존 걸 무시하고 새로 쓴다.
+#    원본은 ../<원본폴더> 에 그대로 있으니 손실 위험이 없다.
+
+# ④ 작업 — 아래 "수명 비례"대로 필요한 층만 얹는다
+
+# ⑤ teardown — 통째 삭제. gitignore 된 CLAUDE.local.md·스캐폴딩까지 한 번에 사라진다
+cd ../<원본폴더>
+git worktree remove --force ../<작업이름>
+```
+
+**수명 비례 — 얹는 층은 작업 길이에 비례한다** (§2 "빈 섹션 지워라"와 같은 원리. CLAUDE.md 는 이 모드의 전제라 항상 새로 쓴다):
+
+| 작업 규모 | CLAUDE.md | CLAUDE.local.md (롤링) | BACKLOG+PROMPT (루프) |
+|---|---|---|---|
+| 짧은 시도 (1세션) | 새로 씀 | ❌ | ❌ |
+| 여러 세션 | 새로 씀 | ✅ 회차 연속성 | △ 측정목표면 |
+| 측정목표 다회차 | 새로 씀 | ✅ | ✅ 루프(§10) |
+
+**커밋 위생**: 워크트리에서 **커밋하는 건 기능 코드뿐이다.** 교체한 `CLAUDE.md`·`CLAUDE.local.md`·`BACKLOG.json`·`PROMPT.md` 는 커밋하지 않는다(작업 폴더에만 두거나 `.git/info/exclude` 에 넣는다) — 그래야 `worktree remove` 로 흔적 없이 사라지고, 아래 머지가 스캐폴딩을 원본에 흘리지 않는다.
+
+**원본에 반영하려면**: `overlay/*` 브랜치(기능 코드 커밋만 담긴)를 원본 main 에 merge/PR 한다 — teardown(`worktree remove`) **전에** 머지해야 한다. 반영할 게 없는 순수 실험이면 그냥 remove 하면 원본에 아무것도 안 남는다.

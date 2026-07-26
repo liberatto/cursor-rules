@@ -38,5 +38,15 @@
       "type": "command",
       "command": "afplay /System/Library/Sounds/Glass.aiff"
     }
+  },
+  "FINALGATE": {
+    "event": "UserPromptSubmit",
+    "matcher": "",
+    "status": "disabled",
+    "settingsFile": "~/.claude/settings.json",
+    "hookEntry": {
+      "type": "command",
+      "command": "echo '[Final Gate] Complete / Sourced / Labeled on every reply; add Attacked / Risk-weighted / Deliverable when the answer is costly to redo or hard to reverse.'"
+    }
   }
 }

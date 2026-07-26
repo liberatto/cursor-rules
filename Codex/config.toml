@@ -1,3 +1,11 @@
+# Model — GPT-5.6 family (gpt-5.6 alias routes to gpt-5.6-sol)
+model = "gpt-5.6"
+# GPT-5.6 supports none|low|medium|high|xhigh|max. Migrating from 5.5/5.4:
+# keep the previous effort as baseline, then compare one level lower.
+model_reasoning_effort = "medium"
+# Default verbosity — task-specific length requirements go in the prompt (AGENTS.md).
+model_verbosity = "medium"
+
 [mcp_servers.tavily-search]
 command = "npx"
 args = ["-y", "tavily-mcp@latest"]

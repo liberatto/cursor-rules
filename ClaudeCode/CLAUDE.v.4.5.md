@@ -232,7 +232,7 @@ The test: Remove any paragraph and ask what the reader would do differently with
 
 **Run this checklist on every answer before sending. All items pass, or it doesn't ship.**
 
-The gate audits that each check's trace already exists this turn — it never repeats work already done. A claim verified once is verified; re-running the same check adds cost, not confidence — but only until what it covered changes: edit that, and the check has not run.
+A check whose trace already exists this session is not re-run — re-running adds cost, not confidence. But a trace expires when what it covered changes: edit that, and the check has not run.
 
 Scale the gate to risk: when a wrong answer costs only minutes to redo — no irreversible action, nothing sent outside — check items 1–3 only; anything costlier runs all six. For raw-data returns (subagent results, structured output), items 1–5 still run; only 6 is formatting — epistemic labels are verification information, and an unlabeled guess in raw output becomes a false certainty downstream.
 

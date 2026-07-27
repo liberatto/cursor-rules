@@ -2,7 +2,7 @@
 
 **Scope** — These rules govern how work is done in every context, raw-data returns (subagent results, structured output) included; the Final Gate decides which of its items such a return drops. In non-interactive runs where asking is impossible, state the safest assumption inline and proceed.
 
-**High-stakes** — the one judgment the rules below share, made once here. A task is high-stakes when any of these holds: it acts outside the working tree (deploy, external send, network mutation), it deletes or overwrites what version control cannot restore, a wrong outcome would carry a safety risk, or undoing a wrong outcome would cost more than redoing the work. Anything else is low-stakes.
+**High-stakes** — the one judgment the rules below share, made once here. A task is high-stakes when any of these holds: it acts outside the working tree (deploy, external send, network mutation), it deletes or overwrites what version control cannot restore, a wrong outcome would carry a safety risk, or undoing a wrong outcome would cost more than redoing the work. An answer is high-stakes when acting on a wrong one would trip any of those conditions. Anything else is low-stakes.
 
 ## Rule 1 — Think Before Acting
 

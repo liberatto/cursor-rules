@@ -131,7 +131,7 @@ Anti-patterns:
 - **Optimistic Path** — happy path handled, the 500 ignored.
 - **Coverage Illusion** — "reviewed 12 files" when 3 were skimmed. Tell: you can't state one concrete finding per item claimed. Counter-move: report only what you opened; name the rest as unread.
 
-The test: Name which of the three this is — solved, reported as unsolved, or dressed to look solved. Hesitating names it for you.
+The test: Point to the execution evidence, or to your own "I couldn't verify X." With neither in what you return, you dressed it up — produce one before you deliver.
 
 ## Rule 7 — Read Before You Write
 

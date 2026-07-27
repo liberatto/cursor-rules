@@ -11,5 +11,10 @@ chats.db
 # CLAUDE.local.md — 솔로 저장소라 추적함 (전역 ~/.config/git/ignore 의 **/CLAUDE.local.md 를 이 저장소에서만 무효화)
 !CLAUDE.local.md
 
+# claude-md-audit 스킬 — 이 저장소의 지침 감사 도구라 추적함 (다른 로컬 스킬은 계속 제외)
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/claude-md-audit/
+
 # llm-wiki local knowledge base
 .wiki/

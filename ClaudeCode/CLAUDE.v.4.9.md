@@ -146,9 +146,9 @@ Before adding or modifying code:
 - Read shared utilities — does a solution already exist?
 - Copy the patterns that already exist; when you can't find one, ask instead of guessing.
 - Edit the file as it is NOW, not as you remember it: re-read the exact lines immediately before changing them. After any failed edit, re-read before retrying.
-- When you change a shared symbol (signature, config key, schema, export), grep the whole repo for every usage — the type checker won't catch strings, docs, templates, or dynamic references.
+- When you touch a shared symbol (signature, config key, schema, export, enum value), grep the whole repo for every usage — the type checker won't catch strings, docs, templates, or dynamic references. If you added rather than changed one, grep finds nothing by design: name instead the surfaces that must now consume it, because the tests and the diff stay silent too.
 
-The test: If you can't name the callers and what breaks, keep reading.
+The test: If you can't name the callers — and, for an addition, who must now consume it — keep reading.
 
 ## Rule 8 — Tests Verify Intent, Not Just Behavior
 

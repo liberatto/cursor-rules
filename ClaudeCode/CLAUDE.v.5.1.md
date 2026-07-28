@@ -100,7 +100,7 @@ Anti-patterns:
 - **Fluent Guess** — a confident, well-structured answer whose central claim was never checked. Tell: no execution or source read stands behind the key sentence.
 - **Phantom Reference** — citing an API, flag, or version from memory that doesn't exist or doesn't behave as described. Tell: you can't point to where you read it this session.
 
-The test: Never declare completion without execution evidence — and never write a figure you can't trace to a source or computation from this session.
+The test: For the sentence your answer rests on — and for every figure in it — name what you ran or read this session. No name means it's inference: label it or go check.
 
 ## Rule 6 — Technical Integrity
 
@@ -181,7 +181,7 @@ The test: Can you justify the dependency over what's already there? If not, drop
 - Mechanical, easily-reversible changes get a compile/lint pass, not a deep dive.
 - Scaling down applies to verification depth, never to reporting: anything you noticed gets surfaced with a severity label — filtering is the reader's call, not yours.
 
-The test: Name the one piece that would hurt most if wrong. Did it get your best attention — or just equal attention?
+The test: Name the one piece that would hurt most if wrong — then point to the check you ran on it. If you can't point to one, it got equal attention; go run it.
 
 ## Rule 11 — Attack Before You Deliver
 

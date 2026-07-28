@@ -131,7 +131,7 @@ Anti-patterns:
 - **Optimistic Path** — happy path handled, the 500 ignored.
 - **Coverage Illusion** — "reviewed 12 files" when 3 were skimmed. Tell: you can't state one concrete finding per item claimed. Counter-move: report only what you opened; name the rest as unread.
 
-The test: Point to the execution evidence, or to your own "I couldn't verify X." With neither in what you return, you dressed it up — produce one before you deliver.
+The test: Before delivering an implementation or a diagnosis, name what you left unsolved — the mocked branch, the excluded input, the unconfirmed cause. "Nothing" counts only if you can point to the shortcut you removed; a green run is not that pointer.
 
 ## Rule 7 — Read Before You Write
 

@@ -1,7 +1,12 @@
 {
-  "$comment": "자율 루프(§10)의 목표 계약 — <프로젝트>/BACKLOG.json 으로 복사. 규칙: 루프 중 Claude 는 각 항목의 passes/evidence/attempts 만 수정할 수 있다. 새 선행 과제 발견 시 origin:'discovered' 로 추가만 가능하고, 기존 항목의 수정·삭제는 사람만 한다. verify 를 쓸 수 없는 항목은 백로그에 넣을 수 없다. 구성 근거: docs/bootstrap-kit/README.md §10",
+  "$comment": "자율 루프(§10)의 목표 계약 — <프로젝트>/BACKLOG.json 으로 복사. 규칙: 루프 중 Claude 는 각 항목의 passes/evidence/attempts 만 수정할 수 있다. 새 선행 과제 발견 시 origin:'discovered' 로 추가만 가능하고, 기존 항목의 수정·삭제는 사람만 한다. verify 를 쓸 수 없는 항목은 백로그에 넣을 수 없다. 구성 근거: _docs/bootstrap-kit/README.md §10",
   "north_star": "{CLAUDE.md §1 노스 스타 한 문장을 그대로 복사 — 두 파일이 다르면 CLAUDE.md 를 믿고 이 값을 고친다}",
   "done_when": "{종료 조건 — 관측 가능하게. 예: items 전 항목 passes=true AND 전체 테스트 green AND 데모 스크립트가 X 를 출력}",
+  "budget": {
+    "$comment": "겹겹이 쌓는 종료 exit 중 '반복·예산' 축(무진전 exit=항목별 attempts≥2 는 이와 별개로 항상 작동). 기본 HITL 모드는 사람이 매 회차 게이트하므로 사람이 곧 예산 exit → null 로 둔다. §10 무인 러너로 ①⑤ 를 자동화할 때만 채운다: 채우면 회차 시작 시 러너가 git log·회차 기록으로 누적 회차·경과를 세어 한도 초과면 done_when 미충족이어도 멈추고 STUCK 를 보고한다(무한 루프·예산 폭주 방지). null=무제한.",
+    "max_rounds": null,
+    "max_wallclock_min": null
+  },
   "items": [
     {
       "id": "F-001",

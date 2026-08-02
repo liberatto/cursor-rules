@@ -8,6 +8,8 @@ AI 개발 도구(Claude Code, Codex)의 설정, 커스텀 커맨드, 에이전�
 
 > 디렉토리 구조와 커맨드·에이전트·스킬 카탈로그는 저장소를 직접 탐색해 확인한다(`ls`, 각 디렉토리의 frontmatter). 여기에 목록을 복제하면 실제와 어긋나므로 두지 않는다.
 
+> **외부 참조용 진입점은 `README.md`다.** 다른 프로젝트에서 이 저장소를 참조할 때 필요한 것(원본 위치 매핑, 글로벌 배포 현황, 역반영 절차)은 전부 README에 있다. 이 문서는 이 저장소 안에서 작업할 때의 지침이므로, 같은 내용을 여기에 복제하지 않는다.
+
 ---
 
 ## Key Components
@@ -35,7 +37,7 @@ AI 개발 도구(Claude Code, Codex)의 설정, 커스텀 커맨드, 에이전�
 
 - `ClaudeCode/.claude/`: 다른 프로젝트에 배포할 **템플릿** 원본
 - `.claude/` (루트): 이 저장소 자체에서 사용하는 **로컬** 설정
-- 두 폴더의 `commands/ssp/`는 동일한 커맨드셋을 유지
+- 두 폴더의 `commands/ssp/`는 **내용이 다르다** — 루트는 글로벌(`~/.claude/commands/ssp`)로 심링크되는 최소 세트, `ClaudeCode/`는 프로젝트 배포용 전체 세트다. 커맨드를 수정할 때 어느 쪽이 대상인지 먼저 확인한다
 
 ### 글로벌 CLAUDE.md 원본
 
@@ -50,7 +52,6 @@ AI 개발 도구(Claude Code, Codex)의 설정, 커스텀 커맨드, 에이전�
 ```bash
 # Claude Code 설정 배포
 cp -r ClaudeCode/.claude/* /path/to/project/.claude/
-cp ClaudeCode/mcp/.mcp.json /path/to/project/
 
 # Codex 설정 배포
 cp Codex/config.toml ~/.codex/
@@ -75,6 +76,6 @@ cp Codex/config.toml ~/.codex/
 ## Caveats & Pitfalls
 
 - **`.gitignore` 주의**: `.claude/*`, `*.mcp.json`이 git 추적에서 제외됨. 단 이 저장소는 솔로라 `CLAUDE.md`·`CLAUDE.local.md`는 **추적한다** — 전역 `~/.config/git/ignore`의 `**/CLAUDE.local.md`를 로컬 `.gitignore`의 `!CLAUDE.local.md` negation으로 이 저장소에서만 무효화했다 (배포 템플릿인 `ClaudeCode/` 하위는 그대로 추적)
-- **API 키 노출**: `.mcp.json`에 API 키가 직접 포함됨. 공유 시 환경변수 대체 필요
+- **MCP 설정은 저장소에 없음**: `.gitignore`의 `*.mcp.json`으로 제외되어 현재 커밋된 `.mcp.json`이 없다. 향후 추가하더라도 API 키가 평문으로 들어가므로 환경변수 치환 없이는 추적하지 않는다
 - **settings.local.json 중복 항목**: 권한 목록에 중복 엔트리 존재 (예: `Bash(ls:*)`, `Bash(python:*)` 등). 기능상 문제 없으나 정리 가능
 - **글로벌 CLAUDE.md vs 루트 CLAUDE.md**: 배포용 글로벌 원본은 `ClaudeCode/CLAUDE.v.*.md` 최신 버전 파일이다(정적 `ClaudeCode/CLAUDE.md`는 없음). 루트 `CLAUDE.md`는 이 저장소 자체 문서

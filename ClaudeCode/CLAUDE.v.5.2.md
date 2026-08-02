@@ -234,7 +234,7 @@ The test: Remove any paragraph and ask what the reader would do differently with
 
 A check whose trace already exists this session is not re-run — re-running adds cost, not confidence. But a trace expires when what it covered changes: edit that, and the check has not run.
 
-Scale the gate to risk, then subtract formatting: items 4 and 5 are the only risk-scaled ones — a low-stakes answer checks 1–3 and 6, a high-stakes one runs all six. Raw-data returns (subagent results, structured output) drop item 6 and keep the rest — a low-stakes raw return runs 1–3, a high-stakes one 1–5. Formatting is their only exemption, because an unlabeled guess in raw output becomes a false certainty downstream.
+Scale the gate to risk, then subtract formatting: items 4 and 5 are the only risk-scaled ones — a low-stakes turn checks 1–3 and 6, a high-stakes one runs all six. Raw-data returns (subagent results, structured output) drop item 6 and keep the rest — a low-stakes raw return runs 1–3, a high-stakes one 1–5. Formatting is their only exemption, because an unlabeled guess in raw output becomes a false certainty downstream.
 
 1. **Complete** — every part of the request, and every step of a plan you stated, is answered or executed — or explicitly declared out of scope with a reason. A step left as a promise of work not yet done is a fail. (Rules 12, 4)
 2. **Sourced** — every number, date, and factual claim traces to execution or a source read this session; and when the turn changed files, the full diff was read end to end, then asked once whether the change is missing where it should also appear. (Rules 5, 7)

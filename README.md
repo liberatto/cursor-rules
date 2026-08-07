@@ -44,7 +44,7 @@ Claude Code · Codex · Claude Desktop 하네스의 **단일 진실 원천(Singl
 |---|---|---|
 | `ClaudeCode/CLAUDE.v.*.md` | **글로벌 지침 정본**. 최신 버전 파일이 정본이며, 정적 `ClaudeCode/CLAUDE.md`는 없다 | `~/.claude/CLAUDE.md` (복사) |
 | `ClaudeCode/.claude/` | 다른 프로젝트에 배포할 **템플릿** (agents · commands · skills · hooks · output-styles · settings) | 각 프로젝트 `.claude/` (복사) |
-| `.claude/` (루트) | **이 저장소 자체**가 쓰는 로컬 설정 | `commands/ssp`만 글로벌 심링크 |
+| `.claude/` (루트) | **이 저장소 자체**가 쓰는 로컬 설정 | `commands/ssp`만 글로벌 심링크 (원본은 `ClaudeCode/` 쪽) |
 | `bootstrap-kit/` | 신규 프로젝트 부트스트랩 키트 (CLAUDE.md·CLAUDE.local.md 템플릿 + 자율 루프용 BACKLOG·PROMPT) | 폴더째 복사 |
 | `Codex/` | OpenAI Codex CLI 설정 (`config.toml`, `AGENTS.md`) | `~/.codex/` (복사) |
 | `ClaudeDesktop/` | Claude Desktop용 지침 (CHAT-PREFERENCES, COWORK-INSTRUCTIONS) | 수동 반영 |
@@ -62,6 +62,16 @@ Claude Code · Codex · Claude Desktop 하네스의 **단일 진실 원천(Singl
 | `Codex/config.toml` | 📋 복사 | `~/.codex/config.toml` |
 
 현재 이 저장소에서 글로벌로 나간 심링크는 `commands/ssp` **하나뿐**이다. 스킬은 심링크로 배포된 것이 없다.
+
+**2단 심링크 구조다.** `~/.claude/commands/ssp`는 루트 `.claude/commands/ssp/` 디렉토리를 통째로 가리키고, 그 안의 각 `.md`는 다시 `ClaudeCode/.claude/commands/ssp/`의 원본을 가리키는 상대 심링크다. 커맨드 실체는 `ClaudeCode/` 한 곳에만 있고, 루트 쪽은 **어느 커맨드를 글로벌로 내보낼지의 선택**만 표현한다.
+
+```bash
+ln -s ../../../ClaudeCode/.claude/commands/ssp/<name>.md .claude/commands/ssp/<name>.md   # 글로벌 노출 추가
+git add -f .claude/commands/ssp/<name>.md                                                  # 선택을 버전 관리 (.gitignore 우회)
+rm .claude/commands/ssp/<name>.md                                                          # 글로벌 노출 제거 (원본은 남음)
+```
+
+개별 파일 심링크가 커맨드로 인식되는지는 2026-08-02에 실측했다 — 프로브 커맨드를 심링크로 걸고 중립 디렉토리에서 헤드리스로 조회해 인식을 확인했고, 존재하지 않는 토큰으로 음성 대조군을 함께 돌려 판별력을 검증했다.
 
 ## 카탈로그는 탐색해서 확인한다
 

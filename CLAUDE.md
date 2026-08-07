@@ -37,7 +37,14 @@ AI 개발 도구(Claude Code, Codex)의 설정, 커스텀 커맨드, 에이전�
 
 - `ClaudeCode/.claude/`: 다른 프로젝트에 배포할 **템플릿** 원본
 - `.claude/` (루트): 이 저장소 자체에서 사용하는 **로컬** 설정
-- 두 폴더의 `commands/ssp/`는 **내용이 다르다** — 루트는 글로벌(`~/.claude/commands/ssp`)로 심링크되는 최소 세트, `ClaudeCode/`는 프로젝트 배포용 전체 세트다. 커맨드를 수정할 때 어느 쪽이 대상인지 먼저 확인한다
+- 커맨드 **원본은 `ClaudeCode/.claude/commands/ssp/` 하나뿐이다.** 루트 `.claude/commands/ssp/`는 그중 글로벌로 내보낼 것만 골라 건 **상대 심링크 모음**이고, 이 디렉토리가 통째로 `~/.claude/commands/ssp`로 심링크되어 있다. 따라서 커맨드는 항상 `ClaudeCode/` 쪽 원본을 수정하며, 편집 즉시 글로벌에 반영된다
+- 글로벌 노출을 추가·제거하려면 루트 쪽 심링크만 만들거나 지운다 — `.gitignore`의 `.claude/*` 때문에 `git add -f`로 추적해야 선택 자체가 버전 관리된다
+
+```bash
+# 글로벌 노출 추가
+ln -s ../../../ClaudeCode/.claude/commands/ssp/<name>.md .claude/commands/ssp/<name>.md
+git add -f .claude/commands/ssp/<name>.md
+```
 
 ### 글로벌 CLAUDE.md 원본
 

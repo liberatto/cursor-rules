@@ -20,7 +20,7 @@ description: >
   expands", "sync local md to a live confluence page".
   경계: 페이지·이슈를 찾거나 탐색·검색하는 작업은 ktspace 담당 — 이 스킬은 페이지
   내용을 쓰거나 고칠 때 쓴다.
-version: 1.2.0
+version: 1.3.0
 ---
 
 # Confluence 글쓰기 · 수정 (통합)
@@ -80,8 +80,10 @@ version: 1.2.0
 
 ## 검증 (모드 공통 — 스크립트로, 눈으로 세지 말 것)
 
-> ⚠ **번들 스크립트를 건너뛰지 않는다.** 직접 만든 변환기로 본문을 조립했더라도 검증은
-> 스크립트가 한다(실측 사고: 자체 변환기로 게시하고 `verify-parity.py`를 생략할 뻔함).
+> ⚠ **번들 스크립트를 건너뛰지 않는다.** 본문 조립은 `scripts/md2confluence.py`가 하고
+> (게시 **전** 손실 게이트 = 원고 불릿·`<br>` 개수 대조), 게시 **후** 라이브 대조는
+> `verify-parity.py`가 한다 — 둘은 겹치지 않으므로 **둘 다** 돌린다(실측 사고: 자체
+> 변환기로 게시하고 `verify-parity.py`를 생략할 뻔함).
 > 로컬 .md가 SoT인 작업은 **전면교체도 동기화**이므로 아래 3게이트를 전부 통과시킨다.
 
 | 게이트 | 무엇을 대조 | 방법 |
@@ -112,5 +114,6 @@ version: 1.2.0
 | `references/authoring.md` | 작성 Part A + 파일 업로드 Part B 상세 | 작성·업로드 |
 | `references/safe-edit.md` | 부분수정·매크로 보존 + md↔라이브 동기화 상세 | 부분수정·동기화 |
 | `references/html-nodes.md` | 표·패널·상태·펼치기·코드·미디어 HTML+ 노드 카탈로그 | 작성 시 참조 |
+| `scripts/md2confluence.py` | 로컬 .md → 본문 HTML(+ADF) 생성. 손실 게이트 내장 | 작성·동기화 (게시 **전**) |
 | `scripts/media_figures.py` | 게시 본문에서 media (id,name) 회수 / figure HTML 생성 | 업로드 5·6단계 |
-| `scripts/verify-parity.py` | 로컬 .md ↔ 라이브 본문 정합(매크로·토큰) 검증 | 부분수정·동기화 마무리 |
+| `scripts/verify-parity.py` | 로컬 .md ↔ 라이브 본문 정합(매크로·토큰) 검증 | 부분수정·동기화 마무리 (게시 **후**) |

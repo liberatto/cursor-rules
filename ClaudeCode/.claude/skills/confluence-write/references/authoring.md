@@ -17,7 +17,17 @@
 2. **본문 작성** — HTML을 조립해 `updateConfluencePage`(기존) 또는
    `createConfluencePage`(신규)에 `contentFormat:"html"`로 전송. 표·패널·상태·펼치기·
    코드·미디어 노드 문법은 → [`html-nodes.md`]. 노드가 많거나 특수문자·UUID가 섞이면
-   손으로 쓰지 말고 파이썬으로 body 문자열을 생성해 오타를 막는다.
+   손으로 쓰지 말고 **`scripts/md2confluence.py`로 body를 생성**한다 — 원고 .md를 받아
+   하우스 규약(패널 승격·`📂 ` 펼치기·표 900px·media 파일명)을 적용한 HTML을 만들고,
+   원고의 불릿·`<br>` 개수를 대조하는 **손실 게이트**를 게시 전에 통과시킨다.
+   ```
+   python scripts/md2confluence.py <원고.md> -o body.html \
+          --page-id <대상 페이지id> --file-ids <fileids.json>
+   ```
+   `--page-id`는 media `collection`에 쓰이므로 **대상 페이지의 id**여야 한다(다른 페이지
+   값을 넣으면 남의 첨부를 가리켜 이미지가 전멸한다). `--file-ids`는 5단계에서 회수한
+   `{파일명: fileId}` 매핑이며 **원고 옆에 둔다**(스킬은 범용 절차만 — 예:
+   `reports/ao-agent/figures/fileids-<pageid>.json`).
    - **펼치기 지시가 붙은 절** — 로컬 원고에 `> Confluence 펼치기(Expand) 수록` 류의
      지시가 달린 절은 그 절을 통째로 `<details>`로 감싸고, `<summary>`는 **절 제목 앞에
      `📂 `를 붙여** 만든다(예: `📂 [참고] PoC 상세 기록`). 지시 줄 자체는 작성 지침이므로
@@ -142,13 +152,17 @@
    조립해 `updateConfluencePage`. figure 조립은 `scripts/media_figures.py build --width <px>`로
    생성. `data-id`·`data-collection`은 절대 바꾸지 않는다(왕복 안전). 바꿔도 되는 것 =
    `data-width`·`data-layout`·순서·주변 텍스트.
-   - 자체 변환기(md → HTML 등)로 본문을 만들더라도 **figure 조립만은 `build`의
-     템플릿을 쓴다** — 손으로 쓰면 UUID·속성이 훼손된다. 스크립트를 모듈로 import해
-     `media_figures.FIG.format(...)`을 호출해도 된다.
+   - 원고 .md 전체를 다시 조립하는 경우라면 `md2confluence.py`가 figure까지 만들어 주므로
+     `build`를 따로 부르지 않아도 된다(두 스크립트가 같은 `FIG` 템플릿을 공유한다).
+     그 밖의 변환기를 쓰더라도 **figure 조립만은 `build`의 템플릿을 쓴다** — 손으로 쓰면
+     UUID·속성이 훼손된다. 스크립트를 모듈로 import해 `media_figures.FIG.format(...)`을
+     호출해도 된다.
    - ⚠ **media div를 빈 채로 내보내면 다음 회차가 비싸진다** — 파일명이 없으면 `extract`가
-     매핑을 못 해 매번 첨부 REST로 우회해야 한다(실측 '26.8.6: 자체 변환기가 파일명을
-     빠뜨려 fileId를 REST로 받아옴). 변환기를 새로 쓰더라도 `<div data-type="media" …>`
-     **안에 파일명 텍스트를 반드시 넣을 것**.
+     매핑을 못 해 매번 첨부 REST로 우회해야 하고, `verify-parity.py`의 도식 인벤토리
+     대조도 통째로 실패한다(실측 '26.8.6: 자체 변환기가 파일명을 빠뜨려 fileId를 REST로
+     받아옴 / '26.8.8: 같은 산출물에서 도식 7종이 전부 "라이브에 없음"으로 잡힘).
+     변환기를 새로 쓰더라도 `<div data-type="media" …>` **안에 파일명 텍스트를 반드시
+     넣을 것**.
 7. **검증** — SKILL.md §검증 3게이트. 이미지 로드는 보기 페이지에서 프로그램으로 전수
    확인한다(스크린샷은 화면에 보이는 것만 잡는다). ⚠ **단순 셀렉터 한 방은 실패한다** —
    실측 3가지 함정을 모두 피한 형태가 아래다:

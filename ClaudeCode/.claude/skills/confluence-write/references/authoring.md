@@ -14,6 +14,9 @@
    page_id 디코딩(base64url little-endian, 길이 부족 시 끝에 `A` 패딩). 새 페이지면
    `spaceId`·`parentId` 준비.
    - 검증: 응답에 기대한 페이지 제목·space가 나오는가.
+   - ⚠ **이미 본문이 있는 페이지면 선행 편집부터 회수한다** — 사용자가 웹 편집기에서
+     직접 고쳐 뒀을 수 있고, 전면 작성은 그것을 덮는다. 게이트 ⓪ →
+     [`safe-edit.md`] §웹 직접 편집 병합.
 2. **본문 작성** — HTML을 조립해 `updateConfluencePage`(기존) 또는
    `createConfluencePage`(신규)에 `contentFormat:"html"`로 전송. 표·패널·상태·펼치기·
    코드·미디어 노드 문법은 → [`html-nodes.md`]. 노드가 많거나 특수문자·UUID가 섞이면

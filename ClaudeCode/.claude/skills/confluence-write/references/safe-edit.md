@@ -18,6 +18,87 @@
 텍스트·표·펼치기·도식이 전부 살아서 복제된다 → 아래 §페이지 간 복제. 대안으로
 Confluence UI **"페이지 복사(Copy)"**(첨부까지 복제) 후 in-place 부분수정도 유효하다.
 
+## ⚠ 웹 직접 편집 병합 — 로컬을 올리기 전 항상 (모든 모드 공통)
+
+사용자는 급할 때 Confluence 웹 편집기에서 **직접** 고친다. 그 편집은 로컬 .md에 없으므로
+로컬 변경분을 그대로 게시하면 **말없이 원복된다.** 전면 작성(→ [`authoring.md`] Part A)도
+예외가 아니다 — 덮어쓰기라는 성질은 같다.
+
+> 실측('26.8.10) — MCP로 v2 게시 → 사용자가 편집기에서 v3·v4·v5(리드 문단 삭제, §1 문장
+> 축약 2건) → 라이브 확인 없이 재게시한 v6가 **세 편집을 전부 되돌렸다.** 버전 이력에서
+> v5 본문을 복원해 되살렸으나, 회수 절차가 없었다면 사용자만이 아는 손실로 남았다.
+
+순서는 **① 검출 → ② 회수 → ③ 로컬 반영 → ④ 합본 게시**이며, ③을 건너뛰고 ④만 하면
+다음 회차에 같은 사고가 되풀이된다(로컬이 여전히 옛 내용이므로).
+
+### ① 검출 — 빈 versionMessage가 판정 열쇠
+
+MCP 게시에는 `versionMessage`를 **항상** 남긴다(SKILL.md §표기 규약). 편집기가 만든
+버전은 메시지가 비므로, 이 규약만 지키면 **빈 메시지 = 웹 직접 편집**으로 기계 판정된다.
+
+```js
+const j = await (await fetch('/wiki/rest/api/content/<id>/version?limit=10&expand=by',
+                 {headers:{Accept:'application/json'}})).json();
+j.results.map(v=>({n:v.number, when:v.when, by:v.by&&v.by.displayName,
+                   msg:v.message||'(빈 = 웹 편집 의심)'}))
+```
+
+- **내가 마지막에 남긴 메시지 버전보다 위에 빈 메시지 버전이 있으면** 선행 편집 있음.
+- **세션이 바뀌어 "내 마지막 버전"을 모를 때**는 본문으로 판정한다 — 라이브를 html로 읽어
+  `verify-parity.py <local.md> <live.html>`를 돌리고 **`[insert]`(=라이브에만 있음)** 방향
+  차이를 후보로 본다. `[delete]`(=로컬에만 있음)는 이번에 올릴 로컬 변경분이라 정상이다.
+- 작성자 이름은 판정에 쓰지 않는다 — MCP도 사용자 계정으로 게시하므로 **양쪽이 같다.**
+
+### ② 회수 — 직전 버전 본문을 복원해 무엇이 바뀌었는지 특정
+
+빈 메시지 버전 중 **가장 마지막 것**(사용자 편집의 최종 상태)과 **내가 게시한 버전**을
+받아 줄 단위로 대조한다. 본문을 통째로 대화에 끌어오지 말고 **차이 줄만** 받는다.
+
+```js
+const get = async v => {                     // v 생략 시 현재 버전
+  const u = v ? `/wiki/rest/api/content/<id>?status=historical&version=${v}&expand=body.view`
+              : '/wiki/rest/api/content/<id>?expand=body.view';
+  const j = await (await fetch(u,{headers:{Accept:'application/json'}})).json();
+  const d = document.createElement('div'); d.innerHTML=(j.body&&j.body.view&&j.body.view.value)||'';
+  return d.innerText.split('\n').map(s=>s.trim()).filter(Boolean);
+};
+const [mine, theirs] = await Promise.all([get(<내가 게시한 버전>), get(<사용자 편집 최종 버전>)]);
+const sm=new Set(mine), st=new Set(theirs);
+({사용자가_지운것: mine.filter(l=>!st.has(l)), 사용자가_넣은것: theirs.filter(l=>!sm.has(l))})
+```
+
+- 사용자 편집이 **어느 절에 몰려 있는지** 먼저 확인한다. 한 절에 국한되면 나머지 절은
+  로컬이 그대로 최신이므로 ③이 간단해진다.
+- 편집이 표·펼치기·도식에 걸쳐 있으면 줄 대조로는 안 잡힌다 → `include` 검사로 특정
+  문자열(표 헤더·`<summary>` 제목)의 존재 여부를 직접 확인한다.
+
+### ③ 로컬 반영 — 사용자 편집이 우선
+
+회수한 편집을 **로컬 .md에 먼저 반영**한다. 그래야 로컬이 SoT 자격을 되찾고, 다음 회차의
+`verify-parity.py`가 잡음 없이 돈다.
+
+- **되돌리지 않는다** — 웹 편집은 사용자가 의도적으로 내린 결정이다. 스타일 규칙에
+  어긋나 보여도 임의로 원복하지 말고, 고칠 필요가 있으면 **보고하고 확정을 받는다.**
+- **로컬 변경분과 같은 자리에서 충돌하면 묻는다** — 사용자 편집과 이번 로컬 수정이 같은
+  문장을 다르게 고쳤으면 임의 병합 금지. 양쪽 문장을 나란히 보이고 택하게 한다.
+- 반영 후 로컬 기준으로 본문을 **다시 생성**한다(`md2confluence.py`). 이 산출물이 ④의
+  게시 대상이며, 사용자 편집 + 로컬 변경분이 **둘 다 든** 유일한 판본이다.
+
+### ④ 합본 게시 — 직전에 버전 번호를 한 번 더 확인
+
+②를 조회하는 사이에도 사용자가 편집기를 열고 있을 수 있다. 게시 **직전에** 현재 버전을
+다시 읽어 ①에서 본 번호와 같은지 확인하고, 달라졌으면 ②로 돌아간다.
+
+```js
+const j = await (await fetch('/wiki/rest/api/content/<id>?expand=version',
+                 {headers:{Accept:'application/json'}})).json();
+({current:j.version.number, msg:j.version.message||''})
+```
+
+게시 후에는 사용자 편집 항목과 로컬 변경 항목을 **각각 한 줄씩 존재 확인**한다(둘 중
+하나만 살아 있으면 병합 실패). 확인 방식은 §게시 후 구조 지문 검증과 같되, 대조 항목에
+**회수한 편집 문자열**을 추가한다.
+
 ## 결론 (먼저)
 
 `updateConfluencePage`는 **부분 패치 API가 아니다 — 페이지 전체 본문을 새 버전으로
@@ -233,8 +314,10 @@ python scripts/verify-parity.py <local.md> <live.html>
     제목이 바뀌면 그 자체가 매칭 열쇠를 깨뜨린다. 규약은 **새로 만드는 펼치기**에만 적용.
   - 합성/복제로 만든 라이브엔 원본에서 딸려온 **잉여 블록·헤딩 번호(`1) 2)`)**가 남기
     쉽다 → 베이스라인에서 토큰 diff로 색출해 로컬 기준으로 정리.
-- **반영(매 회)**: 라이브를 html로 read → 로컬 텍스트 변경분만 교체 → 재게시. 매크로
-  `<figure>`·`<details>` 블록은 **식별자로 찾아 보존**(글자 불변).
+- **반영(매 회)**: **선행 편집 회수(§웹 직접 편집 병합)** → 라이브를 html로 read → 로컬
+  텍스트 변경분만 교체 → 재게시. 매크로 `<figure>`·`<details>` 블록은 **식별자로 찾아
+  보존**(글자 불변). 루프 작업은 회차가 잦아 웹 직접 편집과 부딪힐 확률이 가장 높다 —
+  회수를 건너뛰면 사용자 편집이 매 회차 지워진다.
 - **이동** = 로컬에서 placeholder 줄을 옮김 → 라이브의 해당 매크로 블록 통째 이동.
   **삭제** = placeholder 줄 삭제(또는 `<!-- DELETE -->`) → 라이브 본문에서 참조 제거
   (단 첨부 실파일은 페이지에 잔존 = 화면 미표시).

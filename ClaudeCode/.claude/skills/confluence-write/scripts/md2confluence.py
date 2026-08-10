@@ -122,7 +122,7 @@ def convert(md, opt):
     lines = body.split("\n")
     doc, expand = [], None
     stats = {"heading": 0, "table": 0, "mediaSingle": 0, "expand": 0,
-             "panel": 0, "blockquote": 0, "bulletList": 0}
+             "panel": 0, "blockquote": 0, "bulletList": 0, "codeBlock": 0}
     pend_list, pend_table = [], []
     i, seen_meta = 0, False
 
@@ -149,6 +149,21 @@ def convert(md, opt):
     while i < len(lines):
         ln = lines[i]
         s = ln.strip()
+
+        # 코드펜스는 원문 그대로 보존한다 — 안쪽 줄을 문단으로 흘리면 ASCII 도식의
+        # 정렬 공백이 무너진다(표·목록 판정보다 먼저 걸러야 한다)
+        if s.startswith("```"):
+            flush()
+            i += 1
+            buf = []
+            while i < len(lines) and not lines[i].strip().startswith("```"):
+                buf.append(lines[i])
+                i += 1
+            i += 1                                          # 닫는 펜스
+            sink().append({"type": "codeBlock", "attrs": {},
+                           "content": [{"type": "text", "text": "\n".join(buf)}]})
+            stats["codeBlock"] += 1
+            continue
 
         if s.startswith("|"):
             pend_table.append(s)
@@ -292,6 +307,9 @@ def block(n):
         return "<li>" + "".join(block(c) for c in n["content"]) + "</li>"
     if ty == "blockquote":
         return "<blockquote>" + "".join(block(c) for c in n["content"]) + "</blockquote>"
+    if ty == "codeBlock":
+        text = n["content"][0]["text"] if n.get("content") else ""
+        return "<pre><code>" + esc(text) + "</code></pre>"
     if ty == "panel":
         return (f'<div data-type="panel-{n["attrs"]["panelType"]}">'
                 + "".join(block(c) for c in n["content"]) + "</div>")
@@ -324,7 +342,10 @@ def to_html(adf):
 
 def loss_gate(src, adf):
     """원고의 불릿·<br> 개수가 생성 결과에 그대로 나타나는지 확인한다."""
-    body = strip_frontmatter(src)
+    raw = strip_frontmatter(src)
+    fences = len(re.findall(r"(?m)^\s*```", raw)) // 2
+    # 코드블록 안의 `- `·`<br>`는 마크업이 아니라 내용이므로 카운트에서 제외한다
+    body = re.sub(r"(?ms)^\s*```.*?^\s*```", "", raw)
     got = {}
 
     def walk(n):
@@ -334,7 +355,8 @@ def loss_gate(src, adf):
     walk(adf)
 
     checks = [("listItem", len(re.findall(r"(?m)^\s*- ", body)), got.get("listItem", 0)),
-              ("hardBreak", body.count("<br>"), got.get("hardBreak", 0))]
+              ("hardBreak", body.count("<br>"), got.get("hardBreak", 0)),
+              ("codeBlock", fences, got.get("codeBlock", 0))]
     for name, want, have in checks:
         print(f"  {name}: 기대 {want} / 생성 {have} {'OK' if want == have else '불일치'}",
               file=sys.stderr)

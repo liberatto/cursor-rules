@@ -20,19 +20,20 @@ Quality principles applied to all documents, regardless of type or Persona.
 
 **Per document type** — for 협업 문서 the consumers are you and Claude, so the "Reader" below is a *content lens* (whose concerns to address); for 전달 문서(REPORT·DOCUMENTATION·GUIDE) the "Reader" is the **final external audience** to write for, even while the current reader is the user:
 
-| Type          | Reader                  | Reader's Core Question             |
-|---------------|-------------------------|------------------------------------|
-| PRD           | Stakeholders            | "Why are we building this?"        |
-| STRATEGY      | Future sessions (user & Claude) | "Which direction, and why?" |
-| PLAN          | Implementers            | "What do I need to do?"            |
-| RESEARCH      | Decision-makers         | "What are the options?"            |
-| REPORT        | Managers & stakeholders | "Where do things stand?"           |
-| GUIDE         | Practitioners           | "Can I follow this as-is?"         |
-| ANALYSIS      | Decision-makers         | "What does the analysis conclude?" |
-| ADR           | Future teammates        | "Why was this decided?"            |
-| HANDOFF       | Next session's Claude   | "Can I resume exactly where this left off?" |
-| NOTE          | Author (personal)       | "What was captured?"               |
-| DOCUMENTATION | Practitioners           | "How does this work?"              |
+| Type            | Reader                          | Reader's Core Question                      |
+|-----------------|---------------------------------|---------------------------------------------|
+| PRD             | Stakeholders                    | "Why are we building this?"                 |
+| STRATEGY        | Future sessions (user & Claude) | "Which direction, and why?"                 |
+| PLAN            | Implementers                    | "What do I need to do?"                     |
+| RESEARCH        | Decision-makers                 | "What are the options?"                     |
+| REPORT (조직)   | Managers & stakeholders         | "Where do things stand?"                    |
+| REPORT (검증)   | Maintainers & next session      | "Can I trust and reproduce this verdict?"   |
+| GUIDE           | Practitioners                   | "Can I follow this as-is?"                  |
+| ANALYSIS        | Decision-makers                 | "What does the analysis conclude?"          |
+| ADR             | Future teammates                | "Why was this decided?"                     |
+| HANDOFF         | Next session's Claude           | "Can I resume exactly where this left off?" |
+| NOTE            | Author (personal)               | "What was captured?"                        |
+| DOCUMENTATION   | Practitioners                   | "How does this work?"                       |
 
 ---
 

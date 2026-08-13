@@ -30,20 +30,25 @@ AI 개발 도구(Claude Code, Codex)의 설정, 커스텀 커맨드, 에이전�
 
 이 저장소는 **단일 진실 원천(Single Source of Truth)** 역할을 한다:
 1. 모든 설정 원본은 이 저장소에서 관리
-2. 각 프로젝트에는 `cp -r`로 배포
-3. 변경은 항상 이 저장소에서 먼저 수행 → 프로젝트에 전파
+2. 각 프로젝트에는 **심링크로 배포** — 사본을 두면 양쪽이 각자 앞서나가 어느 쪽이 정본인지 사라진다
+3. 변경은 항상 이 저장소에서 먼저 수행 → 심링크를 통해 자동 전파
 
 ### 이중 `.claude/` 구조
 
 - `ClaudeCode/.claude/`: 다른 프로젝트에 배포할 **템플릿** 원본
 - `.claude/` (루트): 이 저장소 자체에서 사용하는 **로컬** 설정
 - 커맨드 **원본은 `ClaudeCode/.claude/commands/ssp/` 하나뿐이다.** 루트 `.claude/commands/ssp/`는 그중 글로벌로 내보낼 것만 골라 건 **상대 심링크 모음**이고, 이 디렉토리가 통째로 `~/.claude/commands/ssp`로 심링크되어 있다. 따라서 커맨드는 항상 `ClaudeCode/` 쪽 원본을 수정하며, 편집 즉시 글로벌에 반영된다
+- **스킬·에이전트도 같은 구조다** — 루트 `.claude/skills/*`·`.claude/agents/ktspace-atlassian-explorer.md`는 전부 `ClaudeCode/` 원본을 가리키는 상대 심링크다. 따라서 원본을 고치면 이 저장소 세션에 즉시 반영되며, `cp`로 동기화할 필요가 없다 (2026-08-14 전환)
 - 글로벌 노출을 추가·제거하려면 루트 쪽 심링크만 만들거나 지운다 — `.gitignore`의 `.claude/*` 때문에 `git add -f`로 추적해야 선택 자체가 버전 관리된다
 
 ```bash
-# 글로벌 노출 추가
+# 커맨드 글로벌 노출 추가 (파일 단위)
 ln -s ../../../ClaudeCode/.claude/commands/ssp/<name>.md .claude/commands/ssp/<name>.md
 git add -f .claude/commands/ssp/<name>.md
+
+# 스킬 (디렉토리 단위)
+ln -s ../../ClaudeCode/.claude/skills/<name> .claude/skills/<name>
+git add -f .claude/skills/<name>
 ```
 
 ### 글로벌 CLAUDE.md 원본
@@ -57,18 +62,22 @@ git add -f .claude/commands/ssp/<name>.md
 ### 배포 규칙
 
 ```bash
-# Claude Code 설정 배포
-cp -r ClaudeCode/.claude/* /path/to/project/.claude/
+# 스킬·에이전트 배포 — 외부 프로젝트는 절대 경로 심링크
+ln -s /Users/sspark/Work/rules/ClaudeCode/.claude/skills/<name> /path/to/project/.claude/skills/<name>
 
-# Codex 설정 배포
+# Codex 설정 배포 (심링크 대상 아님)
 cp Codex/config.toml ~/.codex/
 ```
+
+`cp -r`로 배포하지 않는다 — 사본은 프로젝트에서 독자 진화해 원본과 갈라지고, `.claude/*`가 gitignore라 갈라진 사본은 git으로 복구되지 않는다.
 
 ### 파일 수정 원칙
 
 1. **이 저장소가 마스터**: 항상 여기서 먼저 수정 후 프로젝트에 배포
-2. **커밋 메시지에 변경 사유 명시**
-3. **실제 프로젝트에서 동작 확인 후 커밋**
+2. **배포 전 양방향 대조**: 심링크로 덮기 전에 `diff -rq <원본> <사본>`을 돌린다. **원본이 항상 최신이라는 전제는 틀린다** — 2026-08-14 전환에서 5건(`ktspace`·`report-style`·`svg-slide`·`ktspace-explorer`·`ktspace-atlassian-explorer` 에이전트)이 사본 쪽이 앞서 있었다. 사본에만 있는 내용이 나오면 원본에 역반영한 뒤 배포하고, 구버전 잔재라 버린다면 그 근거를 커밋 메시지에 남긴다
+   - 검사 tell: 사본을 지우기 전에 "이 사본에만 있는 문장"을 하나라도 댈 수 있어야 한다. 못 대면 대조를 안 돌린 것이다
+3. **커밋 메시지에 변경 사유 명시**
+4. **실제 프로젝트에서 동작 확인 후 커밋**
 
 ---
 

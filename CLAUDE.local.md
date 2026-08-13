@@ -17,6 +17,7 @@
 - **frontmatter `argument-hint` 따옴표 필수**: YAML 특수문자 포함 시 크래시 방지
 - **배포는 심링크, 사본 금지** (2026-08-14): 스킬·에이전트·커맨드 모두 루트와 외부 프로젝트가 `ClaudeCode/` 원본을 가리킨다. 절차는 `CLAUDE.md` §배포 규칙·§파일 수정 원칙 참조
 - **`prompt-master` 정본은 커스터마이징본**: upstream(`nidhinjs/prompt-master`) 클론이 아니라 Claude Code Edition(한국어 트리거·29 패턴)이 정본. upstream 은 gitlink 고아 상태였어서 제거했고, 필요하면 원격에서 재클론한다
+- **`claude-md-audit` 적용 범위는 배포되는 글로벌 지침뿐** (2026-08-14): `ClaudeCode/CLAUDE.v.*.md` 시리즈와 배포본 `~/.claude/CLAUDE.md` 에만 쓴다. 이 저장소 루트 `CLAUDE.md`·`CLAUDE.local.md` 는 배포되지 않아 스킬의 전제(매 턴 상주 비용·편입 게이트)가 성립하지 않으므로 **감사 없이 직접 고친다**
 - **`skill-creator` 는 Anthropic 공식판으로 교체 예정**: 현재 `ClaudeCode/` 원본은 곧 삭제한다. 그래서 2026-08-14 심링크 전환 대상에서 제외했다
 
 ---

@@ -2,7 +2,12 @@
 """발표용 SVG 슬라이드 스타일 기계 점검.
 
 사용법:
-    python3 check.py <파일.svg> [--executive]
+    python3 check.py <파일.svg> [--executive] [--bold]
+
+  --bold : 볼드 스타일 트랙(다크·그라디언트 배경 슬라이드 — style-gallery.md의
+           Dark Tech·Blueprint·Editorial·Data Story 계열). 흰 배경·액센트 바·
+           흰 글자·헤더 구분선 4축을 완화한다. 나머지(16:9·CSS변수·한글폰트·
+           폰트 하한·박스 겹침·여백)는 그대로 적용.
 
 검사 축 (하우스 스타일 SoT = references/presentation-style.md · executive-style.md):
   1. 캔버스        16:9 (viewBox / width / height 비율 일치)
@@ -94,8 +99,9 @@ def collect(root):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     executive = "--executive" in sys.argv
+    bold = "--bold" in sys.argv
     if not args:
-        print("usage: check.py <파일.svg> [--executive]")
+        print("usage: check.py <파일.svg> [--executive] [--bold]")
         return 2
 
     path = args[0]
@@ -106,7 +112,7 @@ def main():
     notes = []
 
     font_min = 16 if executive else 15
-    layer = "임원보고" if executive else "일반 발표"
+    layer = ("임원보고" if executive else "일반 발표") + (" · 볼드 트랙" if bold else "")
 
     # --- 1. 캔버스 16:9 ---
     vb = root.get("viewBox", "")
@@ -132,7 +138,7 @@ def main():
         and (parse_color(e.get("fill")) or (0, 0, 0)) == (255, 255, 255)
         for e, _ in rects
     )
-    if not has_bg:
+    if not has_bg and not bold:
         violations.append("[배경] 캔버스를 덮는 흰 배경 rect가 없음 (슬라이드 테마색이 비침)")
 
     # --- 3. CSS 변수 ---
@@ -205,7 +211,7 @@ def main():
             + (" …" if len(small_fonts) > 5 else "")
             + "  → 폰트를 낮추지 말고 배치 재설계·통합·분할"
         )
-    if white_on_light:
+    if white_on_light and not bold:
         detail = ", ".join(f"'{t}'@({x:.0f},{y:.0f})" for t, x, y in white_on_light[:5])
         violations.append(f"[가독성] 밝은 배경 위 흰 글자 {len(white_on_light)}건 — {detail}")
 
@@ -217,7 +223,7 @@ def main():
         and (fnum(e, "y", 999) or 999) < 120
         for e, _ in rects
     )
-    if not has_bar:
+    if not has_bar and not bold:
         violations.append("[타이틀] 제목 앞 액센트 바(6×44~48·rx3) 없음")
 
     # --- 7b. 헤더 구분선 (헤더/본문 경계) ---
@@ -239,7 +245,7 @@ def main():
                 continue
             if bh <= 3 and 80 <= y <= 130 and bw >= canvas_w * 0.8:
                 header_divider = True
-    if not header_divider:
+    if not header_divider and not bold:
         violations.append(
             "[헤더] 타이틀 아래 헤더 구분선 없음 — 풀폭 가로선(y≈98, #E1E4EA)으로 헤더/본문을 가를 것")
 

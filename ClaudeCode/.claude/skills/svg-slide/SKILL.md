@@ -56,6 +56,14 @@ SVG 코드를 바로 쓰지 않는다. 다 그린 뒤 "담을 내용이 틀렸�
 
 **구체 템플릿은 패턴 라이브러리에서 고른다.** 관계를 정했으면 백지에서 그리기 전에 `references/pattern-library.md`의 **선택 매트릭스(관계·의도 → 패턴)**에서 맞는 패턴을 골라 시작 골격으로 복사한다. 18종 — KPI 스탯 타일 · 도넛 게이지 · 진행 막대 · 아이소타입 / 프로세스 스텝 · 타임라인 · 순환 사이클 · 퍼널 / 계층 트리 · 레이어드 아키텍처 · 네트워크 · 2×2 매트릭스 / Before·After · 막대 차트 · 도넛 구성비 · 벤 / 콜아웃 하이라이트 · 대형 스테이트먼트. 이들은 **컴포넌트(삽입 figure)** — 16:9 캔버스 안에 1~3개를 배치하는 조각이며, 맞는 게 없을 때만 박스형을 직접 구성한다. 18종을 눈으로 훑으려면 `assets/pattern-gallery.html`을 브라우저로 연다.
 
+### 2.1 두 축 — 스타일(톤) × 컴포넌트(도식)
+
+패턴 라이브러리가 "**무엇을** 그리나(컴포넌트)"라면, `references/style-gallery.md`는 "**어떤 톤으로** 입히나(슬라이드 전체 비주얼)"다. 직교하는 두 축 — **스타일을 먼저 고르고, 그 안을 컴포넌트로 채운다.**
+
+- **스타일 6종**(청중·목적으로 선택) — Executive Grid(임원·의사결정) / Dark Tech(AI·데모) / Editorial(키노트·선언) / Data Story(성과·숫자) / Modular Cards(서비스·플레이북) / Blueprint(아키텍처). 시각 인덱스 `assets/style-gallery.svg`
+- **밋밋함을 깨는 볼드 4종**(Dark Tech·Editorial·Data Story·Blueprint)은 다크·그라디언트·컬러블록을 쓴다 — 하우스 기본이 안 쓰던 톤. 점검은 `check.py --bold`(흰 배경·액센트 바·흰 글자·헤더 구분선 4축 완화, 나머지는 유지). 라이트 2종(Executive Grid·Modular Cards)은 하우스 규칙 그대로.
+- 스타일을 정하면 컴포넌트 스니펫의 파스텔 색을 **그 스타일 팔레트로 교체**하고, 여러 장은 첫 장 스타일을 전 장에 고정(§5).
+
 ## 3. 작성 — 골격
 
 `assets/boilerplate.svg`(일반) 또는 `assets/boilerplate-executive.svg`(임원)를 복사해 캔버스·타이틀 골격을 잡고, 도식 본체는 `references/pattern-library.md`에서 고른 패턴 스니펫을 캔버스 좌표에 맞춰 배치·리사이즈하고 더미 텍스트·수치를 실제 값으로 교체해 채운다. 규칙 상세는 references 참조. 절대 어기지 않을 것만 여기 둔다:
@@ -78,10 +86,10 @@ SVG 코드를 바로 쓰지 않는다. 다 그린 뒤 "담을 내용이 틀렸�
 ## 4. 작성 후 — 기계 점검 (필수)
 
 ```bash
-python3 .claude/skills/svg-slide/scripts/check.py <파일.svg> [--executive]
+python3 .claude/skills/svg-slide/scripts/check.py <파일.svg> [--executive] [--bold]
 ```
 
-캔버스 비율·CSS 변수·흰 글자·폰트 하한·액센트 바·박스 경계 패딩·여백 균형을 검사한다. **0건 확인 후 마감**한다.
+캔버스 비율·CSS 변수·흰 글자·폰트 하한·액센트 바·박스 경계 패딩·여백 균형을 검사한다. **0건 확인 후 마감**한다. 다크·그라디언트를 쓰는 볼드 스타일(`style-gallery.md`의 Dark Tech·Blueprint 등)은 `--bold`로 흰 배경·액센트 바·흰 글자·헤더 구분선 4축을 완화한다(나머지는 유지).
 
 스크립트가 잡지 못하는 것은 눈으로 본다 — 브라우저에서 실제 렌더링을 열어 **한글이 깨지지 않는지, 텍스트가 박스를 넘지 않는지** 확인한다. 스크립트는 좌표를 볼 뿐 글자 폭을 모른다.
 
@@ -101,9 +109,11 @@ python3 .claude/skills/svg-slide/scripts/check.py <파일.svg> [--executive]
 - `references/presentation-style.md` — 일반 발표용 전체 규칙(설계·유형·캔버스·색·폰트·점검)
 - `references/executive-style.md` — 임원보고 특화(폰트 +2, 도메인 색 매핑, 헤더 띠·결론 띠 골격)
 - `references/pattern-library.md` — 관계·의도 → 패턴 선택 매트릭스 + 18종 컴포넌트 SVG 템플릿
+- `references/style-gallery.md` — 슬라이드 비주얼 톤 6종 선택 레이어(스타일 축) + 볼드 트랙 완화 규칙
 - `assets/boilerplate.svg` · `assets/boilerplate-executive.svg` — 시작 골격
 - `assets/pattern-gallery.html` — 18종 패턴 브라우저 갤러리(라이트/다크). 시각 인덱스
-- `scripts/check.py` — 기계 점검
+- `assets/style-gallery.svg` — 6종 스타일 비교 갤러리(1920×1080). 스타일 축 시각 인덱스
+- `scripts/check.py` — 기계 점검 (`--executive` 임원 · `--bold` 볼드 스타일 완화)
 
 ## 이식성 (자족 스킬)
 

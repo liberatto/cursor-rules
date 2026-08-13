@@ -1,0 +1,251 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">16:9 인포그래픽 발표자료 스타일 갤러리</title>
+  <desc id="desc">같은 메시지를 여섯 가지 발표 슬라이드 스타일로 비교한 선택용 갤러리</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-20%" width="130%" height="150%">
+      <feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#15233C" flood-opacity=".12"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#071427" flood-opacity=".18"/>
+    </filter>
+    <linearGradient id="pageBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F8FAFD"/>
+      <stop offset="1" stop-color="#EEF2F8"/>
+    </linearGradient>
+    <linearGradient id="darkBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071321"/>
+      <stop offset="1" stop-color="#142844"/>
+    </linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7C5CFC"/>
+      <stop offset="1" stop-color="#4ED7C8"/>
+    </linearGradient>
+    <linearGradient id="dataBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF5D5D"/>
+      <stop offset="1" stop-color="#FFB547"/>
+    </linearGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0V20" fill="none" stroke="#58A6FF" stroke-width=".55" opacity=".20"/>
+    </pattern>
+    <style>
+      text { font-family: Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; }
+      .label { font-size: 17px; font-weight: 800; letter-spacing: .8px; }
+      .tiny { font-size: 9.5px; }
+      .small { font-size: 11px; }
+      .body { font-size: 13px; }
+      .sub { font-size: 15px; }
+      .head { font-size: 22px; font-weight: 800; }
+      .metric { font-size: 31px; font-weight: 900; }
+    </style>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#pageBg)"/>
+  <circle cx="1780" cy="-40" r="250" fill="#D9E6FF" opacity=".42"/>
+  <circle cx="60" cy="1060" r="210" fill="#E7DDFE" opacity=".38"/>
+
+  <text x="96" y="76" font-size="38" font-weight="900" fill="#14213D">INFOGRAPHIC STYLE GALLERY</text>
+  <text x="97" y="112" font-size="18" fill="#667085">각 프레임은 독립적인 16:9 슬라이드입니다 · 같은 메시지, 다른 정보 구조</text>
+  <g transform="translate(1645 55)">
+    <rect width="178" height="44" rx="22" fill="#14213D"/>
+    <text x="89" y="28" text-anchor="middle" font-size="14" font-weight="800" fill="#FFFFFF">SELECT 01–06</text>
+  </g>
+
+  <!-- 01 Executive Grid -->
+  <g transform="translate(100 170)" filter="url(#shadow)">
+    <rect width="560" height="315" rx="18" fill="#FFFFFF"/>
+    <clipPath id="c1"><rect width="560" height="315" rx="18"/></clipPath>
+    <g clip-path="url(#c1)">
+      <rect x="0" y="0" width="9" height="315" fill="#3769C8"/>
+      <text x="30" y="36" class="small" font-weight="800" fill="#3769C8">01 · EXECUTIVE GRID</text>
+      <text x="30" y="68" class="head" fill="#172033">AI 업무 전환, 성과로 연결</text>
+      <text x="30" y="88" class="small" fill="#667085">복잡한 현황을 한 장의 의사결정 구조로 정리</text>
+      <rect x="30" y="108" width="146" height="106" rx="12" fill="#F3F7FF" stroke="#C7D8F8"/>
+      <text x="45" y="132" class="tiny" font-weight="700" fill="#667085">핵심 성과</text>
+      <text x="45" y="170" class="metric" fill="#2857B2">42%</text>
+      <text x="45" y="194" class="small" font-weight="700" fill="#172033">처리시간 단축</text>
+      <rect x="191" y="108" width="339" height="106" rx="12" fill="#F8F9FB"/>
+      <g transform="translate(210 130)">
+        <circle cx="18" cy="18" r="18" fill="#DCE8FF"/><text x="18" y="22" text-anchor="middle" class="small" font-weight="800" fill="#2857B2">1</text>
+        <text x="44" y="16" class="body" font-weight="800" fill="#172033">발견</text><text x="44" y="34" class="tiny" fill="#667085">반복업무 식별</text>
+        <line x1="122" y1="18" x2="150" y2="18" stroke="#A9BFE9" stroke-width="2"/>
+        <circle cx="170" cy="18" r="18" fill="#DCE8FF"/><text x="170" y="22" text-anchor="middle" class="small" font-weight="800" fill="#2857B2">2</text>
+        <text x="196" y="16" class="body" font-weight="800" fill="#172033">실증</text><text x="196" y="34" class="tiny" fill="#667085">6주 파일럿</text>
+        <line x1="274" y1="18" x2="302" y2="18" stroke="#A9BFE9" stroke-width="2"/>
+        <circle cx="322" cy="18" r="18" fill="#F4D98B"/><text x="322" y="22" text-anchor="middle" class="small" font-weight="800" fill="#775A00">3</text>
+        <text x="278" y="72" class="tiny" font-weight="800" fill="#775A00">확산</text>
+      </g>
+      <rect x="30" y="232" width="500" height="54" rx="10" fill="#172B4D"/>
+      <text x="48" y="255" class="tiny" fill="#C9D6EA">NEXT DECISION</text>
+      <text x="48" y="274" class="body" font-weight="800" fill="#FFFFFF">파일럿 3개 과제 승인 → 9월 표준 패키지 배포</text>
+    </g>
+    <g transform="translate(16 330)"><circle cx="8" cy="8" r="8" fill="#3769C8"/><text x="25" y="13" class="label" fill="#23314D">01 Executive Grid</text><text x="205" y="13" class="body" fill="#7A8495">임원보고 · 의사결정</text></g>
+  </g>
+
+  <!-- 02 Dark Tech -->
+  <g transform="translate(680 170)" filter="url(#shadow)">
+    <rect width="560" height="315" rx="18" fill="url(#darkBg)"/>
+    <clipPath id="c2"><rect width="560" height="315" rx="18"/></clipPath>
+    <g clip-path="url(#c2)">
+      <circle cx="500" cy="-15" r="160" fill="#6B5CFF" opacity=".17"/>
+      <circle cx="525" cy="285" r="140" fill="#27D7C7" opacity=".10"/>
+      <path d="M310 46H500M335 72H530M360 98H510" stroke="#4ED7C8" opacity=".18"/>
+      <text x="30" y="36" class="small" font-weight="800" fill="#65E6D8">02 · DARK TECH</text>
+      <text x="30" y="70" class="head" fill="#FFFFFF">AI OPERATING SYSTEM</text>
+      <text x="30" y="91" class="small" fill="#9CB0C8">From manual workflow to autonomous execution</text>
+      <g transform="translate(30 119)">
+        <rect width="150" height="105" rx="13" fill="#14263D" stroke="#2D496A"/>
+        <text x="16" y="24" class="tiny" fill="#8EA6C2">AUTOMATION RATE</text>
+        <text x="16" y="63" class="metric" fill="#FFFFFF">72%</text>
+        <path d="M16 83H132" stroke="#28425F" stroke-width="7" stroke-linecap="round"/>
+        <path d="M16 83H99" stroke="url(#violet)" stroke-width="7" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(198 119)">
+        <rect width="332" height="105" rx="13" fill="#0E1D30" stroke="#2D496A"/>
+        <g transform="translate(22 28)">
+          <circle cx="20" cy="20" r="20" fill="#6B5CFF"/><path d="M13 20h14M20 13v14" stroke="#fff" stroke-width="2"/>
+          <text x="52" y="16" class="body" font-weight="800" fill="#FFFFFF">Collect</text><text x="52" y="35" class="tiny" fill="#8EA6C2">context</text>
+          <path d="M114 20H143" stroke="#4ED7C8" stroke-width="2"/>
+          <circle cx="166" cy="20" r="20" fill="#264C6C"/><path d="M158 20l6 6 11-13" fill="none" stroke="#65E6D8" stroke-width="2.4"/>
+          <text x="198" y="16" class="body" font-weight="800" fill="#FFFFFF">Decide</text><text x="198" y="35" class="tiny" fill="#8EA6C2">policy</text>
+          <path d="M258 20H282" stroke="#4ED7C8" stroke-width="2"/>
+        </g>
+      </g>
+      <rect x="30" y="242" width="500" height="45" rx="10" fill="#162A43" stroke="#284965"/>
+      <circle cx="52" cy="264" r="6" fill="#4ED7C8"/><text x="69" y="269" class="body" font-weight="700" fill="#DCE7F5">Next deploy</text>
+      <text x="503" y="269" text-anchor="end" class="body" font-weight="800" fill="#65E6D8">SEP 2026 →</text>
+    </g>
+    <g transform="translate(16 330)"><circle cx="8" cy="8" r="8" fill="#6B5CFF"/><text x="25" y="13" class="label" fill="#23314D">02 Dark Tech</text><text x="160" y="13" class="body" fill="#7A8495">AI · 기술전략 · 데모</text></g>
+  </g>
+
+  <!-- 03 Editorial -->
+  <g transform="translate(1260 170)" filter="url(#shadow)">
+    <rect width="560" height="315" rx="18" fill="#F4EFE6"/>
+    <clipPath id="c3"><rect width="560" height="315" rx="18"/></clipPath>
+    <g clip-path="url(#c3)">
+      <rect x="391" width="169" height="315" fill="#E5573F"/>
+      <text x="28" y="34" class="small" font-weight="800" fill="#E5573F">03 / EDITORIAL</text>
+      <text x="28" y="80" font-size="31" font-weight="900" fill="#171717">일하는 방식이</text>
+      <text x="28" y="115" font-size="31" font-weight="900" fill="#171717">제품이 된다.</text>
+      <line x1="28" y1="139" x2="353" y2="139" stroke="#171717" stroke-width="1.5"/>
+      <text x="28" y="170" class="body" font-weight="700" fill="#333333">반복 가능한 업무를 발견하고,</text>
+      <text x="28" y="190" class="body" fill="#55504A">사람의 판단 기준을 AI 실행 규칙으로 전환합니다.</text>
+      <g transform="translate(28 222)">
+        <text x="0" y="13" class="tiny" font-weight="800" fill="#E5573F">01</text><text x="27" y="13" class="small" font-weight="800" fill="#171717">OBSERVE</text>
+        <text x="0" y="39" class="tiny" font-weight="800" fill="#E5573F">02</text><text x="27" y="39" class="small" font-weight="800" fill="#171717">CODIFY</text>
+        <text x="0" y="65" class="tiny" font-weight="800" fill="#E5573F">03</text><text x="27" y="65" class="small" font-weight="800" fill="#171717">SCALE</text>
+      </g>
+      <text x="475" y="55" text-anchor="middle" class="tiny" font-weight="800" fill="#FFD8D1">IMPACT</text>
+      <text x="475" y="138" text-anchor="middle" font-size="58" font-weight="900" fill="#FFFFFF">42</text>
+      <text x="475" y="170" text-anchor="middle" font-size="20" font-weight="800" fill="#FFFFFF">%</text>
+      <line x1="424" y1="198" x2="526" y2="198" stroke="#F7A99C"/>
+      <text x="475" y="226" text-anchor="middle" class="small" font-weight="800" fill="#FFFFFF">FASTER</text>
+      <text x="475" y="246" text-anchor="middle" class="small" fill="#FFD8D1">in 6 weeks</text>
+      <text x="475" y="291" text-anchor="middle" class="tiny" fill="#FFD8D1">FIELD NOTE · 2026</text>
+    </g>
+    <g transform="translate(16 330)"><circle cx="8" cy="8" r="8" fill="#E5573F"/><text x="25" y="13" class="label" fill="#23314D">03 Editorial</text><text x="150" y="13" class="body" fill="#7A8495">스토리텔링 · 키노트</text></g>
+  </g>
+
+  <!-- 04 Data Story -->
+  <g transform="translate(100 570)" filter="url(#shadow)">
+    <rect width="560" height="315" rx="18" fill="#FFF8F3"/>
+    <clipPath id="c4"><rect width="560" height="315" rx="18"/></clipPath>
+    <g clip-path="url(#c4)">
+      <text x="28" y="35" class="small" font-weight="800" fill="#D94A4A">04 · DATA STORY</text>
+      <text x="28" y="67" class="head" fill="#2A2524">6주 만에 병목이 사라졌습니다</text>
+      <text x="28" y="87" class="small" fill="#766A67">처리시간 감소와 자동화율 상승이 동시에 발생</text>
+      <g transform="translate(28 112)">
+        <line x1="0" y1="126" x2="335" y2="126" stroke="#D8CCC7"/>
+        <line x1="0" y1="16" x2="0" y2="126" stroke="#D8CCC7"/>
+        <path d="M0 34 C60 40 92 54 132 67 S220 96 335 108" fill="none" stroke="url(#dataBar)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M0 34 C60 40 92 54 132 67 S220 96 335 108 L335 126 L0 126Z" fill="#FF8A65" opacity=".10"/>
+        <circle cx="0" cy="34" r="6" fill="#FF5D5D"/><circle cx="335" cy="108" r="6" fill="#FFB547"/>
+        <text x="8" y="25" class="tiny" font-weight="800" fill="#D94A4A">100 min</text>
+        <text x="326" y="99" text-anchor="end" class="tiny" font-weight="800" fill="#A96800">58 min</text>
+        <text x="0" y="146" class="tiny" fill="#887A76">W1</text><text x="335" y="146" text-anchor="end" class="tiny" fill="#887A76">W6</text>
+      </g>
+      <g transform="translate(395 105)">
+        <rect width="137" height="74" rx="12" fill="#FFFFFF" stroke="#F0DCD4"/>
+        <text x="14" y="23" class="tiny" font-weight="700" fill="#887A76">TIME SAVED</text>
+        <text x="14" y="57" class="metric" fill="#D94A4A">42%</text>
+        <rect y="88" width="137" height="74" rx="12" fill="#2A2524"/>
+        <text x="14" y="112" class="tiny" font-weight="700" fill="#D7CBC6">AUTOMATION</text>
+        <text x="14" y="146" class="metric" fill="#FFFFFF">72%</text>
+      </g>
+      <rect x="28" y="277" width="504" height="16" rx="8" fill="#F3E6E0"/>
+      <rect x="28" y="277" width="363" height="16" rx="8" fill="url(#dataBar)"/>
+    </g>
+    <g transform="translate(16 330)"><circle cx="8" cy="8" r="8" fill="#FF6A5E"/><text x="25" y="13" class="label" fill="#23314D">04 Data Story</text><text x="162" y="13" class="body" fill="#7A8495">성과 · 분석 · 숫자 중심</text></g>
+  </g>
+
+  <!-- 05 Modular Cards -->
+  <g transform="translate(680 570)" filter="url(#shadow)">
+    <rect width="560" height="315" rx="18" fill="#EEEAF8"/>
+    <clipPath id="c5"><rect width="560" height="315" rx="18"/></clipPath>
+    <g clip-path="url(#c5)">
+      <text x="28" y="35" class="small" font-weight="800" fill="#6A4BBC">05 · MODULAR CARDS</text>
+      <text x="28" y="67" class="head" fill="#241B3A">AI 전환 플레이북</text>
+      <text x="28" y="87" class="small" fill="#6F6680">한눈에 읽고, 필요한 모듈만 꺼내 쓰는 구조</text>
+      <g transform="translate(28 112)">
+        <rect width="156" height="80" rx="14" fill="#FFFFFF" filter="url(#soft)"/>
+        <circle cx="28" cy="27" r="13" fill="#E5DCFA"/><path d="M23 27h10M28 22v10" stroke="#6A4BBC" stroke-width="2"/>
+        <text x="49" y="31" class="body" font-weight="800" fill="#241B3A">Discover</text>
+        <text x="16" y="59" class="tiny" fill="#756B87">반복 업무 · 병목 탐색</text>
+        <rect x="174" width="156" height="80" rx="14" fill="#6A4BBC" filter="url(#soft)"/>
+        <circle cx="202" cy="27" r="13" fill="#8B6ED1"/><path d="M196 27l4 4 8-9" fill="none" stroke="#fff" stroke-width="2"/>
+        <text x="223" y="31" class="body" font-weight="800" fill="#FFFFFF">Prototype</text>
+        <text x="190" y="59" class="tiny" fill="#E7DFFD">6주 실증 · 사용자 검증</text>
+        <rect x="348" width="156" height="80" rx="14" fill="#FFFFFF" filter="url(#soft)"/>
+        <circle cx="376" cy="27" r="13" fill="#DDF5E9"/><path d="M370 31l6-10 6 10z" fill="#27996B"/>
+        <text x="397" y="31" class="body" font-weight="800" fill="#241B3A">Scale</text>
+        <text x="364" y="59" class="tiny" fill="#756B87">표준화 · 패키지 확산</text>
+        <rect y="98" width="244" height="76" rx="14" fill="#27203A"/>
+        <text x="17" y="120" class="tiny" fill="#BBB1CE">OUTCOME</text>
+        <text x="17" y="153" font-size="28" font-weight="900" fill="#FFFFFF">42% faster</text>
+        <rect x="262" y="98" width="242" height="76" rx="14" fill="#D7F1E6"/>
+        <text x="279" y="120" class="tiny" fill="#39745E">NEXT MOVE</text>
+        <text x="279" y="144" class="body" font-weight="800" fill="#174D3A">3개 과제 동시 확산</text>
+        <text x="279" y="162" class="tiny" fill="#39745E">SEPTEMBER · 2026</text>
+      </g>
+    </g>
+    <g transform="translate(16 330)"><circle cx="8" cy="8" r="8" fill="#6A4BBC"/><text x="25" y="13" class="label" fill="#23314D">05 Modular Cards</text><text x="205" y="13" class="body" fill="#7A8495">서비스 · 포트폴리오</text></g>
+  </g>
+
+  <!-- 06 Blueprint -->
+  <g transform="translate(1260 570)" filter="url(#shadow)">
+    <rect width="560" height="315" rx="18" fill="#071A2F"/>
+    <clipPath id="c6"><rect width="560" height="315" rx="18"/></clipPath>
+    <g clip-path="url(#c6)">
+      <rect width="560" height="315" fill="url(#grid)"/>
+      <text x="28" y="35" class="small" font-weight="800" fill="#58A6FF">06 · BLUEPRINT</text>
+      <text x="28" y="67" class="head" fill="#F1F7FF">AI WORKFLOW ARCHITECTURE</text>
+      <text x="28" y="87" class="small" fill="#89A4C0">SYSTEM MAP / REV. 03 / 2026.07</text>
+      <g transform="translate(28 118)" fill="none" stroke="#58A6FF">
+        <rect width="122" height="62" rx="5" stroke-width="1.5"/>
+        <text x="61" y="27" text-anchor="middle" class="body" font-weight="800" fill="#F1F7FF" stroke="none">INPUT</text>
+        <text x="61" y="45" text-anchor="middle" class="tiny" fill="#89A4C0" stroke="none">CONTEXT + DATA</text>
+        <path d="M122 31H172" stroke-width="1.6"/><path d="M164 25l8 6-8 6"/>
+        <rect x="172" width="132" height="62" rx="5" stroke="#4ED7C8" stroke-width="2"/>
+        <text x="238" y="27" text-anchor="middle" class="body" font-weight="800" fill="#4ED7C8" stroke="none">AI CORE</text>
+        <text x="238" y="45" text-anchor="middle" class="tiny" fill="#89A4C0" stroke="none">PLAN + EXECUTE</text>
+        <path d="M304 31H354" stroke-width="1.6"/><path d="M346 25l8 6-8 6"/>
+        <rect x="354" width="150" height="62" rx="5" stroke-width="1.5"/>
+        <text x="429" y="27" text-anchor="middle" class="body" font-weight="800" fill="#F1F7FF" stroke="none">OUTCOME</text>
+        <text x="429" y="45" text-anchor="middle" class="tiny" fill="#89A4C0" stroke="none">42% FASTER</text>
+        <path d="M429 62V98H238V62" stroke="#4ED7C8" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="333" y="92" text-anchor="middle" class="tiny" fill="#4ED7C8" stroke="none">FEEDBACK LOOP</text>
+      </g>
+      <g transform="translate(28 244)">
+        <rect width="504" height="43" rx="5" fill="#0A2947" stroke="#24547D"/>
+        <text x="14" y="18" class="tiny" font-weight="800" fill="#58A6FF">STATUS</text>
+        <circle cx="70" cy="23" r="4" fill="#4ED7C8"/><text x="82" y="27" class="small" fill="#D6E9FA">PILOT VERIFIED</text>
+        <text x="487" y="27" text-anchor="end" class="small" font-weight="800" fill="#4ED7C8">SCALE READY</text>
+      </g>
+    </g>
+    <g transform="translate(16 330)"><circle cx="8" cy="8" r="8" fill="#1685D8"/><text x="25" y="13" class="label" fill="#23314D">06 Blueprint</text><text x="155" y="13" class="body" fill="#7A8495">아키텍처 · 운영모델</text></g>
+  </g>
+
+  <line x1="100" y1="975" x2="1820" y2="975" stroke="#D3DAE6"/>
+  <text x="100" y="1012" font-size="14" font-weight="700" fill="#596579">선택 기준</text>
+  <text x="190" y="1012" font-size="14" fill="#7A8495">격식 01 · 몰입 02 · 메시지 03 · 성과 04 · 구성요소 05 · 시스템 06</text>
+  <text x="1820" y="1012" text-anchor="end" font-size="12" fill="#98A2B3">1280×720 또는 1920×1080으로 확장 가능</text>
+</svg>

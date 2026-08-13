@@ -1,7 +1,7 @@
 ---
 name: ktspace-explorer
 description: |
-  KT Space Atlassian 전체(<ktspace.atlassian.net>) 인스턴스 탐색·검색 스킬. 사용자의 소속 3개 공간(ServicePlatform / PLATFORMAX / WISEPMLIFE) **밖**, 또는 어느 공간인지 모를 때, 또는 KT Space 전사·타 부문·타 팀 자료를 찾을 때 사용.
+  KT Space Atlassian 전체(<ktspace.atlassian.net>) 인스턴스 탐색·검색 스킬. 사용자의 소속 4개 공간(ServicePlatform / PLATFORMAX / AICEPlatform / WISEPMLIFE) **밖**, 또는 어느 공간인지 모를 때, 또는 KT Space 전사·타 부문·타 팀 자료를 찾을 때 사용.
 
   Jira 전체 인스턴스 검색(이슈·프로젝트·담당자)에도 우선 적용.
 
@@ -24,7 +24,7 @@ user-invocable: true
 
 # KT Space Explorer (전사·미상·Jira 전체)
 
-KT Space Atlassian 인스턴스 전반을 가로질러 검색·탐색·메타조회하는 스킬. 사용자 소속 3개 공간 밖이거나, 어느 공간인지 알 수 없거나, Jira 전체를 다룰 때 사용.
+KT Space Atlassian 인스턴스 전반을 가로질러 검색·탐색·메타조회하는 스킬. 사용자 소속 4개 공간 밖이거나, 어느 공간인지 알 수 없거나, Jira 전체를 다룰 때 사용.
 
 ## Identity & Context
 
@@ -43,7 +43,7 @@ KT Space Atlassian 인스턴스 전반을 가로질러 검색·탐색·메타조
 | Jira 전체(프로젝트 키 미상, 내 할당 이슈, 임의 이슈 키 조회) | **본 스킬** |
 | 두 케이스가 섞임 | 사용자에게 의도 확인 후 하나로 진행 |
 
-소속 3개 공간(ServicePlatform / PLATFORMAX / WISEPMLIFE)의 **내부 트리·6팀 ancestor·페이지 매핑**은 `/ktspace` 스킬이 reference 파일로 보유. 본 스킬은 그 매핑을 가져다 쓰지 않고, 대신 **인스턴스 전체에 대한 검색 방식**을 활용.
+소속 4개 공간(ServicePlatform / PLATFORMAX / AICEPlatform / WISEPMLIFE)의 **내부 트리·6팀 ancestor·페이지 매핑**은 `/ktspace` 스킬이 reference 파일로 보유. 본 스킬은 그 매핑을 가져다 쓰지 않고, 대신 **인스턴스 전체에 대한 검색 방식**을 활용.
 
 ## 3가지 검색 방식 — 언제 무엇을 쓰나
 
@@ -136,7 +136,7 @@ status = "In Progress" AND updated >= -7d
 
 - 자연어 그대로 입력. 영문·한글 혼용 가능
 - 결과의 `entityType`(page / blogpost / issue / comment / attachment 등)으로 분류
-- `space` 필드로 출처 스페이스 확인 → 사용자 소속 3개 공간 안인지 밖인지 자동 분류해서 안내
+- `space` 필드로 출처 스페이스 확인 → 사용자 소속 4개 공간 안인지 밖인지 자동 분류해서 안내
 
 ## Output Format
 
@@ -204,7 +204,7 @@ status = "In Progress" AND updated >= -7d
 
 1. 결과가 사용자 의도에 부합
 2. 출력 구조 정연 + URL 정확
-3. 사용자 소속 3개 공간 밖이면 그 사실 명시 (예: "_(소속 외 공간: <SPACEKEY>)_")
+3. 사용자 소속 4개 공간 밖이면 그 사실 명시 (예: "_(소속 외 공간: <SPACEKEY>)_")
 4. 핵심에 집중(전체 dump ❌)
 5. 추가 탐색 가치 있으면 제안 — 소속 도메인 안 결과가 더 적합해 보이면 `/ktspace` 사용 안내
 

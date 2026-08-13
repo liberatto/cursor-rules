@@ -35,8 +35,8 @@ description: |
 | `ADR` | 아키텍처 결정 기록 | 협업 | Architect |
 | `HANDOFF` | 세션 인계 (다음 세션 재개용 스냅샷) | 협업 | — (자체 커버리지) |
 | `REPORT` | 상태·진행·완료 보고 | 전달 | PM(조직 보고) / Verifier(검증 기록) |
-| `GUIDE` | How-to 가이드 | 전달 | Engineer |
-| `DOCUMENTATION` | 일반 문서 | 전달 | Engineer |
+| `GUIDE` | 따라 하는 문서 (사용 절차·준수 규약) | 전달 | Engineer |
+| `DOCUMENTATION` | 구조·개념 설명 (시스템·방법론) | 전달 | Explainer |
 | `NOTE` | 간단 메모 | 메모 | — (자유형) |
 
 **문서군**에 따라 독자와 적용 원칙이 다르다 (writing-principles 최상단 참조):

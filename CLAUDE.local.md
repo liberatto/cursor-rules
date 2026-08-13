@@ -1,6 +1,6 @@
 # Rules Repository — 운영 컨텍스트
 
-> Last updated: 2026-02-08
+> Last updated: 2026-08-14
 
 이 저장소는 다른 실제 프로젝트 진행 중 발견되는 개선점을 지속 반영하는 **상시 운영 프로젝트**이다. 특정 목표 완료 후 리셋하지 않고, rolling 방식으로 관리한다.
 
@@ -15,3 +15,34 @@
 - **Global CLAUDE.md 자동 수정 제외**: `claude.md-update` 커맨드가 `~/.claude/CLAUDE.md`를 자동 수정하지 않음
 - **커밋 그루핑 원칙**: 기능 개선 / 신규 추가 / 설정 유지보수로 논리 분리
 - **frontmatter `argument-hint` 따옴표 필수**: YAML 특수문자 포함 시 크래시 방지
+- **배포는 심링크, 사본 금지** (2026-08-14): 스킬·에이전트·커맨드 모두 루트와 외부 프로젝트가 `ClaudeCode/` 원본을 가리킨다. 절차는 `CLAUDE.md` §배포 규칙·§파일 수정 원칙 참조
+- **`prompt-master` 정본은 커스터마이징본**: upstream(`nidhinjs/prompt-master`) 클론이 아니라 Claude Code Edition(한국어 트리거·29 패턴)이 정본. upstream 은 gitlink 고아 상태였어서 제거했고, 필요하면 원격에서 재클론한다
+- **`skill-creator` 는 Anthropic 공식판으로 교체 예정**: 현재 `ClaudeCode/` 원본은 곧 삭제한다. 그래서 2026-08-14 심링크 전환 대상에서 제외했다
+
+---
+
+## Recent Changes
+
+### 2026-08-14 — 마스터-사본 구조를 심링크로 전환
+
+전 프로젝트에 흩어진 스킬 사본을 원본 심링크로 대체했다. 커밋 9개(`a6a6d3b`~`dd67a2d`), 심링크 22곳.
+
+| 대상 | 범위 |
+| --- | --- |
+| 루트 `.claude/skills` | 7종 전부 |
+| `doc-writer` | axplatform·Incubation·agent-studio·agent-composer-core·bmad2 |
+| `ktspace` | 위 5곳 중 axplatform·agent-studio·agent-composer-core·bmad2 + Langgraph-Agent |
+| `ktspace-explorer` | agent-studio·agent-composer-core·hybrid-aicc |
+| `ktspace-atlassian-explorer` (에이전트) | 루트·axplatform·Incubation·Langgraph-Agent |
+
+**전환 과정에서 원본이 낡아 있던 5건을 역반영했다** — 그냥 배포했다면 `report-style` 배타 규칙, explorer 4공간 서술, 에이전트 4스페이스 체계가 소실됐을 것이다. 이 경험이 `CLAUDE.md` §파일 수정 원칙 2번(배포 전 양방향 대조)의 근거다.
+
+`claude-md-audit`·`excalidraw-diagram-generator` 는 루트에만 있던 것을 `ClaudeCode/` 원본으로 승격했다.
+
+---
+
+## Backlog
+
+- **아직 사본인 자산**: `Incubation` 의 LangChain/LangGraph 학습 스킬군(4개 프로젝트 공유), `azureml-examples` 12종, `axplatform` 업무 스킬군(`weekly-*`·`monthly-report`·`aidm-assess` 등). 원본화 여부부터 판단 필요
+- **`midm`·`voiceintent` 의 구세대 커맨드·에이전트**: `dive2`·`plan2`·`mlops-engineer`·`websearcher` 등. 레거시로 보이나 미확인 — 정리 전 실사용 여부 확인
+- **`ktspace-atlassian-explorer` 가 뺀 타 부문 스페이스 키 7종**(`ITPLATFORM`·`ConneKT`·`AITechLab` 등): 07-14 판이 Agent Memory 방식으로 대체했다. 소속 밖 검색 편의가 필요하면 복원 검토

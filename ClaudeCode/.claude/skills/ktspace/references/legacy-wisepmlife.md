@@ -3,6 +3,8 @@
 > **변경 정지**: 이 reference는 2025 플랫폼AX TF 시절 공식 보고·과제 자료의 아카이브이며 **신규 정보가 추가되지 않습니다**.
 > 현재(2026~) 시점 문서가 필요하면 `current-serviceplatform.md`(서비스플랫폼담당) 또는 `current-platformax.md`(플랫폼엔지니어링팀 프라이빗)을 참조하세요.
 
+> ⚠ **결과 제시 최후순위 (fallback 참고용)**: 현행 공간(ServicePlatform·AICEPlatform → PLATFORMAX)에서 **못 찾았을 때만** 참고 자료로 제시한다. 현행 결과가 있으면 나열하지 않거나 맨 끝에 "📎 레거시 참고"로만 짧게 덧붙인다. 제시 시 "레거시(2025), 현행 아님" 명시 + 현재형 단정 금지. 상세 규칙은 `SKILL.md` §결과 제시 우선순위. **예외** — 사용자가 WISEPMLIFE·플랫폼AX TF·25년·레거시를 명시 지목했을 때.
+
 ## Context
 
 - **Space**: `WISEPMLIFE` (슬기로운PM생활)

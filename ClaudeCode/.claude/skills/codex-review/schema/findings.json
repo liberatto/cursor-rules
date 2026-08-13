@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["findings", "summary"],
+  "properties": {
+    "summary": {
+      "type": "string",
+      "description": "검토 대상과 전체 판정을 한국어 두 문장 이내로"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "file", "line", "issue", "repro", "suggestion"],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": ["상", "중", "하"],
+            "description": "상=터지거나 데이터가 손상됨, 중=잘못된 결과나 예외, 하=개선 여지"
+          },
+          "file": { "type": "string", "description": "저장소 기준 상대 경로" },
+          "line": { "type": "integer", "description": "지적이 걸리는 대표 라인 번호" },
+          "issue": { "type": "string", "description": "무엇이 잘못됐는지 한국어 한두 문장" },
+          "repro": { "type": "string", "description": "재현 조건 또는 실패 입력 한 줄" },
+          "suggestion": { "type": "string", "description": "고칠 방향 한 줄. 없으면 빈 문자열" }
+        }
+      }
+    }
+  }
+}

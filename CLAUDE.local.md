@@ -24,6 +24,21 @@
 
 ## Recent Changes
 
+### 2026-08-14 (2회차) — doc-writer 정합성 점검·정리
+
+새 세션에서 doc-writer 를 충돌·모호성 기준으로 점검해 4건을 고쳤다. 커밋 2개(`8ccbe9c`, `ca63686`).
+
+| 발견 | 처리 |
+| --- | --- |
+| 규칙 절 15항목이 전부 본문 재서술이고 2곳 드리프트(NOTE 프론트매터·비유 예외) | 마감 점검 10항목(판정 질문 + 참조)으로 교체 |
+| §4 는 ADR 불변인데 프론트매터 예시가 `status: active` ADR 의 본문 편집을 시연 | 예시를 `type: strategy` 로 교체 + ADR 단서 추가 |
+| `technical-writer` 가 GUIDE·DOCUMENTATION 트리거 중첩, §1~§5 는 writing-principles 의 출처(문장 4/4 동일) | 삭제(배포처 0곳) |
+| agent-studio·bmad2 의 `.agents/skills/doc-writer` 가 08-09 사본으로 잔존 | 심링크 전환 |
+
+**§7 자기 적용 범위를 §7.3(구어·비유·의인화)만으로 확정**했다 — 스킬 파일은 산출물이 아니라 지시문이라 §7.7(제목 dash)·§8(화살표 체인)은 제외한다. 이 결정에 따라 어휘 19곳을 교정했다(줄 기준 — SKILL.md 14·personas 1·ascii-diagrams 1·writing-principles 3).
+
+`갈린다` 계열의 이력을 `git log -S` 로 추적한 결과가 이 회차의 교훈이다. `5f2633c` 가 유입시켰고, **`c5e85b0`("자기 적용" 커밋)은 `가르다` 계열만 고쳐 `갈린다` 를 남겼으며**, 이후 `30be303` 이 추가로 유입시켰다. 즉 자기 적용은 되돌려진 것이 아니라 **처음부터 한 어간을 놓친 것**이고, 놓친 어간은 계속 누적된다. 한국어 활용형이 원인이다 — `손대` 로 grep 하면 `손댄다` 를 못 잡는 것과 같은 구조다.
+
 ### 2026-08-14 — 마스터-사본 구조를 심링크로 전환
 
 전 프로젝트에 흩어진 스킬 사본을 원본 심링크로 대체했다. 커밋 9개(`a6a6d3b`~`dd67a2d`), 심링크 22곳.
@@ -44,6 +59,8 @@
 
 ## Backlog
 
+- **doc-writer §7.3 grep 자기 점검**: 손으로 짠 패턴이 어간을 놓치는 것이 두 번 확인됐다(`c5e85b0` 이 `갈린다` 를 놓침 · 이번 회차 1차 패턴이 `손댄다` 를 놓침). `report-style/scripts/check.sh` 를 선례로 스크립트화할지 판단 필요 — 그때 **패턴은 §7.3 표에서 생성해야 한다**. 손으로 옮겨 적으면 표와 어긋나 같은 구멍이 재현된다
+- **`.agents/skills/` 트리의 소비자 미상**: agent-studio·bmad2 에만 있고 `.claude/skills/` 와 같은 스킬 목록을 미러링한다. 읽는 도구를 확인하지 못해 doc-writer 만 심링크로 돌려 뒀다 — 나머지 스킬도 같은 처리를 할지는 소비자 확인 후 결정
 - **아직 사본인 자산**: `Incubation` 의 LangChain/LangGraph 학습 스킬군(4개 프로젝트 공유), `azureml-examples` 12종, `axplatform` 업무 스킬군(`weekly-*`·`monthly-report`·`aidm-assess` 등). 원본화 여부부터 판단 필요
 - **`midm`·`voiceintent` 의 구세대 커맨드·에이전트**: `dive2`·`plan2`·`mlops-engineer`·`websearcher` 등. 레거시로 보이나 미확인 — 정리 전 실사용 여부 확인
 - **`ktspace-atlassian-explorer` 가 뺀 타 부문 스페이스 키 7종**(`ITPLATFORM`·`ConneKT`·`AITechLab` 등): 07-14 판이 Agent Memory 방식으로 대체했다. 소속 밖 검색 편의가 필요하면 복원 검토

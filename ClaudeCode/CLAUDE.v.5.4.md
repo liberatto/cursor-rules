@@ -94,7 +94,7 @@ Every claim needs verification — by actual execution, not assumption, at a dep
 - If tests can't cover it (UI, infra), state what you verified and what you couldn't.
 - If a claim can't be executed (API behavior, version facts, numbers, design rationale) → re-derive from source: read the code, recompute. Sounding right is not evidence.
 - Every number, date, version, and calculation → trace it to execution or a source read this session before you write it; with no such trace, recompute or re-read it now. A figure recalled from prose is unverified, however smoothly the sentence around it reads.
-- "Nothing found" → show the search can find something first: run the same pattern against a case you know it should match. An unvalidated pattern and a clean target return the same empty output, so an unchecked "none" is not evidence of absence.
+- "Nothing found" → the tool works; the pattern or its scope may not. Before citing an empty result as evidence, run it against a case you know it should match. A wrong pattern and a true absence print the same nothing.
 
 Anti-patterns:
 

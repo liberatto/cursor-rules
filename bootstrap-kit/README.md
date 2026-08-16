@@ -349,7 +349,7 @@ Claude 가 대화 중 **자동으로** `~/.claude/projects/<프로젝트-slug>/m
 
 **무엇을 하는가.**
 - **저장 위치 고정 — Claude 는 `_docs/` 에만 쓴다.** `docs/` 는 프로젝트의 **정식 결과물**만 두는 자리이고, 무엇을 그리로 올릴지는 **사람이 선별**해 `git mv` 로 승격한다. 이 한 줄이 있어야 "외부에 그대로 내보낼 수 있는 것"과 "우리끼리의 중간 기록"이 한 폴더에서 섞이지 않는다. 승격 판단을 Claude 에게 맡기지 않는 것이 요점이다 — 판단은 사람이 하고 Claude 는 자리를 지킨다.
-- **3문서군 분류** — 협업 문서(PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·ADR) / 전달 문서(REPORT·DOCUMENTATION·GUIDE — 외부 전달 가능 수준으로 작성) / 개인 메모(NOTE). **분류는 관점·품질 기준을 정할 뿐, 저장 위치를 가르지 않는다**(전부 `_docs/`).
+- **3문서군 분류** — 협업 문서(PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·ADR·REPORT) / 전달 문서(DOCUMENTATION·GUIDE — 외부 전달 가능 수준으로 작성) / 개인 메모(NOTE). **분류는 관점·품질 기준을 정할 뿐, 저장 위치를 가르지 않는다**(전부 `_docs/`).
 - **아카이브 처리**(스킬 §9) — **아카이브는 타입이 아니라 상태다.** 수명이 끝난 문서는 원래 타입·파일명을 그대로 둔 채 `status: archived` 로 바꾸고 그 문서가 있던 자리의 `_archive/`(`_docs/_archive/`)로 옮긴다. 이름을 바꾸면 기존 `related_docs` 링크가 전부 깨지고, 본문을 손보면 기록이 아니라 위조가 된다.
 - **네이밍·프론트매터 강제** — 파일명 `{TYPE}-{주제}-{YYYY-MM-DD-HHMM}.md`, 프론트매터 필수 `type`·`audience`·`created`·`status`·`description` / 선택 `related_docs`·`updated`.
   **이 규격이 정본은 doc-writer 쪽이다.** 키트 템플릿의 `CLAUDE.md` §8 문서 규율(R1~R4)은 그 규격을 그대로 따르도록 맞춰져 있다 — 특히 `status` 는 **`draft`·`active`·`superseded`·`rejected`·`archived` 5종**으로 양쪽이 동일하다. 스킬을 업데이트해 규격이 바뀌면 **`CLAUDE.md` R3 을 스킬 쪽에 맞춰 고쳐라**(반대 방향이 아니다). 두 어휘가 갈리면 인덱스의 🟢/🟡 파생 표시가 곧 어긋난다.

@@ -4,8 +4,8 @@ Quality principles applied to all documents, regardless of type or Persona.
 
 **독자와 목적 — 문서군 3분류**: 이 스킬이 만드는 문서는 목적에 따라 세 가지이며, 적용 원칙이 다르다.
 
-- **협업 문서** — `PRD` · `STRATEGY` · `PLAN` · `RESEARCH` · `ANALYSIS` · `ADR` · `HANDOFF`. 주 독자는 **작성자(사용자)와 이후 세션의 Claude**. 외부 제출용 보고서가 아니라 프로젝트 진행 중 만들어 두고 다시 참고하는 **작업 산출물이자 세션 간 공유 컨텍스트**다. 결정·근거·현재 상태를 남겨 나중에 재개 가능하게 하는 것이 핵심 가치. 사람은 빠르게 스캔하고 Claude는 새 세션에서 모호함 없이 맥락을 복원하도록 쓴다. **§1–7 적용.**
-- **전달 문서** — `REPORT` · `DOCUMENTATION` · `GUIDE`. **최종 독자는 팀 외부의 사람**(다른 개발자·조직, 비전문 독자 포함 가능)이며, 현재는 주로 작성자(사용자) 본인이 읽는다. 그래도 처음 읽는 외부 독자가 이해하고 활용하도록 **독자 중심**으로 쓴다 — 그래야 전달 시점에 수정 없이(또는 최소 수정으로) 넘길 수 있다. **§1–7 적용** — 문체는 협업 문서와 같고, 차이는 독자 중심 서술과 자립성 요구의 강도다. 특히 §1 User-Centered·§6 Self-Contained를 강하게 따르고, SKILL.md §8 전달 준비 점검을 작성 시점부터 준수한다.
+- **협업 문서** — `PRD` · `STRATEGY` · `PLAN` · `RESEARCH` · `ANALYSIS` · `ADR` · `HANDOFF` · `REPORT`. 주 독자는 **작성자(사용자)와 이후 세션의 Claude**. 외부 제출용 보고서가 아니라 프로젝트 진행 중 만들어 두고 다시 참고하는 **작업 산출물이자 세션 간 공유 컨텍스트**다. 결정·근거·현재 상태를 남겨 나중에 재개 가능하게 하는 것이 핵심 가치. 사람은 빠르게 스캔하고 Claude는 새 세션에서 모호함 없이 맥락을 복원하도록 쓴다. **§1–7 적용.**
+- **전달 문서** — `DOCUMENTATION` · `GUIDE`. **최종 독자는 팀 외부의 사람**(다른 개발자·조직, 비전문 독자 포함 가능)이며, 현재는 주로 작성자(사용자) 본인이 읽는다. 그래도 처음 읽는 외부 독자가 이해하고 활용하도록 **독자 중심**으로 쓴다 — 그래야 전달 시점에 수정 없이(또는 최소 수정으로) 넘길 수 있다. **§1–7 적용** — 문체는 협업 문서와 같고, 차이는 독자 중심 서술과 자립성 요구의 강도다. 특히 §1 User-Centered·§6 Self-Contained를 강하게 따르고, SKILL.md §8 전달 준비 점검을 작성 시점부터 준수한다.
 - **개인 메모** — `NOTE`. 사용자가 임시로 기억·기록하는 용도. 정해진 가이드 없음 — 목적에 맞게 자유 작성(프론트매터도 생략 가능). §7도 강제하지 않는다.
 
 > 문서군은 **작성 시점의 목적**으로 나뉜다. 수명이 끝나 아카이브된 문서(`status: archived`)는 별도 문서군이 아니라 **원래 문서군에 그대로 속한다** — 아래 원칙은 아카이브 시점에 소급 적용되지 않으며, 본문은 당시 그대로 보존한다(SKILL.md §9).
@@ -18,7 +18,7 @@ Quality principles applied to all documents, regardless of type or Persona.
 - Answer "why should I care?" before "how does it work?"
 - Anticipate user questions and pain points.
 
-**Per document type** — for 협업 문서 the consumers are you and Claude, so the "Reader" below is a *content lens* (whose concerns to address); for 전달 문서(REPORT·DOCUMENTATION·GUIDE) the "Reader" is the **final external audience** to write for, even while the current reader is the user:
+**Per document type** — for 협업 문서 the consumers are you and Claude, so the "Reader" below is a *content lens* (whose concerns to address); for 전달 문서(DOCUMENTATION·GUIDE) the "Reader" is the **final external audience** to write for, even while the current reader is the user:
 
 | Type            | Reader                          | Reader's Core Question                      |
 |-----------------|---------------------------------|---------------------------------------------|
@@ -26,8 +26,7 @@ Quality principles applied to all documents, regardless of type or Persona.
 | STRATEGY        | Future sessions (user & Claude) | "Which direction, and why?"                 |
 | PLAN            | Implementers                    | "What do I need to do?"                     |
 | RESEARCH        | Decision-makers                 | "What are the options?"                     |
-| REPORT (조직)   | Managers & stakeholders         | "Where do things stand?"                    |
-| REPORT (검증)   | Maintainers & next session      | "Can I trust and reproduce this verdict?"   |
+| REPORT          | Author & next session           | "Where does it stand, and can I trust it?"  |
 | GUIDE           | Practitioners                   | "Can I follow this as-is?"                  |
 | ANALYSIS        | Decision-makers                 | "What does the analysis conclude?"          |
 | ADR             | Future teammates                | "Why was this decided?"                     |

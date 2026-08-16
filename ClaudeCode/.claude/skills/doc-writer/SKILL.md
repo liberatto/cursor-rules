@@ -107,8 +107,8 @@ date "+%Y-%m-%d %H:%M"
 
 **같은 주제의 문서가 이미 있을 때 — 타입별 기본 처리** (사용자 지시가 있으면 그것이 최우선):
 
-- **살아있는 문서** (PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·GUIDE·DOCUMENTATION): 새 파일을 만들지 않고 **기존 문서를 갱신**한다. 문서가 곧 현재 상태다. 특히 RESEARCH·ANALYSIS는 한 번에 끝나지 않는다 — 내용 확장이나 새 관점의 추가는 기존 문서에 섹션을 더하는 방식으로 갱신한다.
-- **시점 스냅샷** (REPORT·HANDOFF): 같은 주제라도 **새 파일**을 만든다. 보고·인계는 시점 기록이 가치이므로 갱신으로 덮지 않는다. 이전 문서가 유효성을 잃으면 `status: superseded` 처리(§9).
+- **살아있는 문서** (PRD·STRATEGY·PLAN·RESEARCH·ANALYSIS·GUIDE·DOCUMENTATION·REPORT): 새 파일을 만들지 않고 **기존 문서를 갱신**한다. 문서가 곧 현재 상태다. 특히 RESEARCH·ANALYSIS는 한 번에 끝나지 않는다 — 내용 확장이나 새 관점의 추가는 기존 문서에 섹션을 더하는 방식으로 갱신한다. **REPORT도 같다** — 같은 PLAN·같은 요청 줄기에 추가 작업이 붙으면 새 보고서를 만들지 않고 이 문서를 갱신한다(대상이 바뀌면 새 REPORT).
+- **시점 스냅샷** (HANDOFF): 같은 주제라도 **새 파일**을 만든다. 인계는 시점 기록이 가치이므로 갱신으로 덮지 않는다. 이전 문서가 유효성을 잃으면 `status: superseded` 처리(§9).
 - **불변 기록** (ADR): 승인(`active`) 후에는 본문을 수정하지 않는다. 결정이 바뀌면 **새 ADR**을 쓰고 기존 ADR을 `superseded` 처리한다. 제안이 채택되지 않으면 `status: rejected` 처리하고 기각 사유를 본문에 남긴다.
 
 ### 5. Persona 채택
@@ -148,7 +148,7 @@ open_issues:
 ---
 ```
 
-위 예시는 **살아있는 문서**(STRATEGY·PRD·PLAN·RESEARCH·ANALYSIS·GUIDE·DOCUMENTATION)의 형태다. **ADR은 이 예시를 따르지 않는다** — 승인(`active`) 후 본문을 수정하지 않으므로 `revisions` 가 쌓이지 않고, 결정이 바뀌면 새 ADR을 쓴다(§4).
+위 예시는 **살아있는 문서**(STRATEGY·PRD·PLAN·RESEARCH·ANALYSIS·GUIDE·DOCUMENTATION·REPORT)의 형태다. **ADR은 이 예시를 따르지 않는다** — 승인(`active`) 후 본문을 수정하지 않으므로 `revisions` 가 쌓이지 않고, 결정이 바뀌면 새 ADR을 쓴다(§4).
 
 **필드 정의:**
 

@@ -94,7 +94,7 @@ ls -la ~/.claude/{commands,skills}                   # 글로벌 현황 (심링�
 cp -r ClaudeCode/.claude/* /path/to/project/.claude/
 
 # 글로벌 지침 (최신 버전 파일을 지정)
-cp ClaudeCode/CLAUDE.v.5.3.md ~/.claude/CLAUDE.md
+cp ClaudeCode/CLAUDE.v.5.4.md ~/.claude/CLAUDE.md
 
 # Codex 설정
 cp Codex/config.toml ~/.codex/

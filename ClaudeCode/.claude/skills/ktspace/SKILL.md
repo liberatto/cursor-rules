@@ -1,27 +1,17 @@
 ---
 name: ktspace
 description: |
-  KT Space Atlassian(ktspace.atlassian.net) 통합 네비게이터. 두 모드로 동작 — (1) 소속 4스페이스 트리 라우팅, (2) 전사·소속 밖·Jira 평면 검색. 팀·과제·보고·문서·이슈 쿼리.
-
-  [GLOBAL] 전사·소속 밖·미상·Jira — 평면 검색 모드(트리 라우팅 없이 creator/keyword/key로 전사 검색).
-  Triggers: KT Space 전체에서, 전사에서, 어느 공간인지 모름, 타 부문·타 팀·타 본부, 작성자(accountId)로 찾기, Jira 이슈/내 할당/프로젝트 키, 페이지 ID·tiny URL만 알 때, Rovo/CQL/JQL 명시.
-  → §전사·소속 밖 평면 검색
-
-  [DEFAULT] ServicePlatform — 서비스플랫폼담당 6팀+공통.
-  Triggers: 서비스플랫폼, 담당주간보고, 6팀, AI-DLC·챕터과제(AIDD/ITO/Agent), EOScan Agent, Factbook, 마이K, MCP사업화, MyK Agent, 보이스봇, AIDM, IVI/GIS/XENLINK, IoT통합, AI케어, 펫케어, AICC엔지니어링, 추진방향 A/B/C/D, AICE 아키텍처·차세대·관제·25년 사료.
-  → references/current-serviceplatform.md
-
-  [PRIVATE] PLATFORMAX — 플랫폼엔지니어링팀 프라이빗.
-  Triggers: 팀 내부 회의록, 개발자그룹, AIDM 폴더, AO_Agent, 대고객 행동 분석, 분석가그룹, 개인공간(유정아·김영진·박대흠·임창용·박성수·황범), Ground Rules, kode:crew, AIDD 방향성.
-  → references/current-platformax.md
-
-  [PROJECT] AICEPlatform — AICE 플랫폼 협업(고도화·운영·사업팀).
-  Triggers: AICE 플랫폼 (project), AICE 고도화·운영 보고, 사업팀 공유, (PE) 시험지웹전환·AIDU Agent Studio·AIDU agent·AIDU DesktopApp Update·검토, (PO) 요구사항 정의서, 2026 AICE 과제.
-  → references/project-aiceplatform.md
-
-  [LEGACY] WISEPMLIFE — 플랫폼AX TF 아카이브(2025, 정지).
-  Triggers: WISEPMLIFE, 플랫폼AX TF, MSM PoV, KODE, MWC, AI Tour, 팔란티어, 정기시험 VoC, FDS 원본, AIDUez 3-Layer 원본, TF 주간보고, 25년 인증·결제·ITOA·트래픽.
-  → references/legacy-wisepmlife.md
+  KT Space Atlassian(ktspace.atlassian.net) 통합 네비게이터. Confluence 페이지·Jira
+  이슈를 찾아 읽는 작업 전담. 두 모드로 동작 — 소속 4스페이스(ServicePlatform·
+  PLATFORMAX·AICEPlatform·WISEPMLIFE) 트리 라우팅, 그리고 전사·소속 밖·Jira 평면
+  검색(작성자 accountId·키워드·이슈키·Rovo/CQL/JQL). 어느 스페이스인지 몰라도 된다 —
+  라우팅과 결과 제시 순위는 스킬이 판정한다.
+  트리거: "컨플에서 찾아줘", "~ 문서·회의록 찾아줘", "담당주간보고 가져와", "6팀 자료",
+  "팀 내부 회의록·개인공간", "AICE 고도화·운영 보고", "AIDM·EOScan·챕터과제·Factbook
+  자료", "타 부문·타 팀 자료", "OOO이 작성한 글", "누가 이 과제 하나", "Jira 이슈 조회",
+  "내 할당 이슈", "페이지 ID·tiny URL만 있어", "25년 TF 시절 원본", "전사에서 검색".
+  경계: 페이지 내용을 쓰거나 고치는 작업은 confluence-write 담당 — 이 스킬은 찾고 읽을
+  때 쓴다.
 user-invocable: true
 ---
 

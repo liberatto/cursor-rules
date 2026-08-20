@@ -1,6 +1,6 @@
 # Rules Repository — 운영 컨텍스트
 
-> Last updated: 2026-08-19
+> Last updated: 2026-08-20
 
 이 저장소는 다른 실제 프로젝트 진행 중 발견되는 개선점을 지속 반영하는 **상시 운영 프로젝트**이다. 특정 목표 완료 후 리셋하지 않고, rolling 방식으로 관리한다.
 
@@ -24,6 +24,36 @@
 ---
 
 ## Recent Changes
+
+### 2026-08-20 (2회차) — v5.5 롤백 후 v5.6 재배포 (왕복, 순변화 없음)
+
+배포본을 v5.5 로 되돌렸다가 같은 세션에서 v5.6 으로 되돌렸다. **현행 배포본은 v5.6**(sha1 `20c1510f…`, 일치 확인)이라 아래 v5.6 항목이 그대로 유효하다.
+
+왕복 중 `ClaudeCode/CLAUDE.v.5.5.md` 가 227줄 `The test` 를 v5.6 문안으로 갖고 있어 버전 순서가 뒤집혀 있었으나, 사용자가 커밋 상태로 되돌려 해소했다(sha1 `5de95b0e…`). 배포 정본인 `ClaudeCode/CLAUDE.v.5.6.md` 는 이 회차에서 추적에 넣었다.
+
+### 2026-08-20 — 글로벌 지침 v5.6 배포 (Concise 스타일 흡수, 3건)
+
+Claude Code 신규 output style `Concise` 의 취지를 Response Discipline 에 흡수했다. 스타일 자체는 켜지 않는다 — 사용자가 config 선택 없이 지침만으로 같은 효과를 원했다.
+
+Concise 6조항을 현행 지침과 1:1 대조한 결과 **4개는 이미 중복, 2개가 공백**이었고, 대조 과정에서 227줄 `The test` 가 224줄의 재진술임을 추가로 발견했다. 채택 3건.
+
+| 건 | 줄 | 변경 | 근거 |
+| --- | --- | --- | --- |
+| A | 222 | 단순 질문 답변에 `one to three sentences` 상한 신설 | 224줄 `Length is earned by what was asked` 는 언제나 "그렇다"로 답하게 되는 내성 질문이라 관측 가능한 상한이 아니었다 |
+| B | 220 | `Never open with process narration` → `Never narrate process` + Final Gate 참조 한정 | 기존 문안이 **첫 문장만** 겨냥해 중간 단계 나열에 발동하지 않았다 |
+| C | 227 | `The test` 전면 교체 | `Remove any paragraph and ask what the reader would do differently` 가 224줄 `cut any detail that wouldn't change what the reader does next` 와 사실상 동일 — 검사력 없는 문장이 매 턴 상주 중이었다 |
+
+**기각 1건** — hedging boilerplate 금지(Concise 4)는 219줄 epistemic labeling 과 정면 충돌한다. `likely — because…` 는 hedging 의 형태를 띠지만 필수 라벨이다. 축 C 를 간결 쪽으로 밀다 정직을 깎는 사례.
+
+**보류 2건** — ① 말미 재요약 금지(224줄 `restated in a line each` 의 경계 명시)는 한 문장에 허용·금지가 붙어 판단이 갈려 문안 분리 후 재검토. ② 한국어 평이체 조항 보강은 **08-19 v5.5 실험(종결어미 조항 삭제)을 오염시키므로 결론 후로 미뤘다.**
+
+`check.sh` 3/6/**14** — 검사 3만 1건 늘었고, 220줄이 `trace` 를 새로 참조한 것으로 정의문(235줄)과 대상이 일치하는 정상 참조다. 단어 3562 → 3598(+1.01%).
+
+**검사 2 의 맹점을 확인했다** — 숫자형(`1-3`)만 매칭하고 철자형(`one to three`)은 지나친다. A 가 걸리지 않은 것은 통과가 아니라 미탐이라, 같은 대상의 다른 상한을 눈으로 대조했다(224줄 `a sentence or two` 는 caveat, 17줄은 push back, A 는 단순 질문 답변 전체 — 셋 다 대상이 다름).
+
+**A 의 실효는 `simple question` 판별의 정직성에 달려 있다.** 복잡한 답을 "이건 simple 이 아니다"로 분류해 상한을 매번 빠져나갈 수 있다 — 관찰 대상.
+
+`~/.claude/CLAUDE.md` 배포 완료, sha1 일치 확인.
 
 ### 2026-08-19 — 글로벌 지침 v5.5 배포 (한국어 조항 축소, 실험)
 

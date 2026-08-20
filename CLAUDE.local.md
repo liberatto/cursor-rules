@@ -25,6 +25,30 @@
 
 ## Recent Changes
 
+### 2026-08-21 — v5.6 222줄에 헤딩 발동 조건 신설 (버전 유지, 제자리 수정)
+
+다른 세션의 장문 맥락 브리핑(EOS 관련)이 헤딩·표 없이 산문으로만 나온 것이 발단이다. 원인을 지침에서 추적한 결과 **222줄이 그 답변을 막지도, 구조를 요구하지도 않았다** — 헤딩을 언제 써야 하는지 정한 문장이 지침 전체에 없었다.
+
+| 확인한 문장 | 실제 역할 |
+| --- | --- |
+| 221줄 `Headings carry the flow, not replace it` | 헤딩을 **쓸 때의** 사용법 |
+| 222줄 `no headings` | `A simple question` 한정 상한 |
+| 223줄 `When headings or status tables are used` | 이미 썼다는 전제 |
+
+Final Gate 6 의 `content with a shape of its own` 도 shape 정의를 222줄에서 가져오는데 222줄이 표·다이어그램만 열거해, 문자 그대로 실행해도 헤딩에 도달하지 않았다. G2 공백 확정.
+
+**구조 억제 3문장(`Prose first`·`Never impose a shape`·`never add structure just to host an emoji`) 대 요구 2문장의 비대칭**이 이 공백의 배경이다. 억제 쪽은 조건 없이 상시 발동하고 요구 쪽은 좁은 조건을 통과해야 해서, 애매한 내용이 전부 산문으로 흘렀다.
+
+채택 문안은 `subjects the user could have asked separately, each needing paragraphs of its own, get one heading each` 다. 원안의 "독립 주제 둘 이상"을 두 번 좁혔다 — ① `could have asked separately` 로 판별을 관측 가능하게, ② `paragraphs of its own` 으로 짧은 답의 오발동을 차단. 후자가 없으면 "원인이 뭐고 어떻게 고쳐?" 같은 세 문장짜리 답에도 헤딩 둘이 붙는다. 수치 상한("N문단 이상")을 피한 것은 의도적이다 — `check.sh` 검사 2 에서 224줄 `a sentence or two` 와 대상 판정을 다투게 된다.
+
+**기각 1건** — 표 트리거를 "속성 나열"까지 넓히는 안은 G4 에서 탈락했다. 속성 넷은 2열 세로 표가 되어 비교를 보여주지 못하면서 같은 줄의 `Never impose a shape the content doesn't have` 와 회색지대만 넓힌다.
+
+**attack 산출물 2건.** ① 223줄 이모지 조항이 문자 그대로는 모든 헤딩을 겨냥해, 헤딩 발동이 늘면 따라 발동한다 — 기존 모호성이고 (a)는 빈도만 올리므로 별건으로 분리했다. ② 발단이 된 답변의 `eos-scope → … → eos-report` 화살표 체인은 222줄·224줄이 이미 금지 중이라 **규칙 공백이 아니라 실행 실패**다. 지침을 늘려 고칠 자리가 아니다.
+
+G3 는 ⚠️ 로 남는다 — `could have asked separately` 판별은 여전히 자기 재량이라, 08-20 A건의 `simple question` 판별과 같은 취약점을 공유한다. **관찰 대상**이다.
+
+`check.sh` 3/6/14 로 as-is 와 완전 동일(신규 위반 0건). 단어 3598 → 3615(+0.47%). 버전을 v5.7 로 올리지 않고 v5.6 을 제자리 수정했다(사용자 판단). `~/.claude/CLAUDE.md` 배포 완료, sha1 `f5ba4dde…` 일치 확인.
+
 ### 2026-08-20 (2회차) — v5.5 롤백 후 v5.6 재배포 (왕복, 순변화 없음)
 
 배포본을 v5.5 로 되돌렸다가 같은 세션에서 v5.6 으로 되돌렸다. **현행 배포본은 v5.6**(sha1 `20c1510f…`, 일치 확인)이라 아래 v5.6 항목이 그대로 유효하다.

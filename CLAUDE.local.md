@@ -1,6 +1,6 @@
 # Rules Repository — 운영 컨텍스트
 
-> Last updated: 2026-08-20
+> Last updated: 2026-08-21
 
 이 저장소는 다른 실제 프로젝트 진행 중 발견되는 개선점을 지속 반영하는 **상시 운영 프로젝트**이다. 특정 목표 완료 후 리셋하지 않고, rolling 방식으로 관리한다.
 
@@ -24,6 +24,37 @@
 ---
 
 ## Recent Changes
+
+### 2026-08-21 (2회차) — 글로벌 지침 v5.7 배포 (Response Discipline 중복 제거, 3줄)
+
+기능은 하나도 건드리지 않고 같은 말을 반복하는 자리만 걷어냈다. 발단은 222줄이 길다는 지적이었고, 원인을 재면 **105단어 중 26단어가 같은 명제를 세 번 말하고 있었다**.
+
+| 조각 | 문안 | 역할 |
+| --- | --- | --- |
+| 라벨 | `structure when the content has a shape` | 명제 1회차 |
+| 도입 | `Reach for structure when the content already carries one:` | 명제 2회차 |
+| 마감 | `Never impose a shape the content doesn't have.` | 명제 3회차(부정형) |
+
+명제를 라벨의 `only` 한 곳으로 모으고 트리거 셋을 연달아 붙인 뒤 기본형(`Everything else is prose`)으로 닫았다. **트리거 세 개의 조건 문구는 한 글자도 바뀌지 않았다** — 발동 범위 불변이다. `shape` 를 라벨에 남긴 것은 필수였다: 244줄 Final Gate 6 의 `content with a shape of its own is shown in that shape` 가 여기서 정의를 가져온다. 오히려 라벨 바로 뒤에 세 shape 의 열거가 붙어 정의 연결이 원문보다 가까워졌다.
+
+**224줄은 거의 손대지 않았다 — 압축할 것이 없어서다.** 아홉 조각이 각각 다른 일을 하고(원칙·절단 기준·분량 배분·설명 기본값·빈발 위반 열거·과다 절단 하한·형태 규제·턴 말미 범위), 길이가 기능 수에서 나온 것이라 줄이려면 기능을 버려야 했다. 222줄과 정반대 구조다. 잘라낸 것은 `an arrow chain standing in for a sentence` → `arrow chains` 6단어뿐이고, 그마저 같은 절이 `stays in full sentences` 로 시작해 이미 함의된 부분이다.
+
+**진짜 낭비는 227줄에 있었다.** 224줄과 두 지점에서 겹친다 — `cut any detail that wouldn't change what the reader does next` ↔ `Name the sentence the reader acts on` 은 같은 기준의 두 표현이고, `Stop cutting where a first-time reader would lose the thread` ↔ 227줄 꼬리는 문자 그대로 중복이다. 꼬리는 "규칙을 어기면 규칙을 어긴 것"이라는 동어반복이라 `The test` 렌즈 ①(규칙 본문의 재진술인가)에서 탈락한다. 앞부분은 문장을 지목하고 분류하라는 새 동작을 요구하므로 남겼다. 42 → 23단어.
+
+**대가 1건** — 227줄이 절단 방향으로만 작동하게 됐다. 과다 절단 방지는 224줄 `Stop cutting where…` 하나에만 남는다. 반대로 224줄 하한을 빼고 227줄을 두는 선택은 **작성 중 발동하는 지시가 사라지고 사후 점검만 남아** 더 나쁘다고 판단했다.
+
+**하네스 중복 2건은 확인 후 남겼다** — Claude Code 시스템 프롬프트의 `Don't add apologies or preambles` 는 교정 상황 한정이라 224줄 `no greetings, filler, or offers of follow-up` 보다 좁고, `Do not re-derive facts already established` 도 대화 맥락 한정이라 요청 재진술 금지를 덮지 못한다. 둘 다 CLAUDE.md 쪽이 넓어 삭제 대상이 아니다.
+
+**미포함 1건** — 헤딩 트리거에 사후 점검(`a section that came out as a single paragraph loses its heading`)을 붙이는 안을 같은 세션에서 제안했으나 이번 배포에 넣지 않았다. `each needing paragraphs of its own` 이 자기충족적이라는 진단(헤딩을 쓰기로 정하면 문단이 생겨난다)은 유효하니 **관찰 대상으로 남긴다** — 사례가 하나 더 나오면 v5.8 에서 13단어로 넣는다.
+
+| 줄 | as-is → to-be | 증감 |
+| --- | --- | --- |
+| 222 | 105 → 88 | −16.2% |
+| 224 | 143 → 137 | −4.2% |
+| 227 | 42 → 23 | −45.2% |
+| 파일 | 3615 → 3573 | −1.16% |
+
+246줄 유지, `check.sh` 3/6/14 로 v5.6 과 출력 완전 동일(신규 위반 0건). `~/.claude/CLAUDE.md` 배포 완료, sha1 `b7c36746…` 바이트 일치 확인.
 
 ### 2026-08-21 — v5.6 222줄에 헤딩 발동 조건 신설 (버전 유지, 제자리 수정)
 

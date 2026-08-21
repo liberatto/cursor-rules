@@ -25,6 +25,27 @@
 
 ## Recent Changes
 
+### 2026-08-21 (4회차) — v5.7 222줄 표 트리거 되돌림 (같은 필드 → 비교, 버전 유지)
+
+3회차에서 넓힌 표 트리거를 v5.5 이전 문안으로 되돌렸다. 발단은 사용자의 "표가 너무 자주 나온다"는 체감이고, **3회차가 "체감 변화는 미확인 — 관찰해야 안다"고 남긴 그 관찰의 첫 데이터가 이번 세션이다.**
+
+```
+as-is(3회차): three or more items sharing the same fields belong in a table,
+              with a verdict column when the reader has to choose among them
+to-be(4회차): three or more items compared on the same axes belong in a table,
+              with a verdict column when the reader has to choose among them
+```
+
+3회차가 한 두 가지 변경 중 **트리거만 되돌리고 조건부 판정 열은 지켰다.** 판정 열 완화는 as-is 문안의 G3(충족) 탈락을 고친 부분이라 되돌릴 이유가 없다. 되돌림의 대가는 3회차가 문제 삼았던 것 그대로 — 측정표·대응표가 다시 산문으로 밀린다. 다만 3회차 기록 자체가 근거의 약점을 적어 뒀다: 근거로 든 표 3개가 전부 이 파일의 것인데 Response Discipline 은 `user-facing responses` 한정이라 위반 사례가 아니라 형태의 예시였고, 실제 위반 사례는 0건이었다.
+
+**원인 특정은 세션 표를 기계적으로 세어서 했다.** 트랜스크립트를 파싱해 답변 7개에 표 8개를 확인했고, 넷으로 갈렸다 — 축 매트릭스 3개는 `claude-md-audit` §5 보고 형식이 강제한 것이라 222줄 소관 밖, 감사 2회차의 불변조건 위반 표 1개는 데이터행 2개로 `three or more` 미달이라 규칙 위반(실행 실패, 규칙을 고쳐도 안 잡힘), 나머지 4개가 222줄 발동이다. 그 4개를 구판 트리거(비교)로 재분류하면 10행 모델 비교표만 남고 나머지 셋(청구처 대응표·문턱 해설표·경계선 1건)은 구판에서 발동하지 않는다. 어제 넓힌 것이 오늘 체감된 것이 확인됐다.
+
+**기각 3건.** 모두 같은 세션에서 사용자가 제안했고 감사 결과 보류로 냈다. ① 라벨을 v5.6 의 `Prose first, structure when the content has a shape` 로 되돌리는 안 — `only` 를 잃어 라벨이 단독으로 배타성을 못 갖고, v5.6 은 그래서 `Never impose a shape the content doesn't have.` 를 따로 뒀는데 라벨만 되돌리면 둘 다 사라진다. 나머지 6개 라벨이 전부 단일 주제명인 것과도 형식이 어긋난다. ② 표 조항 통째 삭제 — `Everything else is prose` 가 배타 조항이라 트리거에서 빠지면 허용이 아니라 **금지**로 떨어진다. 223줄 `status tables` 전제와 222줄 끝 `no table` 이 근거를 잃는다. ③ Concise 아웃풋 스타일 문안(`Use headers, tables, and bullet lists only when they carry real structure`)으로 대체 — `real structure` 는 반증 불가능한 내성 판정이라 `The test` 렌즈 ②에서 탈락하고, 앞 문장(`1-3 sentences`)은 v5.6 A건으로 이미 흡수돼 있다. 244줄 Final Gate 6 의 `shape` 참조도 정의를 잃는다.
+
+**세 기각에 공통된 진단**: 라벨은 원칙이고 트리거는 `shape` 의 정의다. `has a shape` 는 그 자체로 순환적이라 판별을 못 하며, 이 실패는 v5.6 회차에서 이미 실증됐다(헤딩이 트리거 목록에 없던 시절, 라벨과 Final Gate 6 이 있었음에도 장문 브리핑이 산문으로만 나왔다). 정의를 지우는 방향의 제안은 전부 같은 자리에서 걸린다.
+
+`check.sh` 3/6/14 로 되돌리기 전과 출력 문자 단위 동일(신규 위반 0건). 222줄 95 → 96단어, 파일 3580 → 3581(+0.03%), 246줄 유지. 버전은 v5.8 로 올리지 않고 v5.7 을 제자리 수정했다(3회차 선례). `~/.claude/CLAUDE.md` 배포 완료, sha1 `af91ddfc…` 바이트 일치 확인. **위 3회차 항목의 트리거 확대 서술은 이 회차로 무효다** — 판정 열 조건부화만 유효하다.
+
 ### 2026-08-21 (3회차) — v5.7 222줄 표 트리거 확대 (버전 유지, 제자리 수정)
 
 222줄 표 조항의 트리거가 **비교만 덮고 나열·측정·대응(매핑)을 덮지 않는다**는 것이 발단이다. 뒤의 `Everything else is prose` 가 배타 조항이라, 판정할 것이 없는 표는 전부 산문으로 밀려났다.

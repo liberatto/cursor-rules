@@ -56,6 +56,8 @@ Quality principles applied to all documents, regardless of type.
 - Show expected output.
 - Include common error cases.
 
+**PLAN·GUIDE에는 이 절이 강하게 걸린다.** 두 타입은 독자가 그대로 실행하는 문서라, 명령은 붙여 넣어 돌아가야 하고 기대 출력과 실패 케이스가 함께 있어야 한다. PLAN의 `→ verify:` 와 GUIDE의 단계별 실행이 그 자리다(doc-types.md).
+
 ---
 
 ## 4. Progressive Disclosure

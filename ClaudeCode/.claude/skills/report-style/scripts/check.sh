@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # report-style 점검 — 하우스 스타일 위반을 수치로 검출
-# 사용: scripts/check.sh <원고.md> [--exec]
-#   --exec = 임원·부문 보고 레이어(엠대시 빈도 가드 추가)
+# 사용: scripts/check.sh <원고.md> [--exec|--digest]
+#   --exec   = 임원·부문 보고 레이어(엠대시 빈도 가드 추가)
+#   --digest = 원문 요약 모드(참고 절·본문 링크·시사점 위치·줄글 문단·도식 수 가드 추가)
 # 주의: 회피 예시·코드블록·인용(>) 안의 매칭은 오탐일 수 있음 — 출력 줄을 보고 본문만 판단.
 set -uo pipefail
 
@@ -133,6 +134,51 @@ if [ "$LAYER" = "--exec" ]; then
   # 볼드 안 어미 — 볼드 경계를 어절에서 끊지 않은 경우 (R2·§8.4)
   BOLDEND='\*\*[^*]{2,}(하여|하고|하는|되어|해서|이며)\*\*'
   echo "[볼드 안 어미]    $(cnt "$BOLDEND")건"; hit "$BOLDEND" 8
+fi
+
+if [ "$LAYER" = "--digest" ]; then
+  echo
+  # 참고 절 — 마지막 `## ` 절이 참고이고 원문 URL 또는 경로가 1건 이상 (digest.md 규칙 7)
+  LASTH=$(grep -E '^## ' "$F" | tail -1)
+  REFLN=$(grep -nE '^## [0-9]+\. 참고' "$F" | tail -1 | cut -d: -f1)
+  if [ -z "$REFLN" ]; then
+    echo "[참고 절]         1건 — \`## N. 참고\` 절 없음"
+  elif ! printf '%s' "$LASTH" | grep -qE '^## [0-9]+\. 참고'; then
+    echo "[참고 절]         1건 — 참고 절이 마지막이 아님 (마지막 절: ${LASTH})"
+  elif ! sed -n "${REFLN},\$p" "$F" | grep -qE 'https?://|\.md|/'; then
+    echo "[참고 절]         1건 — 참고 절에 원문 URL·경로 없음"
+  else
+    echo "[참고 절]         0건"
+  fi
+
+  # 본문 링크·출처 유도 — 참고 절 앞 본문에 http 링크·"원문 출처:" 줄 (§1 자립성)
+  BODYEND=$(( ${REFLN:-$(( $(wc -l < "$F") + 1 ))} - 1 ))   # 참고 절이 없으면 파일 끝까지 본문
+  BODYLINK='https?://|원문 출처|출처:'
+  echo "[본문 링크·출처]  $(sed -n "1,${BODYEND}p" "$F" | grep -cE "$BODYLINK")건"
+  sed -n "1,${BODYEND}p" "$F" | grep -nE "$BODYLINK" | head -8 | cut -c1-170
+
+  # 시사점 위치 — 있으면 참고 절 바로 앞 `## ` 절
+  IMPLN=$(grep -nE '^## [0-9]+\. 시사점' "$F" | tail -1 | cut -d: -f1)
+  if [ -n "$IMPLN" ]; then
+    PREV=$(grep -nE '^## ' "$F" | awk -F: -v r="${REFLN:-0}" '$1<r{p=$1} END{print p}')
+    if [ "$PREV" = "$IMPLN" ]; then echo "[시사점 위치]      0건"; else echo "[시사점 위치]      1건 — 시사점 절이 참고 절 바로 앞이 아님"; fi
+  else
+    echo "[시사점 위치]      0건 (시사점 절 없음)"
+  fi
+
+  # 줄글 문단 — 불릿·제목·표·코드블록(내부 줄 포함)·인용·빈 줄이 아닌 본문 줄 (digest.md 규칙 2)
+  PROSE=$(awk -v e="$BODYEND" '/^[[:space:]]*```/ {fence=!fence; next} fence {next} NR<=e && !/^[[:space:]]*$/ && !/^[[:space:]]*[-*]/ && !/^#/ && !/^\|/ && !/^>/ && !/^[[:space:]]*[0-9]+\./ {c++; if(c<=6) print NR": "substr($0,1,120)} END{print "__N__"c+0}' "$F")
+  echo "[줄글 문단]        $(printf '%s\n' "$PROSE" | grep '^__N__' | sed 's/__N__//')건"
+  printf '%s\n' "$PROSE" | grep -v '^__N__'
+
+  # 도식 수 — 본문 코드블록(ASCII 도식) 2개 이하 (digest.md §2 도식·표)
+  FENCES=$(sed -n "1,${BODYEND}p" "$F" | grep -cE '^[[:space:]]*```')
+  DIAG=$(( FENCES / 2 ))
+  if [ "$DIAG" -le 2 ]; then echo "[도식 수]          0건 (${DIAG}개)"; else echo "[도식 수]          1건 — 본문 코드블록 ${DIAG}개 (상한 2)"; fi
+
+  # 절 수 — 본문 절 + 참고 절, 최소 3
+  HN=$(grep -cE '^## ' "$F")
+  if [ "$HN" -ge 3 ]; then echo "[절 수]            0건 (${HN}개)"; else echo "[절 수]            1건 — \`## \` 절 ${HN}개 (최소 3)"; fi
 fi
 
 echo

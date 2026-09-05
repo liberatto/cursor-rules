@@ -48,7 +48,7 @@ description: >
 레이어: [A] 일반 실무 문서  → references/core.md (기본)
         [B] 임원·부문 보고  → core.md + references/executive.md
         [C] 비전문 독자용   → core.md + references/readability.md + references/examples.md (명시 요청 시만)
-                             ("비전문" = 이 업무를 모름. IT·도메인 기초 지식은 있다고 전제)
+                             ("비전문" = 이 업무를 모름. 전제는 IT·AI 기초 지식까지, 도메인 지식은 가정 안 함)
 ```
 
 - 판별 근거: 독자(팀 내부 / 상무·본부장·부문장 / 타 팀·외부)와 산출물 종류(PoC 리포트·메모 / 현안보고·전략보고 / 발표·외부 공유)

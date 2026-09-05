@@ -8,7 +8,7 @@ description: |
   "다른 에이전트한테 돌려", "copilot CLI로 실행". 파일을 바꾸는 등급은 사용자 승인 후에만 실행한다. 다른 모델 계보로 산출물을 검증받는 작업은
   codex-review 담당이며, 이 스킬은 검증이 아닌 일반 작업 위임만 한다. Claude가 직접 하는 편이 빠른 단발 질의나 조직 맥락·보고 문체가 필요한 산출물에는
   트리거하지 않는다.
-version: 1.0.0
+version: 1.1.0
 ---
 
 # copilot-task — Copilot CLI 작업 위임
@@ -38,6 +38,7 @@ Claude가 직접 하지 않아도 되는 작업 한 건을 GitHub Copilot CLI에
 - **allowlist는 명령 stem 단위로 매칭된다.** `shell(cat)` 을 허용해도 `echo BAD > f && cat f` 는 거부된다(실측). 우회를 걱정해 등급을 올릴 필요가 없다.
 - `write(path?)` 는 **shell 리다이렉션을 막지 못한다** — 파일 생성을 확실히 막으려면 deny(write)와 shell allowlist를 함께 좁힌다.
 - L3는 **git이 깨끗한 상태에서만** 실행한다. 변경분을 되돌릴 수 있어야 한다.
+- `--assisted-approval`(1.0.80에는 없고 1.0.83에 있음)은 승인 요청을 판정 모델에 넘기며 **`--allow-all-tools` 보다 우선**한다. `--experimental` 이 있어야 켜지고 기본은 꺼져 있으므로 L3 골격은 그대로 두되, 이 플래그를 쓰면 L3가 무인 실행이 아니게 된다.
 
 ## 3. 호출 골격
 
@@ -48,11 +49,12 @@ copilot -C <작업디렉터리> \
   --no-ask-user --no-color --log-level none \
   --disable-builtin-mcps \
   --max-ai-credits 30 \
+  --usage-output-file <통계 저장 경로.json> \
   <§2 권한 플래그> \
   -s
 ```
 
-- `-s` 는 **에이전트 응답만** 출력한다(통계 없음) — 결과를 파이프로 받을 때 쓴다. 진행과 비용을 보려면 `-s` 를 빼고 `tail -15` 로 받는다.
+- `-s` 는 **에이전트 응답만** 출력한다(통계 없음) — 결과를 파이프로 받을 때 쓴다. 진행과 비용을 보려면 `-s` 를 빼고 `tail -15` 로 받거나, `-s` 를 유지한 채 `--usage-output-file` 로 통계를 파일로 받는다(§5).
 - `-p` 는 **stdin을 읽지 않는다.** 인자가 필수이며(`-p` 만 주면 `option '-p, --prompt <text>' argument missing`), 긴 지시는 `-p "$(cat prompt.txt)"` 로 넘긴다.
 - **Bash 도구 timeout 상한은 600000ms(10분)이며 그보다 큰 값은 무시된다.** 오래 걸릴 작업은 처음부터 `run_in_background: true` 로 실행하고 완료 알림을 기다린다.
 - 지시문에 **무엇을 돌려줄지**를 적는다. 위임의 산출물은 파일 변경이 아니라 "받아서 보고할 내용"이다.
@@ -76,28 +78,34 @@ copilot -C <작업디렉터리> \
 
 모델의 컨텍스트 상한·추론 강도 지원 여부는 **서버 카탈로그에 있고 로컬 파일에는 없다.** 웹 문서나 기억으로 답하지 말고 SDK로 직접 조회한다(모델을 호출하지 않으므로 **크레딧이 들지 않는다**).
 
-```bash
-# @github/copilot-sdk 가 설치된 폴더에서 실행
-node -e '
-import("@github/copilot-sdk").then(async ({CopilotClient}) => {
-  const c = new CopilotClient({mode:"empty", baseDirectory: process.env.HOME+"/.copilot"});
-  await c.start?.();
-  for (const m of (await c.listModels()).models ?? [])
-    console.log(m.id, m.capabilities?.supports?.reasoningEffort, m.capabilities?.limits?.max_prompt_tokens);
-  await c.stop?.();
-})'
+`@github/copilot-sdk` 가 설치된 폴더에 `models.mjs` 로 저장해 `node models.mjs` 로 실행한다.
+
+```javascript
+import {CopilotClient} from "@github/copilot-sdk";
+const c = new CopilotClient({mode:"empty", baseDirectory: process.env.HOME+"/.copilot"});
+await c.start?.();
+const r = await c.listModels();
+for (const m of (Array.isArray(r) ? r : r.models ?? []))
+  console.log(m.id, m.capabilities?.supports?.reasoningEffort, m.capabilities?.limits?.max_prompt_tokens);
+await c.stop?.();
 ```
 
-기준일(2026-08-22) 조회값 일부 — 카탈로그는 바뀌므로 **인용 전 다시 조회한다.**
+- **`node -e` 로 실행하지 않는다** — SDK 1.0.13 은 내부에서 `createRequire(filename)` 을 부르는데 `-e` 에서는 filename 이 `[eval]` 이라 `ERR_INVALID_ARG_VALUE` 로 죽는다(실측 2026-09-05, node v25.2.1). 파일로 저장해 실행한다.
+- **반환값은 배열이다** — `listModels()` 가 모델 배열을 그대로 돌려주므로 `.models` 로 꺼내면 빈 목록이 나온다(같은 날 실측). 위 코드는 두 형태를 모두 받는다.
+
+기준일(2026-09-05, CLI 1.0.83) 조회값 — 카탈로그 19종 중 일부다. **카탈로그는 바뀌므로 인용 전 다시 조회한다.**
 
 | 모델 | 추론 강도 | 컨텍스트 상한 |
 | --- | --- | --- |
-| `claude-sonnet-5` (기본) | 지원 (`low`~`max`) | 936,000 |
-| `claude-opus-5` | 지원 | 936,000 |
-| `gpt-5.6-sol` · `gpt-5.5` | 지원 | 922,000 |
+| `claude-sonnet-5` (기본) | 지원 | 936,000 |
+| `claude-opus-5` · `claude-opus-4.8` · `claude-opus-4.8-fast` · `claude-opus-4.7` | 지원 | 936,000 |
+| `gpt-5.6-sol` · `gpt-5.6-terra` · `gpt-5.6-luna` · `gpt-5.5` · `gpt-5.4` | 지원 | 922,000 |
+| `grok-4.6` · `grok-4.5` | 지원 | 372,000 |
+| `gpt-5.4-mini` · `gpt-5.3-codex` | 지원 | 272,000 |
 | `claude-haiku-4.5` | **미지원** | 136,000 |
 
-⚠️ **추론 강도를 지원하지 않는 모델이 있다**(`claude-sonnet-4.5`·`claude-opus-4.5`·`claude-haiku-4.5`). 그런 모델로 바꿀 때 `--effort` 를 함께 주면 값이 무시된다. 또 CLI가 받는 `none`·`minimal` 은 `claude-sonnet-5` 의 지원 목록에 없다 — 강도를 낮출 때는 `low` 까지만 쓴다.
+- **8/22 대비 변동** — `claude-sonnet-4.5`·`claude-opus-4.5` 는 카탈로그에서 빠졌고, opus 4.7·4.8 계열과 `gpt-5.4` 계열·grok 2종·`mai-code` 2종이 들어왔다.
+- ⚠️ **추론 강도를 지원하지 않는 모델이 있다** — 현재 카탈로그에서는 `claude-haiku-4.5` 하나다. 그런 모델로 바꿀 때 `--effort` 를 함께 주면 값이 무시된다. 또 CLI가 받는 `none`·`minimal` 은 `claude-sonnet-5` 의 지원 목록에 없다 — 강도를 낮출 때는 `low` 까지만 쓴다.
 
 ## 4. 비용 — 실측값으로 판단한다
 
@@ -122,7 +130,10 @@ import("@github/copilot-sdk").then(async ({CopilotClient}) => {
 
 - **응답 원문을 보존해 보고한다.** 요약하면서 위임 에이전트가 낸 경고·실패·미해결 항목을 지우지 않는다.
 - **L2·L3로 돌렸으면 보고 전에 실제 변경분을 직접 확인한다** — `git status --short` 와 `git diff`. 위임한 에이전트의 자기 보고를 그대로 옮기지 않는다.
-- 소모 크레딧을 놓쳤으면(`-s` 로 통계를 숨겼거나 백그라운드 실행) 세션 기록에서 꺼낸다:
+- **통계는 호출할 때 `--usage-output-file <경로.json>` 으로 받는다**(1.0.80에는 없고 1.0.83에 있음). `-s` 로 응답만 받거나 백그라운드로 돌려도 종료 시 JSON이 남으므로, 사후에 세션 DB를 뒤질 이유가 없다. 담기는 값 — `totalNanoAiu`(÷1e9 = 크레딧)·`tokenDetails`(입력·출력·캐시 읽기/쓰기)·`totalApiDurationMs`·`modelMetrics.<모델>.cacheExpiresAt`·**`codeChanges`(변경 줄 수와 `filesModified` 목록)**. 아래 보고 항목 네 가지가 이 파일 하나로 채워진다.
+  - 실측(2026-09-05, `/tmp` · `--disable-builtin-mcps --no-custom-instructions` · `--effort low` · 출력 4토큰): `totalNanoAiu` 5,699,800,000 = **5.70 크레딧**, 캐시 쓰기 22,720 토큰, `cacheExpiresAt` 이 세션 시작 +301초 — §4의 캐시 수명 300초와 일치.
+  - `codeChanges.filesModified` 는 위임 에이전트가 보고한 값이 아니라 CLI가 집계한 값이지만, **`git status`·`git diff` 확인을 대신하지 않는다**(위 항목 유지).
+- 통계 파일을 붙이지 않고 돌려 크레딧을 놓쳤으면 세션 기록에서 꺼낸다:
 
 ```bash
 sqlite3 -header -column ~/.copilot/session-store.db \

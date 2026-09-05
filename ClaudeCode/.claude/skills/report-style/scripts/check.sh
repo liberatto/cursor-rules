@@ -9,7 +9,8 @@ SRC="${1:?원고 경로 필요}"
 LAYER="${2:-}"
 [ -f "$SRC" ] || { echo "파일 없음: $SRC" >&2; exit 1; }
 
-# YAML 프론트매터는 검사 대상 밖 — 개정 이력에 회피 표현이 그대로 인용돼 오탐을 만든다.
+# 아래 문체 축에서만 YAML 프론트매터를 제외한다 — 개정 이력에 회피 표현이 그대로 인용돼 오탐을 만든다.
+# 구조 축(§3.1)은 성격이 반대라 스크립트 끝에서 원본을 그대로 읽는다.
 # 원본 줄번호를 보존해야 하므로 삭제 대신 공백 줄로 치환한다.
 F="$(mktemp)"; trap 'rm -f "$F"' EXIT
 awk 'NR==1 && $0=="---" {fm=1; print ""; next}
@@ -51,6 +52,62 @@ echo "[물성·분할 비유 동사] $(cnt "$COLLOQ")건"; hit "$COLLOQ" 8
 TEAMS=$(grep -oE '[A-Za-z가-힣]+팀' "$F" 2>/dev/null | sort | uniq -c | sort -rn | head -12 | tr '\n' ';' || true)
 echo "[팀 명칭 인벤토리]  ${TEAMS:-없음}"
 echo "  ↳ 같은 조직의 축약형·전체 명칭이 함께 보이면 전체 명칭으로 통일 (§2.9.2)"
+
+# ── §3.1 프론트매터 구조 ───────────────────────────────────────
+# 필수 필드·keywords 형식·description 한 줄 완결만 본다.
+# `type`·`status` 는 본 스킬이 열린 값으로 두므로(§3.1 — `active`·`draft`·`archived` 등) 열거 검사를 넣지 않는다.
+FM_N=0; FM_OUT=""
+fm_bad() { FM_N=$((FM_N+1)); FM_OUT="${FM_OUT}   · $1
+"; }
+
+if [ "$(head -1 "$SRC")" != "---" ]; then
+  fm_bad "프론트매터 없음 — §3.1 형식으로 최상단에 둔다"
+else
+  FM_END=$(awk 'NR>1 && /^---[[:space:]]*$/{print NR; exit}' "$SRC")
+  if [ -z "$FM_END" ]; then
+    fm_bad "닫는 --- 없음"
+  else
+    FM=$(sed -n "2,$((FM_END-1))p" "$SRC")
+    for k in type audience keywords created status description; do
+      printf '%s\n' "$FM" | grep -q "^${k}:" || fm_bad "필수 필드 누락 — ${k}"
+    done
+
+    FM_KW=$(printf '%s\n' "$FM" | grep -m1 '^keywords:' | sed 's/^keywords:[[:space:]]*//')
+    if [ -n "$FM_KW" ]; then
+      printf '%s' "$FM_KW" | grep -qE '^\[.*\]$' || fm_bad "keywords 형식 — 인라인 배열 [a, b, c] 로 둔다"
+      KWN=$(printf '%s' "$FM_KW" | sed 's/^\[//;s/\]$//' | tr ',' '\n' | grep -c '[^[:space:]]')
+      [ "$KWN" -ge 3 ] || fm_bad "keywords ${KWN}개 — 3~6개로 둔다(정식명·약어·식별자)"
+    fi
+
+    DL=$(grep -n '^description:' "$SRC" | head -1 | cut -d: -f1)
+    if [ -n "$DL" ]; then
+      sed -n "${DL}p" "$SRC" | grep -qE '^description:[[:space:]]*[|>]' \
+        && fm_bad "description 블록 스타일(|·>) — grep 이 첫 줄만 가져간다"
+      sed -n "$((DL+1))p" "$SRC" | grep -qE '^([a-zA-Z_-]+:|---[[:space:]]*$)' \
+        || fm_bad "description 다음 줄로 이어짐 — 한 줄로 끝낸다"
+    fi
+  fi
+fi
+
+# YAML 파싱 가능 여부 — grep 축이 잡지 못하는 결함(값 안의 `: `·선두 `*`·백틱·따옴표 미이스케이프).
+# python3+PyYAML 이 없으면 조용히 건너뛴다(이 검사만 빠지고 나머지 축은 그대로 돈다).
+if command -v python3 >/dev/null 2>&1; then
+  YERR=$(python3 -c '
+import io,sys
+try: import yaml
+except ImportError: sys.exit(0)
+s=io.open(sys.argv[1],encoding="utf-8").read().split("\n")
+if not s or s[0].strip()!="---": sys.exit(0)
+e=[i for i in range(1,len(s)) if s[i].strip()=="---"]
+if not e: sys.exit(0)
+try: yaml.safe_load("\n".join(s[1:e[0]]))
+except Exception as ex: print(str(ex).split("\n")[0])
+' "$SRC" 2>/dev/null)
+  [ -n "$YERR" ] && fm_bad "YAML 파싱 실패 — ${YERR}"
+fi
+
+echo "[프론트매터 구조 §3.1] ${FM_N}건"
+[ -n "$FM_OUT" ] && printf '%s' "$FM_OUT"
 
 if [ "$LAYER" = "--exec" ]; then
   # 엠대시: 표 셀(^|)·섹션 제목(^#) 예외는 빼고 본문만

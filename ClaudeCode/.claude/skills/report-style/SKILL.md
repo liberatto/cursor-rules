@@ -11,9 +11,7 @@ description: >
   "문서 스타일 적용", "원고 문체 점검", "문체 교정해줘", "스타일 점검",
   "보고서 다듬어줘", "임원보고 작성", "부문보고 문체", "명사형으로 고쳐줘",
   "이 문서 스타일대로 검토", "작성 스타일 적용해줘",
-  "쉽게 풀어 쓴 보고서로", "설명형 보고서 써줘", "비전문 독자용으로 써줘"(→ [C] 레이어, 예시 8편 기반),
-  "write in house style", "apply report style", "style-check this draft",
-  "proofread for tone".
+  "쉽게 풀어 쓴 보고서로", "설명형 보고서 써줘", "비전문 독자용으로 써줘"(→ [C] 레이어, 예시 8편 기반).
   **적용 범위 = 공식 보고 3종(담당보고·본부보고·부문보고)과 위 문체 요청 명시 시에만.**
   일반 문서 산출물(GUIDE·NOTE·RESEARCH·ANALYSIS·PLAN·PRD·ADR·HANDOFF·DOCUMENTATION)의
   기본 스킬은 doc-writer이며, 그 산출물에 이 스킬을 자동으로 덧씌우지 않는다.
@@ -62,7 +60,7 @@ description: >
 | --- | --- |
 | 공통(항상) | `references/core.md` (자립성·문장·어미·구조·시각·반복패턴·작성 후 체크리스트) |
 | [B] 임원·부문 보고 | + `references/executive.md` (R1~R11·3단 골격과 표 구현형·라벨 구분자 우선순위·볼드 범위·어휘 사전 4군) |
-| [C] 비전문 독자 | + `references/readability.md` (가독성 우선 — 섹션 0·용어 풀이) + `references/examples.md` (설명형 예시 8편 — **본문 작성 전 장르 표에서 가장 가까운 한두 편만 읽음**) |
+| [C] 비전문 독자 | + `references/readability.md` (가독성 우선 — 섹션 0·용어 풀이) + `references/examples.md` (설명형 예시 8편 — **본문 작성 전 장르 표에서 가장 가까운 3~4편만 읽음**) |
 
 ## 3단계 — 작성 또는 교정
 
